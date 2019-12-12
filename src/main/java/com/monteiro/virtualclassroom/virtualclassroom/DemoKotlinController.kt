@@ -1,5 +1,8 @@
 package com.monteiro.virtualclassroom.virtualclassroom
 
+import com.monteiro.virtualclassroom.virtualclassroom.model.bean.UserBean
+import com.monteiro.virtualclassroom.virtualclassroom.model.dao.daoGetUser
+import com.monteiro.virtualclassroom.virtualclassroom.model.dao.daoSaveUser
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -22,6 +25,7 @@ class DemoKotlinController {
     fun main(model: Model): String {
         print("/DemoKotlinController.main")
 
+
         model.addAttribute("message", message)
         model.addAttribute("tasks", tasks)
 
@@ -36,7 +40,23 @@ class DemoKotlinController {
 
         print("/DemoKotlinController.mainWithParam name=$name")
 
-        model.addAttribute("message", name)
+
+        val message: String
+
+        //Charge le 1er user de ce nom la
+        var user = daoGetUser(name)
+        //S'il n'existe pas on le créé
+        if(user == null)    {
+            user = UserBean(name, "surname")
+            //Sauvegarde un nouvelle user en base
+            daoSaveUser(user)
+            message = "L'utilisateur $name a été créé"
+        }
+        else {
+            message = "L'utilisateur $name a été chargé"
+        }
+
+        model.addAttribute("message", message)
 
         return "welcome" //view
     }

@@ -34,9 +34,10 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
 
+    //L'ORM               pour la base de donnée
     implementation 'com.j256.ormlite:ormlite-jdbc:5.+'
-    implementation 'com.google.code.gson:gson:+'
-    implementation 'com.squareup.okhttp3:okhttp:4.+'
+    //Connection bdd
+    runtimeOnly 'mysql:mysql-connector-java'
 
     //Kotlin
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
