@@ -1,0 +1,75 @@
+body {
+    background: rgba(102,102,102,1) !important;
+    margin: auto !important;
+    min-width: 400px !important;
+    max-width: 1004px !important;
+}
+.mainContainer{
+    margin:auto !important;
+}
+/* header */
+.infoBar {
+    height: 74px;
+}
+.widget a{
+    position: relative;
+    width: 50px;
+    height: 50px;
+    float: right;
+    background: rgba(255, 255, 255, .6);
+    margin-top: 10px;
+    color: rgba(102, 102, 102, 1);
+    cursor: pointer;
+    display: flex;
+    border-bottom: 4px rgba(255,214,0,1) solid;
+    transition: border-bottom 200ms linear;
+}
+
+.widget a:hover  {
+    color: rgba(255, 255, 255, 1);
+    border-bottom: 50px rgba(255, 214, 0, 1) solid;
+}
+
+.fa-info {
+    position: absolute;
+    margin: 17px 22px;
+}
+
+.titleBar {
+    background: rgba(255,214,0,1);
+    height: 137px;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    margin: auto !important;
+}
+
+.titleBar h2 {
+    color: rgba(255, 255, 255, 1);
+    font-size: 3rem;
+}
+
+.titleBar h4 {
+    color: rgba(102, 102, 102, 1);
+    font-size: 2rem;
+}
+
+.titleBox {
+    position: relative !important;
+    padding: 1.5% 8% !important;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.lineBox {
+    position: relative;
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.line {
+    background: rgba(255, 255, 255, 1);
+    height: 2px;
+    width: 90%;
+}
+/* End header */

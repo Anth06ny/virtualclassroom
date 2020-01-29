@@ -1,0 +1,23 @@
+<div th:fragment="titlePage" xmlns:th="http://www.w3.org/1999/xhtml" >
+    <div class="classes">
+        <div class="pageTitle col-md-4 offset-md-4" id="title">
+            <div class="title">
+                <h1 th:text = "${title}"></h1>
+            </div>
+            <div class="underline">
+                <span></span>
+            </div>
+        </div>
+        <div th:if="${adminAddClass}" >
+            <div class="adminOnly" id="adminOnly">
+                <a class="addClass" href="javascript:void(0)" th:onclick="openCreateClassroom()">
+                    <i class="fas fa-plus-circle"></i>
+                </a>
+                <form class="hiddenCreateClass" th:action="@{/addClassroom}" method="post">
+                    <input type="text" placeholder="Enter new Classroom name" class="createClassInput" name="classroomName">
+                    <input type="submit" value="OK" class="createClassBtn">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

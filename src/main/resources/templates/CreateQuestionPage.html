@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <div th:replace = "fragments/head.html :: head" />
+
+    <!-- CSS Stylesheet-->
+    <link rel="stylesheet" th:href="@{/css/createQuestion.css}" media="screen" type="text/css" />
+
+    <title>Create question page</title>
+</head>
+<body>
+    <header id="header" th:replace = "fragments/header.html :: header" />
+    <div th:replace = "fragments/navBarAdmin:: navBarAdmin"/>
+    <main>
+        <div class="pageContent">
+            <!--  title content      -->
+            <div th:replace = "~{fragments/titlePage.html :: titlePage(title='Create Question')}"></div>
+            <div class="teacherContent col-md-10">
+                <!-- Left part -->
+                <span th:replace = "fragments/teacherLeftContent.html :: teacherLeftContent" />
+                <!-- Right part -->
+                <div class="teacherRightContent">
+                    <!-- msg box -->
+                    <div class="errorBox">
+                        <!--/*@thymesVar id="emptyField" type="java"*/-->
+                        <p th:if="${emptyField}" class="error">Please enter missing data</p>
+                        <!--/*@thymesVar id="isRadioEmpty" type="java"*/-->
+                        <p th:if="${isRadioEmpty}" class="error">Question option empty</p>
+                        <!--/*@thymesVar id="emptyContent" type="java"*/-->
+                        <p th:if="${emptyContent}" class="error">Content empty</p>
+                    </div>
+                    <div class="questionBox">
+                    <!--/*@thymesVar id="QuestionDao" type="java"*/-->
+                    <form class="CreateQuestionForm" method="post" action="#" th:action="@{/CreateQuestionPage}">
+                        <div class="questionBar ">
+                            <div class="questionContent col-7">
+                                <!-- set question -->
+                                <input class="col-12" type="text" id="question" name="question_content" placeholder="Enter the new question here.">
+                            </div>
+                            <div class="topIcons col-5">
+                            <!-- Display answer options type-->
+                                <span><input type="radio" class="radio" name="option" th:value="radio" /> Radio </span>
+                                <span><input type="radio" class="checkbox" name="option" th:value="checkbox" /> Checkbox </span>
+                            </div>
+                        </div>
+                        <!-- end question bar -->
+                        <!-- answer setting part -->
+                        <div class="answerBar">
+                            <div class="answerContent" >
+                                <div class="answerBody">
+                                    <input type="text" name = "option_content[]" th:class="answer" placeholder="Possible answer" />
+                                    <input type="text" name = "option_content[]" th:class="answer" placeholder="Possible answer" />
+                                </div>
+                                <div class="answerButtonBar">
+                                    <span id="addAnswer" class="addAnswer">+</span>
+                                    <button  type="submit" class="saveQuestion">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="answerFooter">
+                                <div clas="answerFooterIcons">
+<!--                                    <button class="updateAnswer"><i class="fa fa-pencil" aria-hidden="true"></i></button>-->
+<!--                                    <button class="deleteAnswer"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace = "fragments/footer.html :: footer" />
+
+    <script>
+        $("#addAnswer").click(function() {
+            $(".answerBody").append("<input type=\"text\" name=\"option_content\" class=\"answer\" placeholder=\"Possible answer\" />");
+        });
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

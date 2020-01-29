@@ -1,0 +1,457 @@
+body {
+    background: rgba(102,102,102,1)!important;
+    margin:auto !important;
+    min-width: 400px !important;
+    max-width: 1004px !important;
+}
+.mainContainer{
+    margin:auto !important;
+}
+.widget a {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    float: right;
+    background: rgba(255, 255, 255, 0.6);
+    margin-top: 10px;
+    color: rgba(102,102,102,1);
+    cursor:pointer;
+    display: flex;
+    border-bottom: 4px rgba(255, 214, 0, 1) solid;
+    transition: border-bottom 200ms linear;
+}
+
+.widget a:hover  {
+    color: rgba(255, 255, 255, 1);
+    border-bottom: 50px rgba(255, 214, 0, 1) solid;
+}
+
+.fa-info {
+    position: absolute;
+    margin: 17px 22px;
+}
+
+.infoBar {
+    height: 74px;
+}
+.titleBar {
+    background: rgba(255, 214, 0, 1);
+    height: 137px;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    margin: auto !important;
+}
+.titleBar h2 {
+    color: rgba(255,255,255,1);
+    font-size: 3rem;    
+}
+.titleBar a:hover{
+    text-decoration: none !important;
+}
+.titleBar h4 {
+    color: rgba(102,102,102,1);
+    font-size: 2em;
+}
+.titleBox {
+    position: relative !important;
+    /* width: 50%; */
+    padding: 1.5% 8% !important;
+}
+.titleBox, .pageTitle, .classroomList{
+    font-family: 'Bebas Neue',cursive;
+   
+}
+.line {
+    background: rgba(255, 255, 255, 1);
+    height: 2px;
+    width: 90%;
+}
+.lineBox {
+    position: relative;
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.navBarUser {
+    background: rgba(65,65, 70, 1);
+    height: 64px;
+    padding: 0px 15px;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+}
+.navBarAdmin{
+    background: rgba(65,65, 70, 1);
+    height: 64px;
+    padding: 0px 15px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.teacherMenu{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.teacherMenuItem{
+    margin: 13px;
+    box-shadow:4px 7px 5px black;
+}
+.teacherMenuItem a:hover{
+    text-decoration: none;
+}
+.navButton{
+    display: flex;
+    align-content: space-around;
+    background: rgba(102,102,102,1);
+    color: rgba(255, 214, 0, 1);
+    border: none;
+    padding: 7px 20px;
+}
+.burgerIcon{
+    display: none; 
+}
+@media screen and (max-width: 576px){
+    .nav.teacherMenu {
+        display:none;
+    }
+    .burgerIcon{
+        display: flex;
+        align-items: center;
+        color:  rgba(255, 214, 0, 1);
+        font-size:35px ;
+        margin-left: 20px;
+        text-decoration: none;
+    }   
+    .burgerIcon:hover{
+        color:  rgba(255, 214, 0, 1);
+        text-decoration: none;
+
+    }
+}
+@media screen and (max-width: 576px){
+    .openTeacherMenu .teacherMenu{
+        display:flex;
+       justify-content: center;
+        background:  rgba(102,102,102,1);
+        margin: auto auto auto 18px;
+        padding: 0px;
+        box-shadow:4px 7px 5px black;
+    }
+    .openTeacherMenu .burgerIcon{
+        display: flex;
+        align-items: center;
+        color:  rgba(255, 214, 0, 1);
+        font-size:35px ;
+        margin-left: 20px;
+        text-decoration: none;
+    }
+   
+    .openTeacherMenu .teacherMenuItem{
+        margin: 0px;
+        display: flex;
+        justify-content: center;
+        width: 184px;
+        box-shadow:none;
+    }
+    .openTeacherMenu #bottomTeacherMenuItem{
+        border-top: 1px solid black;
+    }
+}
+
+.userProfileBox{
+    display: flex;
+    justify-content: flex-end;
+}
+.adminProfileBox{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
+}
+.profileName{
+    margin: 18px;
+    color: white;
+}
+.profileIcon{
+    display: flex;
+    align-items: center;
+    /* margin: 7px; */
+}
+.hiddenProfile{
+    display: none;
+}
+.openProfileBox .hiddenProfile {
+    display: flex;
+    flex-direction: column;
+    background:  rgba(102,102,102,1);
+    position: absolute;
+    margin-top: 64px;
+    box-shadow:4px 7px 5px black;
+    width: 115px;
+    align-items: center;
+}
+.openProfileBox .hiddenProfile p{
+    margin-bottom:5px;
+    font-size: 18px;
+    color: rgba(255, 214, 0, 1);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+#bottomProfile{
+    border-top: 1px solid black;
+}
+
+.fa-user{
+    font-size: 35px !important; 
+    color: rgba(255, 214, 0, 1);
+}
+
+main {
+    background: rgba(255, 255, 255, 1);
+    margin: 20px 0px;
+}
+
+.underline{
+    background: rgba(255,214,0,1);
+    height:5px;
+    margin:0 10px   
+}
+
+.teacherContent{
+    width: 100%;
+    display:flex;
+    padding: 40px;
+}
+.teacherLeftContent{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+@media screen and (max-width: 550px){
+    .teacherLeftContent{
+        width: 150px;
+    }
+}
+.informationBox{
+    box-shadow: 2px 2px 5px rgba(65,65,65,1);
+}
+.informationTitle{
+    background: rgba(65,65,70,1);
+    color: rgba(255,214,0,1);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+   
+}
+.fa-plus{
+    padding: 5px;
+}
+.linkAndInfo{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+.linkAndInfo p{
+    margin:0px;
+    color: rgba(255,214,0,1);
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 16px;
+}
+.linkWrapIcons{
+    font-size: small;
+    padding-top: 5px;
+}
+.linkAndInfo p .fa-pencil {
+    color: rgba(65,65,70,1);
+}
+.linkAndInfo p .fa-trash{
+    color: rgba(65,65,70,1);
+}
+.linkWrap{
+    padding: 10px;
+}
+.infoLink{
+    color: rgba(65,65,70,1);
+    font-size: 13px;
+}
+
+/*.studentFrame {*/
+/*    box-shadow: 2px 2px 5px rgba(65,65,65,1);*/
+/*    margin-top: 20px;*/
+/*}*/
+.frameHeader {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(65,65,70,1);
+    color: rgba(255,214,0,1);
+    padding: 10px;
+}
+.deleteFrame .fa-trash{
+    color: rgba(255,214,0,1);
+}
+button.deleteFrame {
+    background: none;
+    border: none;
+}
+.updateFrame .fa-pencil {
+    color: rgba(255,214,0,1);
+}
+button.updateFrame{
+    background: none;
+    border: none;
+}
+.frameBody {
+    padding: 10px;
+}
+.frameBody ul li {
+    display: flex;
+    justify-content: space-between;
+}
+.frameBody ul {
+    padding-left: 10px;
+}
+.deleteIcon {
+    border: none;
+    background: none;  
+}
+li .fa-trash{
+    color: rgba(65,65,70,1);
+}
+.teacherRightContent{
+    margin-left:35px;
+    width: 600px;
+}
+@media screen and (max-width: 992px){
+    .questionContent{
+        display: flex;
+        flex-direction: column;
+    } 
+}
+@media screen and (max-width: 600px){
+    .teacherRightContent{
+        width: 300px;
+        margin-left: 10px;
+    }
+}
+.questionBox{
+    box-shadow: 2px 2px 5px rgba(65,65,65,1);
+}
+.questionBar {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(65, 65, 70, 1);
+    color: rgba(255, 255, 255, 1);
+    padding: 2px 10px;
+}
+.questionContent{
+    display: flex;
+    align-items: flex-start;
+}
+.questionLabel {
+    color: rgba(255,214,0,1);
+    padding: 0px !important;
+    margin-right: 15px;
+}
+.topIcons {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 12px;
+}
+.lockIcon {
+    margin: 12px;
+}
+.fa-lock {
+    color: rgba(255, 255, 255, 1);
+}
+.arrowIcon {
+    position: relative;
+   
+}
+.fa-sort-down {
+    color: rgba(255, 255, 255, 1);
+    font-size: xx-large;
+}
+.hiddenAnswer{
+    display: none;
+}
+.showAnswer{
+    display: block;
+    
+}
+.answerContent{
+    border: 1px solid rgba(65,65,70,1);
+    padding: 15px;
+}
+.answerButtonBar {
+    display: flex;
+    justify-content: flex-end;
+}
+.teacherOk {
+    background-color:rgba(255,214,0,1);
+    padding: 5px 15px;
+    color: rgba(255, 255, 255, 1);
+    border: none;
+}
+.teacherOk:hover {
+    box-shadow: 2px 2px 5px rgba(136, 136, 136, 1)!important;
+}
+.answerFooter{
+    background-color: rgba(65,65,70,1);
+    padding: 12px;
+    display: flex;
+    justify-content: flex-end;
+}
+.updateAnswer {
+    margin: 0px 5px;
+    background: rgba(65, 65, 70, 1) !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 1)!important;
+}
+.deleteAnswer{
+    margin: 0px 5px;
+    background: rgba(65, 65, 70, 1) !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 1)!important;
+}
+footer {
+    background: rgba(65,65,70,1);
+    border-bottom: 20px rgba(255, 214, 0, 1) solid;
+}
+.footerGrid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5%;
+}
+.trademark {
+    color: rgba(255, 255, 255, 1);
+}
+.toTheTop {
+    display: flex;
+    background: rgba(255, 214, 0, 1);
+    height: 40px;
+    width: 40px;
+}
+.toTheTop:hover{
+    box-shadow: 7px 9px 0px 0px rgba(255,255,255,0.5); 
+    -webkit-box-shadow: 7px 9px 0px 0px rgba(255,255,255,0.5);
+    -moz-box-shadow: 7px 9px 0px 0px rgba(255,255,255,0.5);
+} 
+.transition {
+    transition: all 500ms linear;
+}
+.toTheTop a {
+    margin: auto;
+}
+.fa-angle-up {
+    font-size: 2em;
+    color: rgba(255,255,255,1);
+}

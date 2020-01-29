@@ -8,7 +8,7 @@ import com.monteiro.virtualclassroom.virtualclassroom.BDD_URL
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.UserBean
 import java.util.*
 
-fun daoGetUser(name: String): UserBean? {
+fun daoGetUserBean(name: String): UserBean? {
 
     var connectionSource: JdbcConnectionSource? = null
     // instantiate the dao with the connection source
@@ -24,7 +24,7 @@ fun daoGetUser(name: String): UserBean? {
 }
 
 
-fun daoSaveUser(user: UserBean) {
+fun daoSaveUserBean(user: UserBean) {
     var connectionSource: JdbcConnectionSource? = null
     // instantiate the dao with the connection source
     try {

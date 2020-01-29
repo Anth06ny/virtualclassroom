@@ -1,0 +1,19 @@
+<div th:fragment="navBarUser" class="navBarUser" xmlns:th="http://www.thymeleaf.org">
+
+
+    <!-- End teacher menu -->
+    <div class="userProfileBox col-lg-12 col-md-12" id="userProfileBox">
+        <h5 class="profileName col-sm-0">
+                <p class="d-md-block" th:text="${session.login_first}"></p>
+        </h5>
+        <a class="profileIcon" href="javascript:void(0)" th:onclick="openUserProfile()">
+            <i class="fas fa-user"></i>
+        </a>
+        <div class="hiddenProfile">
+            <a th:href="@{/ProfilePage}">
+                <p id="topProfile">Profile</p></a>
+            <a th:href="@{/Logout}">
+                <p id="bottomProfile" >Logout</p></a>
+        </div>
+    </div>
+</div>

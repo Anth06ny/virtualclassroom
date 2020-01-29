@@ -1,0 +1,67 @@
+.profileLine {
+    display: flex;
+    justify-content: space-around;
+}
+.profileContent {
+    width: 100%;
+    padding: 5% 10%;
+}
+.profileLine {
+ margin: 20px 0px;   
+}
+.labelContent {
+    width: 200px;
+    padding: 2px 5px;
+}
+.profileUpdate {
+    display: flex;
+    justify-content: flex-end;
+}
+.frameLabel {
+    background: rgba(255,214,0,1);
+    width: 100px;
+    text-align: center;
+    color: rgba(106,106,106,1);
+    box-shadow: 2px 2px 5px rgba(106, 106, 106,1);
+    font-weight: bold;
+}
+.profileFirstName, .profileEmail, .profileLastName, .profilePassword{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+}
+/* on change profile information */
+.newProfileInput{
+    border:none;
+    border-bottom: 2px rgba(0,0,0,.6) solid;
+}
+.btnFirstName, .btnLastName, .btnEmail {
+    display: contents;
+}
+.formBtns{
+    padding: 18px;
+}
+.userProfileBox {
+    display: flex;
+    justify-content: flex-end;
+}
+.navBarAdmin{
+    background: rgba(65,65, 70, 1);
+    height: 64px;
+    padding: 0px 15px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+.adminProfileBox {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
+}
+.backProfileBtn{
+    color: rgba(255, 255, 255, 1)!important;
+    border: 1px rgba(255,214,0,1) solid !important;
+    background: rgba(255, 214, 0, 1) !important;
+    font-weight: bold !important;
+}

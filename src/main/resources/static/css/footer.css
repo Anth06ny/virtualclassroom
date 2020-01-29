@@ -1,0 +1,29 @@
+footer {
+    background: rgba(65,65,70,1);
+    border-bottom: 20px rgba(255, 214, 0, 1) solid;
+}
+.footerGrid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5%;
+}
+.trademark {
+    color: rgba(255, 255, 255, 1);
+}
+.transition {
+    transition: all 500ms linear;
+}
+.toTheTop {
+    display: flex;
+    background: rgba(255, 214, 0, 1);
+    height: 40px;
+    width: 40px;
+}
+.toTheTop a {
+    margin: auto;
+}
+.fa-angle-up {
+    font-size: 2em;
+    color: rgba(255,255,255,1);
+}

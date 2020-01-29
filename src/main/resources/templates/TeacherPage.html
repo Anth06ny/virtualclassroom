@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Head -->
+    <div th:replace = "fragments/head.html :: head" />
+
+    <!-- CSS Stylesheet   -->
+    <link rel="stylesheet" th:href="@{/css/footer.css}" media="screen" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/teacherPageStyle.css}" media="screen" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/navBar.css}" media="screen" type="text/css" />
+    <script type="text/javascript" th:src="@{/css/functions.js}"></script>
+
+    <title>Teacher page</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header id="header" th:replace = "fragments/header.html :: header" />
+        <!-- MenuBar -->
+        <div th:if="${session.is_Admin == true}"  >
+            <div th:replace="~{fragments/navBarAdmin.html :: navBarAdmin}"></div>
+        </div>
+        <div th:if="${session.is_Admin == false }" >
+            <div th:replace="~{fragments/navBarUser.html :: navBarUser}"></div>
+        </div>
+<!--        <div th:if="${userIsAdmin}"  >-->
+<!--            <div th:replace="~{fragments/navBarAdmin.html :: navBarAdmin}"></div>-->
+<!--        </div>-->
+<!--        <div th:if="${userIsNotAdmin}" >-->
+<!--            <div th:replace="~{fragments/navBarUser.html :: navBarUser}"></div>-->
+<!--        </div>-->
+
+        <main>
+            <div class="pageContent">
+                <div th:replace = "~{fragments/titlePage.html :: titlePage(title='Questions')}"></div>
+                <div class="teacherContent">
+
+                    <!-- Left part -->
+                    <div class="teacherLeftContent">
+                        <span th:replace = "~{fragments/teacherLeftContent.html :: teacherLeftContent}" />
+                    </div>
+
+                    <!-- Right part -->
+                    <div class="teacherRightContent"> 
+                        <div class="questionBox">
+                            <div class="questionBar ">
+                                <div class="questionContent">
+                                    <span class="questionLabel">Question 1: </span>
+                                    <span class="questionText">What is the family name of Mickey ?</span> 
+                                </div>
+                                <div class="topIcons">
+                                    <a class="lockIcon" role="button">
+                                    <i class="fa fa-lock" id="locker" ></i>
+                                    </a>
+                                    <a class="arrowIcon" onclick="openQuestionContent()" data-toggle="collapse" href="#answer" role="button" aria-expanded="false" aria-controls="collapse">
+                                    <i class="fas fa-sort-down" id="iconUpDown"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="hiddenAnswer" class="hiddenAnswer">
+                                <div class="answerContent" >
+                                    <div class="answerBody">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                    </div>
+                                    <div class="answerButtonBar">
+                                        <button class="teacherOk">
+                                            OK
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="answerFooter">
+                                    <div clas="answerFooterIcons">
+                                        <button class="updateAnswer"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                        <button class="deleteAnswer"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer th:replace = "fragments/footer.html :: footer" />
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

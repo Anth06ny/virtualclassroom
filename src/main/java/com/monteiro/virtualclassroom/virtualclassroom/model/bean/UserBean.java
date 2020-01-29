@@ -3,7 +3,7 @@ package com.monteiro.virtualclassroom.virtualclassroom.model.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "user")
+
 public class UserBean {
 
     @DatabaseField(id = true)
@@ -14,6 +14,8 @@ public class UserBean {
 
     @DatabaseField
     private String surname;
+
+
 
     //Constructeur vide obligatoire avec cette ORM
     public UserBean() {
