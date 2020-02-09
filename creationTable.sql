@@ -24,19 +24,16 @@ CREATE TABLE IF NOT EXISTS OPTIONS (
     FOREIGN KEY (id_question) REFERENCES QUESTIONS(id_question)
 );
 
-DROP TABLE IF EXISTS `SELECT`;
-CREATE TABLE IF NOT EXISTS `SELECT`(
-    'id_user' int,
-    FOREIGN KEY (id_user) REFERENCES USERS('id_user'),
-    'id_option' int,
-    FOREIGN KEY ('id_option') REFERENCES OPTIONS('id_option')
-    );
+CREATE TABLE INFORMATION(
+        id_information    Int  Auto_increment  NOT NULL ,
+        information_label Varchar (50) NOT NULL ,
+        information_url   Varchar (255) NOT NULL ,
+        id_classroom      Int NOT NULL
+	,CONSTRAINT INFORMATION_PK PRIMARY KEY (id_information)
 
-     DROP TABLE IF EXISTS `QUESTIONS_TYPES`;
-     CREATE TABLE IF NOT EXISTS `QUESTIONS_TYPES` (
-        `id_question_type` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        `question_type` varchar(50) NOT NULL
-     );
+	,CONSTRAINT INFORMATION_CLASSROOMS_FK FOREIGN KEY (id_classroom) REFERENCES CLASSROOMS(id_classroom)
+);
+
 
     DROP TABLE IF EXISTS `QUESTIONS`;
     CREATE TABLE IF NOT EXISTS `QUESTIONS` (

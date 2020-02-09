@@ -18,15 +18,15 @@ public class DemoController {
     private String message;
     private List<String> tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
 
-//    @GetMapping("/")
-//    public String main(Model model) {
-//        System.out.println("/DemoController.main ");
-//
-//        model.addAttribute("message", message);
-//        model.addAttribute("tasks", tasks);
-//
-//        return "HomePage"; //view
-//    }
+    @GetMapping("/toto")
+    public String main(Model model) {
+        System.out.println("/DemoController.main ");
+
+        model.addAttribute("message", message);
+        model.addAttribute("tasks", tasks);
+
+        return "HomePage"; //view
+    }
 
     // /hello?name=toto
    @GetMapping("/hello")

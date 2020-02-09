@@ -90,10 +90,6 @@
     padding: 5px;
 }
 
-#bottomProfile{
-    border-top: 1px solid black;
-}
-
 .fa-user {
     font-size: 35px !important;
     color: rgba(255,214,0,1);
@@ -105,6 +101,10 @@
 
 #bottomProfile {
     border-top: 1px solid rgba(0, 0, 0, 1);
+    text-decoration: none;
+}
+#bottomProfile:hover {
+    text-decoration: none !important;
 }
 @media screen and (max-width: 576px){
     .nav.teacherMenu {

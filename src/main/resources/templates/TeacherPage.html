@@ -23,66 +23,119 @@
         <div th:if="${session.is_Admin == false }" >
             <div th:replace="~{fragments/navBarUser.html :: navBarUser}"></div>
         </div>
-<!--        <div th:if="${userIsAdmin}"  >-->
-<!--            <div th:replace="~{fragments/navBarAdmin.html :: navBarAdmin}"></div>-->
-<!--        </div>-->
-<!--        <div th:if="${userIsNotAdmin}" >-->
-<!--            <div th:replace="~{fragments/navBarUser.html :: navBarUser}"></div>-->
-<!--        </div>-->
 
         <main>
             <div class="pageContent">
-                <div th:replace = "~{fragments/titlePage.html :: titlePage(title='Questions')}"></div>
-                <div class="teacherContent">
-
-                    <!-- Left part -->
-                    <div class="teacherLeftContent">
-                        <span th:replace = "~{fragments/teacherLeftContent.html :: teacherLeftContent}" />
+                <div class="classes">
+                    <div class="pageTitle offset-md-4" id="title">
+                        <div class="title">
+                            <h1>Questions</h1>
+                        </div>
+                        <div class="underline">
+                            <span></span>
+                        </div>
                     </div>
+                </div>
+
+                <div class="teacherContent">
+                    <!-- Left part -->
+                    <span th:replace = "fragments/teacherLeftContent.html :: teacherLeftContent" />
 
                     <!-- Right part -->
-                    <div class="teacherRightContent"> 
-                        <div class="questionBox">
-                            <div class="questionBar ">
-                                <div class="questionContent">
-                                    <span class="questionLabel">Question 1: </span>
-                                    <span class="questionText">What is the family name of Mickey ?</span> 
+                    <div class="teacherRightContent col-9">
+<!--                        look at it this is when u have to load the function-->
+                        <div class="questionBox" th:each="question: ${questions}">
+                            <div class="questionBar">
+                                <div class="questionContent" >
+                                    <span class="questionTitle">Question: </span>
+<!--                                    use the id question to identify the question from the others -->
+                                    <div th:class="questionLabel"  th:text="${question.getQuestion_content()}"></div>
                                 </div>
                                 <div class="topIcons">
                                     <a class="lockIcon" role="button">
-                                    <i class="fa fa-lock" id="locker" ></i>
+                                        <i class="fa fa-lock questionLock" id="locker"></i>
                                     </a>
-                                    <a class="arrowIcon" onclick="openQuestionContent()" data-toggle="collapse" href="#answer" role="button" aria-expanded="false" aria-controls="collapse">
-                                    <i class="fas fa-sort-down" id="iconUpDown"></i>
-                                    </a>
+                                    <a th:class="arrowIcon"   th:data-toggle="collapse"  th:role="button" th:aria-expanded="false" th:aria-controls="collapse">
+                                    <i class="fas fa-sort-down answerToggle" th:id="${question.getId_question()}"></i></a>
                                 </div>
                             </div>
-                            <div id="hiddenAnswer" class="hiddenAnswer">
-                                <div class="answerContent" >
-                                    <div class="answerBody">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+
+<!--                            choice of answer-->
+                            <form th:id="hiddenAnswer" th:class="hiddenAnswer" th:classappend="${question.getId_question()}" method="post" th:action="@{/sendAnswer}">
+                                <div th:class="answerContent" >
+                                    <div th:if="${session.is_Admin != true}" th:each="option: ${question.getOptions()}">
+<!--                                    set the option of the question depending of the user choice -->
+                                    <span th:if="${question.getIsRadio()== true }">
+                                        <input th:type="radio" class="toto" name="selectedOption" th:id="${option.getId_option()}" th:with="optionId=${option.getId_option()}" th:value="${option}">
+                                    </span>
+                                    <span th:if="${question.getIsRadio()== false }">
+                                        <input th:type="checkbox" class="toto" name="selectedOption" th:value="${option}">
+                                    </span>
+<!--                                    display the pull of possible answer-->
+                                    <label class="answerBody" th:text="${option.getOption_content(question.getId_question())}"></label>
                                     </div>
-                                    <div class="answerButtonBar">
-                                        <button class="teacherOk">
-                                            OK
-                                        </button>
+                                    <div th:if="${session.is_Admin == true}">
+                                        <table >
+                                            <thead>
+                                                <tr>
+                                                    <th>Student Name</th>
+                                                    <span th:each="option: ${question.getOptions()}">
+                                                    <th th:text="${option.getOption_content(question.getId_question())}">Option1</th>
+                                                    </span>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:if="${answers.isEmpty()}">
+                                                    <td>No answers</td>
+                                                </tr>
+<!--                                            <div th:each="student: ${students}">-->
+                                            <tr th:each="answer: ${answers}">
+<!--                                                <div class="divOptions" th:each="option: ${question.getOptions()}">-->
+<!--                                                    <div class="divAnswers" >-->
+<!--                                                        <p th:text="${answer.getId_optionFromAnswer(option.getId_optionByQuestion(question.getId_question()))}" ></p>-->
+                                                <td th:value="${answer.getId_user()}" name="userId" th:text="${answer.getId_user()}"></td>
+                                                <td th:text="${answer.getId_optionFromAnswer(question.getId_question())}">
+<!--                                                    <span th:if="${answer.getId_user()} == ${student.getUser_id()}">Hola</span>-->
+                                                </td>
+                                                <td></td>
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </tr>
+<!--                                            </div>-->
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div class="answerFooter">
-                                    <div clas="answerFooterIcons">
-                                        <button class="updateAnswer"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                                        <button class="deleteAnswer"><i class="fa fa-trash" aria-hidden="true"></i></button>
+<!--                                button ok-->
+                                <div th:class="answerButtonBar">
+                                    <button th:class="btnAnswer" th:with="questionId=${question.getId_question()}" th:id="${questionId}" th:value="${questionId}" th:type="submit" th:name="questionId">OK</button>
+                                </div>
+
+                                <div th:if="${session.is_Admin == true}" th:class="answerFooter">
+                                    <div th:class="answerFooterIcons">
+                                        <button th:class="updateAnswer"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                        <button th:class="deleteAnswer"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+<!--        debug -->
+
         <footer th:replace = "fragments/footer.html :: footer" />
     </div>
 
+    <script>
+        $(".deleteIcon").on("click", function(){
+            var idValue = $(this).attr("value")
+            $(".infoDelete").attr("value", idValue)
+        });
+
+
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

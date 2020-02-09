@@ -4,9 +4,10 @@ main {
     margin: 20px 0;
 }
 
-.pageContent {
-    display: flex;
+.pageContent{
+    display:flex;
     flex-direction: column;
+    align-items: center;
 }
 .title{
     display: flex;
@@ -16,6 +17,7 @@ main {
     font-family: 'Bebas Neue', cursive;
     display: flex;
     flex-direction: column;
+    margin: 5%;
 }
 
 .underline {

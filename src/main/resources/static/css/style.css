@@ -63,9 +63,9 @@ body {
     /* width: 50%; */
     padding: 1.5% 8% !important;
 }
-.titleBox, .pageTitle, .classroomList{
+.titleBox, .classroomList{
     font-family: 'Bebas Neue',cursive;
-    /* text-transform: none !important; */
+
 }
 .line {
     background: rgba(255, 255, 255, 1);
@@ -86,6 +86,14 @@ main {
     background: rgba(255, 255, 255, 1);
     margin: 20px 0;
 }
+/*.pageContent{*/
+/*    display:flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*}*/
+/*.pageTitle{*/
+/*    margin: 5%;   */
+/*}*/
 
 .underline{
     background: rgba(255,214,0,1);
@@ -106,6 +114,7 @@ main {
     width: 100%;
     height:100%;
     padding-bottom: 10%;
+    height: 500px;
 }
 .signUpFrame {
     padding: 10px;
@@ -230,47 +239,46 @@ main {
     list-style-type: none;
     padding: 2em;
     flex-direction: column;
-    justify-content: space-evenly;
 }
 .classroomListItem {
     font-size: 30px;
     text-decoration: underline;
     line-height: 2;
 }
-footer {
-    background: rgba(65,65,70,1);
-    border-bottom: 20px rgba(255, 214, 0, 1) solid;
-}
-.footerGrid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2.5%;
-}
-.trademark {
-    color: rgba(255, 255, 255, 1);
-}
-.toTheTop {
-    display: flex;
-    background: rgba(255, 214, 0, 1);
-    height: 40px;
-    width: 40px;
-}
-.toTheTop:hover{
-    box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);
-    -webkit-box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);
-    -moz-box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);
-} 
-.transition {
-    transition: all 500ms linear;
-}
-.toTheTop a {
-    margin: auto;
-}
-.fa-angle-up {
-    font-size: 2em;
-    color: rgba(255,255,255,1);
-}
+/*footer {*/
+/*    background: rgba(65,65,70,1);*/
+/*    border-bottom: 20px rgba(255, 214, 0, 1) solid;*/
+/*}*/
+/*.footerGrid {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    padding: 2.5%;*/
+/*}*/
+/*.trademark {*/
+/*    color: rgba(255, 255, 255, 1);*/
+/*}*/
+/*.toTheTop {*/
+/*    display: flex;*/
+/*    background: rgba(255, 214, 0, 1);*/
+/*    height: 40px;*/
+/*    width: 40px;*/
+/*}*/
+/*.toTheTop:hover{*/
+/*    box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);*/
+/*    -webkit-box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);*/
+/*    -moz-box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);*/
+/*} */
+/*.transition {*/
+/*    transition: all 500ms linear;*/
+/*}*/
+/*.toTheTop a {*/
+/*    margin: auto;*/
+/*}*/
+/*.fa-angle-up {*/
+/*    font-size: 2em;*/
+/*    color: rgba(255,255,255,1);*/
+/*}*/
 .error {
     text-align: center;
     background: red;

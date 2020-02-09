@@ -5,6 +5,7 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
+import com.monteiro.virtualclassroom.virtualclassroom.ConstantsKt;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Information;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Option;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Question;
@@ -36,21 +37,47 @@ public class OptionDao {
     }
 
     /**
-     * @param idQuestion id de la question
-     * @return les options de reponse de la question
+     * @throws SQLException
+     * @throws IOException
+     * @return row count of the target table
      */
-    public static List<Option> getAllOptionsFromId(int idQuestion) throws Exception {
+    public static long getOptionCount() throws Exception {
         JdbcConnectionSource connectionSource = null;
-        try{
+
+        try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Option, String> clashOptionDao = DaoManager.createDao(connectionSource, Option.class);
-            return clashOptionDao.queryBuilder().where().eq("id_question", idQuestion).query();
+            Dao<Option, String> optionDao = DaoManager.createDao(connectionSource, Option.class);
+            return optionDao.queryBuilder().countOf();
         } finally {
             connectionSource.close();
         }
     }
+
+    /**
+     * @param idQuestion id de la question
+     * @return les options de reponse de la question
+     */
+    public static List<Option> getAllOptionsFromQuestion(int idQuestion, long startRow, long endRow) throws Exception {
+
+        // prepare connectionSource
+        JdbcConnectionSource connectionSource = null;
+        try {
+            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+            Dao<Option, Long> OptionDao = DaoManager.createDao(connectionSource, Option.class);
+            return OptionDao.queryBuilder().offset(startRow).limit(endRow).where().eq("id_question", idQuestion).query();
+        } finally {
+            connectionSource.close();
+        }
+    }
+
+    /**
+     * @param option_id
+     * @return an option
+     * @throws SQLException
+     * @throws IOException
+     */
     // retrieve classroom method
-    public static Option getOption(int option_id) throws SQLException, IOException {
+    public static Option getOption(int option_id) throws Exception {
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);

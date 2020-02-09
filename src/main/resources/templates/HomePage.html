@@ -5,10 +5,10 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/navBar.css}" media="screen" type="text/css" />
     <script type="text/javascript" th:src="@{/css/functions.js}"></script>
+
     <title>Home page</title>
 </head>
 <body>
-
     <div class="container">
         <!-- Header -->
         <header id="header" th:replace = "fragments/header.html :: header" />
@@ -25,8 +25,10 @@
                 <!-- Main contain -->
 
                 <div th:class="${session.is_Admin}? 'classesContent' : 'content'" id="classesContent">
-                    <div th:if="${session.is_Admin == true}" class="classroomsLeftContent" id="classroomsLeftContent">
-                        <div th:replace="~{fragments/studentframe.html :: studentFrame}"></div>
+                    <div th:if="${session.is_Admin == true}" class="classroomsLeftContent" id="classroomsLeftContent" >
+                        <div id="studentFrame" ></div>
+<!--                        th:replace="~{fragments/studentframe.html :: studentFrame}"-->
+
                     </div>
                     <ul class="classroomList" >
                             <a th:each="classroom: ${classrooms}" th:if="${session.is_Admin == null}"  th:href="@{/LoginClass(id=${classroom.getId_classroom()})}" >
@@ -34,8 +36,8 @@
 
                                 </li>
                             </a>
-                            <a th:if="${session.is_Admin == true}" th:each="classroom: ${classrooms}"  id="className">
-                             <li class="classroomListItem" id="classroomListItem" th:text="${classroom.getClassroom_name()}" th:value="${classroom.getClassroom_name()}">
+                            <a th:if="${session.is_Admin == true}" th:each="classroom: ${classrooms}"  >
+                             <li class="classroomListItem"  id="className"  th:text="${classroom.getClassroom_name()}" th:value="${classroom.getClassroom_name()}">
                             </li>
                         </a>
                     </ul>
@@ -55,5 +57,28 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+    $(".classroomListItem").on("click", function (e) {
+        var url = "/studentFrame/" ;
+        var addExtension = ($(this).text().toString());
+        e.stopPropagation();
+        //call function when className is clicked
+        getContent();
+
+        $("#studentFrame").attr("value", $(this).text())
+        //set on change listener
+        $('.classroomListItem').change(getContent);
+
+        function getContent() {
+            //create url to request fragment
+            url = url + addExtension;
+
+            //load fragment and replace content
+            $('#studentFrame').load(url);
+        }
+    });
+</script>
 </body>
 </html>

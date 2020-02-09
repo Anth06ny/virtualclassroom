@@ -33,23 +33,29 @@ public class User {
     @DatabaseField
     private boolean isAdmin;
 
-    @DatabaseField (canBeNull = false
-//            foreign = true, foreignColumnName = "id_classroom", foreignAutoCreate = true
-    )
-    private long id_classroom;
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
+
+    @DatabaseField (canBeNull = false, foreign = true, columnName = "classroom_id")
+    private Classroom classroom;
 
     // mandatory no-argument-constructor for ORMlite
     public User() {
     }
 
     // constructor
-    public User(String name, String lastname, String email, String password, boolean isAdmin, long classroom) {
+    public User(String name, String lastname, String email, String password, boolean isAdmin) {
         this.user_name = name;
         this.user_lastname = lastname;
         this.user_email = email;
         this.user_password = password;
         this.isAdmin = isAdmin;
-        this.id_classroom = classroom;
+
     }
 
     // setter/getter id_user
@@ -108,12 +114,9 @@ public class User {
     }
 
     // setter/getter id_classroom
-    public long get_classroom() {
-        return id_classroom;
+    public long get_UserClassroomId() {
+        return classroom.getId_classroom();
     }
 
-    public void set_classroom(int classroom) {
-        this.id_classroom = classroom;
-    }
 
 }

@@ -13,6 +13,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" th:href="@{/css/profile-style.css}"/>
     <link rel="stylesheet" th:href="@{/css/navBar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/mainUpContent.css}"/>
     <script type="text/javascript" th:src="@{/css/functions.js}"></script>
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -30,14 +31,7 @@
         </div>
         <main>
             <div class="pageContent">
-                <div class="pageTitle" id="title">
-                    <div class="title">
-                        <h1>Profile</h1>
-                    </div>
-                    <div class="underline">
-                        <span></span>
-                    </div>
-                </div>
+                <div th:replace = "~{fragments/titlePage.html :: titlePage(title='Classrooms')}"></div>
                 <div class="profileContent">
                     <form method="post" name="nameUpdate" action="#" th:action="@{/ProfilePage}" th:object="${user}">
                     <!--/*@thymesVar id="user" type=""*/-->
@@ -64,7 +58,7 @@
                         </div>
                         <div class="profileLine">
                             <div class="profileLabel col-4"><div class="frameLabel"><span class="labelContent">Password</span></div></div>
-                            <input type="password" class="profilePassword col-6" name="user_password_value" th:value="${session.login_psw}">
+                            <input type="password" class="profilePassword col-6" name="user_password_value" th:value="${session.login_psw}" disabled>
                             <div class="profileUpdate col-2"><a th:href="@{UpdatePassword}" class="btnPwd">Update</a></div>
                         </div>
                         <div class="formBtns">
@@ -93,60 +87,6 @@
                 </div>
             </div>
         </footer>
-        <script>
-
-        // change first name
-        //     $(".btnFirstName").click(function() {
-        //         $(".profileFirstName " ).replaceWith('<input type="text" name="user_name_update" value="" class="newProfileInput col-4" placeholder="New first name">');
-        //         $(this).replaceWith(' ') ;
-        //     });
-        // change last name
-        //     $(".btnLastName").click(function() {
-        //         $(".profileLastName ").replaceWith('<input type="text"  name="user_lastname_update"  class="newProfileInput col-4" placeholder="New last name">');
-        //         $(this).replaceWith(' ');
-                // $(".btnLastName").click(function(){
-                //     window.location.href = "Profile";
-                // });
-            // });
-        // change email
-
-        //         // $(".btnEmail").click(function(){
-        //         //     window.location.href = "Profile";
-        //         // });
-            });
-            // $(".btnPwd").click(function() {
-            //     $(".profilePassword").replaceWith('<input type="text" name="user_password_update"  class="newProfileInput col-4" placeholder="New email">');
-            //     $(this).replaceWith('');
-            // });
-
-            // $('.profileLine').click(function(e) {
-            //     e.preventDefault();
-            //     $.ajax({
-            //         url: 'ProfilePage.html',
-            //         type: 'POST',
-            //         data: {
-            //         },
-            //     });
-            // });
-
-            // $('.SubmitBtn').click(function(e) {
-            //     e.preventDefault();
-            //     $.ajax({
-            //         url: 'ProfilePage.html',
-            //         type: 'POST',
-            //         data: {
-            //             user_name: $('.newProfileInput col-4').val(),
-            //         },
-            //         success: function(msg) {
-            //             alert('Name modified');
-            //         }
-            //     });
-            // });
-        // change password
-        //     $(".btnPwd").click(function () {
-        //             window.location.href = "UpdatePassword";
-        //     });
-        </script>
 
     </div>
 <!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->

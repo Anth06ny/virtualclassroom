@@ -73,3 +73,8 @@
     width: 100%;
     flex-direction: column;
 }
+.error {
+    text-align: center;
+    background: red;
+    color: white;
+}

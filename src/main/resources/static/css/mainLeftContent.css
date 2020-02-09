@@ -1,8 +1,7 @@
 /* left part content */
 .teacherLeftContent {
-    display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 250px;
 }
 .content{
     display: flex;
@@ -13,6 +12,7 @@
 /* information box */
 .informationBox {
     box-shadow: 2px 2px 5px rgba(65, 65, 70, 1);
+    margin-bottom: 20px;
 }
 .informationTitle {
     background: rgba(65, 65, 70, 1);
@@ -23,6 +23,7 @@
 }
 .fa-plus {
     padding: 5px;
+    color: rgba(255,214,0,1);
 }
 .linkWrap {
     padding: 10px;
@@ -32,6 +33,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-bottom: 10px;
+    flex-direction: column;
 }
 .linkTitle {
     margin: 0;
@@ -48,6 +50,10 @@
 .linkTitle .fa-pencil, .linkTitle .fa-trash {
     color: rgba(65, 65, 70, 1);
 }
+.deleteIcon, .updateIcon {
+    border: none;
+    background: none;
+}
 
 .infoLink {
     color: rgba(65, 65, 70, 1);
@@ -55,17 +61,14 @@
 }
 /* end information box */
 /* display student box */
-/*.studentFrame {*/
-/*    box-shadow: 2px 2px 5px rgba(65, 65, 70, 1);*/
-/*    margin-top: 20px;*/
-/*}*/
+
 .studentFrame{
     display: flex;
     flex-direction: column;
-    position: absolute;
+    /*position: absolute;*/
     box-shadow: 2px 2px 5px rgba(65, 65, 70, 1);
-    margin-top: 20px;
-    width: 170px;
+    box-shadow: 2px 2px 5px rgba(65, 65, 70, 1);
+    /*width: 185px;*/
 }
 .frameHeader {
     display: flex;
@@ -74,12 +77,34 @@
     color: rgba(255,214,0,1);
     padding: 10px;
 }
-button.updateFrame, button.deleteFrame {
+.frameHeaderOptions{
+    display: flex;
+}
+.classNameInput{
+    width: 100px;
+    height: 25px;
+}
+button.updateFrameIcon, button.deleteFrameIcon {
     background: none;
     border: none;
 }
+.renameClassBtn{
+    background: rgba(255,214,0,1);
+}
 .updateFrame .fa-pencil,.deleteFrame .fa-trash {
     color: rgba(255,214,0,1);
+}
+.updateFrame{
+    display: flex;
+    width: 140px;
+    justify-content: space-between;
+    height: 27px;
+}
+.invisible{
+    visibility: hidden;
+}
+.visible{
+    visibility: visible;
 }
 .frameBody {
     padding: 10px;
@@ -95,7 +120,37 @@ button.updateFrame, button.deleteFrame {
     border: none;
     background: none;
 }
+
+.updateInfoIcon{
+    border: none;
+    background: none;
+}
+
 .deleteIcon .fa-trash {
     color: rgba(65,65,70,1);
 }
+
+.hiddenCreateInfo{
+    display: none;
+}
+.openCreateInfo .hiddenCreateInfo{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: -9px;
+    box-shadow:4px 7px 5px black;
+    z-index: 1;
+}
+.createInfoBtn{
+    background: rgba(255,214,0,1);
+    border: none;
+}
+.createInfoText .createInfoLink{
+    width: 200px;
+}
+.updateInfoForm{
+    display: flex;
+    flex-direction: column;
+}
+
 /* end display student box */

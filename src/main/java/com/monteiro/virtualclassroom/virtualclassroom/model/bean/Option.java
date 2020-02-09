@@ -11,19 +11,20 @@ public class Option {
     @DatabaseField(canBeNull = false)
     private String option_content;
 
-    @DatabaseField(canBeNull = false)
-    private int id_question;
+    @DatabaseField(foreign = true, columnName = "id_question")
+    private Question question;
 
     public Option() {}
-    public Option(String option_content){
-        this.option_content=option_content;
-    };
-    public Option(String option_content, int id_question) {
+    public Option(String option_content, Question question) {
         this.option_content = option_content;
-        this.id_question = id_question;
+        this.question = question;
     }
 
     public int getId_option() {
+        return id_option;
+    }
+
+    public int getId_optionByQuestion(int id_question) {
         return id_option;
     }
 
@@ -31,18 +32,19 @@ public class Option {
         this.id_option = id_option;
     }
 
-    public String getOption_content() {
+    public String getOption_content(int id_question) {
         return option_content;
     }
 
     public void setOption_content(String option_content) {
         this.option_content = option_content;
     }
-    public int getId_question() {
-        return id_question;
+
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setId_question(int id_question) {
-        this.id_question = id_question;
+    public void setId_question(Question question) {
+        this.question = question;
     }
 }

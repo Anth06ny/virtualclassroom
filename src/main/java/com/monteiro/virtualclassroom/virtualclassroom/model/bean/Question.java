@@ -3,6 +3,8 @@ package com.monteiro.virtualclassroom.virtualclassroom.model.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.List;
+
 @DatabaseTable(tableName = "questions")
 public class Question {
     @DatabaseField(generatedId = true)
@@ -11,17 +13,19 @@ public class Question {
     @DatabaseField(canBeNull = false)
     private String question_content;
 
-    @DatabaseField(canBeNull = false)
-    private long id_classroom;
+    @DatabaseField(canBeNull = false, foreign = true, columnName = "classroom_id")
+    private Classroom classroom;
 
     @DatabaseField(canBeNull = false)
-    private boolean isRadio;
+    private boolean isRadio =true;
+
+    // list option param
+    public List<Option> options;
 
     public Question(){};
 
-    public Question(String question_content,long id_classroom,boolean isRadio) {
+    public Question(String question_content, boolean isRadio) {
         this.question_content = question_content;
-        this.id_classroom = id_classroom;
         this.isRadio = isRadio;
     }
 
@@ -41,19 +45,27 @@ public class Question {
         this.question_content = question_content;
     }
 
-    public long getId_classroom() {
-        return id_classroom;
+    public Classroom getClassroom() {
+        return classroom;
     }
 
-    public void setId_classroom(long id_classroom) {
-        this.id_classroom = id_classroom;
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
     }
 
     public boolean getIsRadio() {
-        return isRadio;
+        return this.isRadio;
     }
 
     public void setRadio(boolean radio) {
-        isRadio = radio;
+        this.isRadio = radio;
+    }
+
+    // method  get and set of options
+    public List<Option> getOptions() {
+        return this.options;
+    }
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 }

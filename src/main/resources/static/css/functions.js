@@ -25,6 +25,15 @@ function openAdminProfile(){
         adminProfile.className = "adminProfileBox"
     }
 }
+function openCreateInformation(){
+    var add = document.getElementById("infoBox");
+    if(add.className === "infoBox"){
+        add.className += " openCreateInfo"
+    }
+    else{
+        add.className = "infoBox"
+    }
+}
 function openCreateClassroom(){
     var add = document.getElementById("adminOnly");
     if(add.className === "adminOnly"){
@@ -44,39 +53,82 @@ function openQuestionContent(){
     }
 }
 
-function openClassroomDetails(){
-    var hiddenDetails = document.getElementById("classesContent");
-
-    if (hiddenDetails.className === "classesContent"){
-        hiddenDetails.className += " showClassroom";
-        document.getElementById("classTitle").textContent = document.getElementById("classroomListItem").textContent;
-    }
-    else{
-        hiddenDetails.className= "classesContent"
+function showStudentFrame(){
+    var x = document.getElementById("classroomsLeftContent");
+    if (x.style.visibility === "hidden") {
+        x.style.visibility = "visible";
     }
 }
-// $('#sortable2').each(function(){// id of ul
-//     var li = $(this).find('li')//get each li in ul
-//
-//     console.log(li.text())//get text of each li
-//
-//     jQuery(document).ready(function(){
-//         jQuery('#sortable2 li').each(function(){
-//             console.log($(this).text()); //prints each li text value in console
-//         });
-//
-//     });
+
+
+function loadSearchResult() {
+    var url = "/studentFrame.html";
+    $("#classroomsLeftContent").load(url + ' #studentFrame');
+    // if ($('.classroomListItem').val() != '') {
+    //     url = url + $('.classroomListItem').val();
+    // }
+}
+function loadDoc() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("classroomsLeftContent").innerHTML =
+                this.responseText;
+        }
+    };
+    xhttp.open("GET", "studentFrame", true);
+    xhttp.send();
+}
+
+function retrieveGuests() {
+    var url = '/' + $(".classroomListItem").val();
+    //
+    // if ($('#searchSurname').val() != '') {
+    //     url = url + '/' + $('#searchSurname').val();
+    // }
+
+    $("#classroomsLeftContent").load(url);
+}
+
+function editClass(){
+    var x = document.getElementById("updateFrame");
+    var y= document.getElementById("updateForm");
+    if (x.style.display === "flex") {
+        x.style.display = "none";
+        y.style.display = "flex"
+    } else {
+        x.style.display = "flex";
+        y.style.display = "none"
+    }
+}
+function removeToggle(){
+    console.log("entered toggle remove function")
+    var x = document.getElementById("updateInfoFrame");
+    var y= document.getElementById("updateInfoForm");
+    if (y.style.display === "flex"){
+        console.log("entered the first statement")
+        y.style.display = "none";
+        x.style.display = "flex";
+    }else{
+        console.log("form is not displayed, cannot do anything")
+        return;
+    }};
 
 $(document).ready(function() {
-    $(".studentFrame").hide();
-    $(".classroomListItem").on('click', function() {
-    // var value = $("#className li:selected").attr('text');
-    // console.log(value);
-    $(".studentFrame").show();;
-    console.log($(this).text())
-    $('.classTitle').text($(this).text())
-    // $('.classTitle li').val($(".classroomListItem").data('text'))
-})
+        //call function when page is loaded
+
+
+    console.log("here I went")
+    // $(".studentFrame").hide();
+    console.log("here I went after")
+    // $(".classroomListItem").click(function() {
+    // console.log($(this).text())
+    //
+    //
+
+
+
+// })
 });
 
 // function that toggles the input type - to text (show psw) and password (hide psw)
@@ -117,4 +169,29 @@ $(".profilePassword").click(function() {
     $(this).replaceWith('<input class = "col-6" value="Please click on Update" disabled>');
 });
 
+// listen to the click of the arrow
+$(document).ready(function() {
+    // arrow animation
+    $(".answerToggle").click(function() {
+        $(this).toggleClass("fa-sort-down fa-sort-up");
+        // store id on click
+        let questionId = "." + $(this).attr('id');
+        console.log(questionId);
+        $(questionId).toggle();
+        // alert($(this).attr('id'));
+        // alert($(this).attr('value'));
+    });
 
+    // locker animation
+    $('.questionLock').click(function(){
+        $(this).toggleClass("fa-lock fa-lock-open");
+    });
+
+    // retrieve text from question_content on click
+    function questionContent() {
+        // target the text on the div
+        let text = document.getElementsByClassName("questionLabel").valueOf();
+        alert(text);
+        // display it
+    }
+});

@@ -1,16 +1,18 @@
 package com.monteiro.virtualclassroom.virtualclassroom;
 
+import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Option;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Question;
+import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.OptionDao;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.QuestionDao;
+import com.monteiro.virtualclassroom.virtualclassroom.model.dao.UserDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -29,48 +31,45 @@ public class C_QuestionController {
             @RequestParam String question_content,
             String option,
             Question question,
-            @RequestParam(value= "option_content[]")String[] options_content, // specify value request in tab
-            Model model,
-            HttpSession session
-        ) throws Exception {
+            HttpSession session,
+            @RequestParam(value = "option_content[]") String[] options_content, // specify value request in tab
+            Model model) throws Exception {
 
         System.out.println("POST /CreateQuestion (CreateQuestionController)");
 
         // Verification if a field is empty on the question head
-        if(question_content.isEmpty()) {
-            System.out.println("No label");
+        if (question_content.isEmpty()) {
+//            System.out.println("No label");
             model.addAttribute("emptyField", true);
             return "CreateQuestionPage";
-        } else if(option == null){
-            System.out.println("Radio empty");
-            System.out.println(options_content[0]);
+        } else if (option == null) {
+//            System.out.println("Radio empty");
+//            System.out.println(options_content[0]);
             model.addAttribute("isRadioEmpty", true);
             return "CreateQuestionPage";
-        } else if(options_content[0].isEmpty()) {
+        } else if (options_content[0].isEmpty()) {
             System.out.println("option_content empty");
             model.addAttribute("emptyContent", true);
             return "CreateQuestionPage";
-        }
-        else if(option == "radio") {
-//                System.out.println(" in the if ");
+        } else if (option.equals(true)) {
             question.setRadio(true);
-        } else if(option != "radio") {
-//                System.out.println(" in the else");
+        } else if (option.equals(false)) {
             question.setRadio(false);
         }
-            long id_classroom = (long) session.getAttribute("classroomID");
-            Question newQuestion = new Question(question_content, id_classroom , question.getIsRadio());
-//            System.out.println(" isRadio ? " + question.getIsRadio());
-            QuestionDao.saveQuestion(newQuestion);
-            int id_question = newQuestion.getId_question();
-            System.out.println("writing question successful");
-            // answer
-            for (String option_content : options_content) {
-                Option newOption = new Option(option_content,id_question);
-                System.out.println(option_content);
-                OptionDao.saveOption(newOption);
-                System.out.println("writing options successful");
-            }
-            return "TeacherPage";
+        Classroom currentClassroom = (Classroom) session.getAttribute("classroom");
+        Question newQuestion = new Question(question_content, question.getIsRadio());
+        System.out.println("current class" + currentClassroom);
+        newQuestion.setClassroom(currentClassroom);
+        QuestionDao.saveQuestion(newQuestion);
+
+        System.out.println("writing question successful");
+        // answer
+        for (String option_content : options_content) {
+            Option newOption = new Option(option_content, newQuestion);
+            System.out.println(option_content);
+            OptionDao.saveOption(newOption);
+            System.out.println("writing options successful");
         }
+        return "CreateQuestionPage";
+    }
 }

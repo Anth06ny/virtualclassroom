@@ -5,13 +5,13 @@ package com.monteiro.virtualclassroom.virtualclassroom.model.dao;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.stmt.DeleteBuilder;
-import com.j256.ormlite.stmt.UpdateBuilder;
-import com.j256.ormlite.stmt.Where;
+import com.j256.ormlite.stmt.*;
+import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.monteiro.virtualclassroom.virtualclassroom.ConstantsKt.*;
@@ -29,9 +29,13 @@ public class UserDao {
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
 
-            Dao<User, String> clashUserDao = DaoManager.createDao(connectionSource, User.class);
+            Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class);
+            Dao<Classroom, String> classDao = DaoManager.createDao(connectionSource, Classroom.class);
 
-            clashUserDao.createOrUpdate(user);
+            classDao.refresh(user.getClassroom());
+            System.out.println("now the user is set"+ user.getClassroom().getClassroom_name());
+
+            userDao.createOrUpdate(user);
         } finally {
             connectionSource.close();
         }
@@ -41,6 +45,7 @@ public class UserDao {
         JdbcConnectionSource connectionSource = null;
         User gotUserMail = null;
         User gotUserPsw = null;
+        System.out.println("I am in the getUser method ");
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
             Dao<User, String> clashUserDao = DaoManager.createDao(connectionSource, User.class); //creates a new dao object
@@ -62,8 +67,8 @@ public class UserDao {
         User gotUserMail = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<User, String> clashUserDao = DaoManager.createDao(connectionSource, User.class); //creates a new dao object
-            gotUserMail = clashUserDao.queryBuilder().where().eq("user_email", email).queryForFirst();
+            Dao<User, String> myUserDao = DaoManager.createDao(connectionSource, User.class); //creates a new dao object
+            gotUserMail = myUserDao.queryBuilder().where().eq("user_email", email).queryForFirst();
             System.out.println(gotUserMail);
             if(gotUserMail == null){
                 return null;
@@ -76,7 +81,19 @@ public class UserDao {
         }
     }
 
+    public static List<User> getStudentsList(long id_Class) throws IOException, SQLException {
+        List<User> studentRowList;
+        JdbcConnectionSource connectionSource = null;
+        try {
+            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+            Dao<User, Long> myDao = DaoManager.createDao(connectionSource, User.class);
+            studentRowList = myDao.queryBuilder().where().eq("classroom_id", id_Class).query();
+            return studentRowList;
 
+        }  finally {
+            connectionSource.close();
+        }
+    }
     public static List<User> readAll() throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {

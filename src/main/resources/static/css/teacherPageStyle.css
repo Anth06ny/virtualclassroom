@@ -227,11 +227,7 @@ main {
     display:flex;
     padding: 40px;
 }
-.teacherLeftContent{
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-}
+
 @media screen and (max-width: 550px){
     .teacherLeftContent{
         width: 150px;
@@ -256,6 +252,7 @@ main {
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-bottom: 10px;
+    flex-direction: column;
 }
 .linkAndInfo p{
     margin:0px;
@@ -283,10 +280,10 @@ main {
     font-size: 13px;
 }
 
-/*.studentFrame {*/
-/*    box-shadow: 2px 2px 5px rgba(65,65,65,1);*/
-/*    margin-top: 20px;*/
-/*}*/
+.studentFrame {
+    box-shadow: 2px 2px 5px rgba(65,65,65,1);
+    margin-top: 20px;
+}
 .frameHeader {
     display: flex;
     justify-content: space-between;
@@ -322,6 +319,10 @@ button.updateFrame{
     border: none;
     background: none;  
 }
+.updateInfoIcon{
+    border: none;
+    background: none;
+}
 li .fa-trash{
     color: rgba(65,65,70,1);
 }
@@ -350,6 +351,7 @@ li .fa-trash{
     background: rgba(65, 65, 70, 1);
     color: rgba(255, 255, 255, 1);
     padding: 2px 10px;
+    margin-bottom: 20px;
 }
 .questionContent{
     display: flex;
@@ -379,26 +381,31 @@ li .fa-trash{
     color: rgba(255, 255, 255, 1);
     font-size: xx-large;
 }
+.fa-sort-up {
+    color: rgba(255, 255, 255, 1);
+    font-size: xx-large;
+    margin-top: 15px;
+}
 .hiddenAnswer{
     display: none;
+    margin-bottom: 20px;
 }
 .showAnswer{
     display: block;
-    
 }
 .answerContent{
-    border: 1px solid rgba(65,65,70,1);
     padding: 15px;
 }
 .answerButtonBar {
     display: flex;
     justify-content: flex-end;
 }
-.teacherOk {
+.btnAnswer {
     background-color:rgba(255,214,0,1);
     padding: 5px 15px;
     color: rgba(255, 255, 255, 1);
     border: none;
+    margin: 0 15px 5px 0;
 }
 .teacherOk:hover {
     box-shadow: 2px 2px 5px rgba(136, 136, 136, 1)!important;
