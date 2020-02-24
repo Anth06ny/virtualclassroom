@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -21,58 +20,63 @@ public class ClassroomController {
     @GetMapping("/")
     public String homePageRender(Model model, HttpSession session) throws IOException, SQLException {
         System.out.println("GET /HomePage (ClassroomController)");
-        List<Classroom> classroomList = new ArrayList<>();
+        List<Classroom> classroomList;
         long n = ClassroomDao.getClassroomCount();
         int id = 0;
         classroomList = ClassroomDao.getClassroomRowsList(id, n);
         //sorting the classroom's list by alphabetical order
         classroomList.sort(Comparator.comparing(Classroom::getClassroom_name));
-        System.out.println(n);
-        System.out.println(classroomList);
+        System.out.println("classes count" + n);
+        System.out.println("classrooms :" + classroomList);
         model.addAttribute("classrooms", classroomList);
 
-        if((classroomList.isEmpty() ) && (session.getAttribute("login_first")==null)){
+        if ((classroomList.isEmpty()) && (session.getAttribute("login_first") == null)) {
             model.addAttribute("adminAccess", true);
-        }
-        else if((classroomList.isEmpty() ) && (session.getAttribute("login_first")!=null)){
+        } else if ((classroomList.isEmpty()) && (session.getAttribute("login_first") != null)) {
             model.addAttribute("adminClassList", true);
             model.addAttribute("adminAddClass", true);
-        }
-        else if((!classroomList.isEmpty()) && (session.getAttribute("login_first")!=null)){
+        } else if ((!classroomList.isEmpty()) && (session.getAttribute("login_first") != null)) {
             model.addAttribute("adminAddClass", true);
         }
         return "HomePage";
     }
 
     @RequestMapping(value = "/studentFrame/{className}", method = RequestMethod.GET)
-    public String getStudentsOfTheClass(@PathVariable("className")String className, Model model) throws IOException, SQLException {
+    public String getStudentsOfTheClass(@PathVariable("className") String className, Model model) throws IOException, SQLException {
         System.out.println("enters the studentFrame Controller");
-        System.out.println(className);
         model.addAttribute("studentFrameActive", true);
         List<User> studentsList;
         Classroom myClass = ClassroomDao.getClassroomByName(className);
         long classroomID = myClass.getId_classroom();
-        System.out.println(classroomID);
+        System.out.println("classroom Id" + classroomID);
         studentsList = UserDao.getStudentsList(classroomID);
-        System.out.println(studentsList);
+        System.out.println("List of students" + studentsList);
         model.addAttribute("students", studentsList);
         return "fragments/studentFrame";
     }
 
     @RequestMapping(value = "/deleteStudent")
     public String deleteStudentFromClassroomList(int studentDelete) throws IOException, SQLException {
-        System.out.println(studentDelete);
+        System.out.println("student to be deleted" + studentDelete);
         UserDao.deleteUser(studentDelete);
         return "redirect:/";
     }
 
     @PostMapping("/addClassroom")
-    public String createClassroom(@RequestParam String classroomName) throws IOException, SQLException {
-        Classroom newClass = new Classroom (classroomName);
-        if (!classroomName.equals("")){
+    @ResponseBody
+    public String createClassroom(@RequestParam String classroomName, Model model) throws IOException, SQLException {
+        Classroom newClass = new Classroom(classroomName);
+        System.out.println(ClassroomDao.getClassroomByName(classroomName));
+        if (classroomName.equals("")) {
+            return ("empty");
+        } else if (ClassroomDao.getClassroomByName(classroomName) != null) {
+            return ("exists");
+        } else if (ClassroomDao.getClassroomByName(classroomName) == null) {
+            System.out.println("saving a new class" + classroomName);
             ClassroomDao.saveClassroom(newClass);
+            return ("success");
         }
-        return "redirect:/";
+        return "dunno what happened";
     }
 
     @PostMapping("/deleteClassroom")
@@ -81,11 +85,12 @@ public class ClassroomController {
         ClassroomDao.deleteClassroom(classDelete);
         return "redirect:/";
     }
+
     @RequestMapping(value = "/updateClassroom")
     public String updateClassroomFromList(@RequestParam String classNameModify, @RequestParam String newClassroomName) throws IOException, SQLException {
         System.out.println(classNameModify);
         System.out.println(newClassroomName);
-        if(!newClassroomName.equals("")){
+        if (!newClassroomName.equals("")) {
             System.out.println("le nom n'est pas vide");
             ClassroomDao.updateClassroomName(classNameModify, newClassroomName);
         }
@@ -101,8 +106,9 @@ public class ClassroomController {
         //return html page
         return "LoginPage";
     }
-    private void addClassroomInSession(Classroom classroom, HttpSession session){
-        session.setAttribute("classroom",classroom);
+
+    private void addClassroomInSession(Classroom classroom, HttpSession session) {
+        session.setAttribute("classroom", classroom);
     }
 
 }

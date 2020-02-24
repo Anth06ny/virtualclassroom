@@ -1,63 +1,61 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <!-- Head -->
-    <div th:replace = "fragments/head.html :: head" />
+<!-- Head -->
+<div th:replace="fragments/head.html :: head"/>
 
-    <!--  CSS Stylesheet  -->
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+<!--  CSS Stylesheet  -->
+<link rel="stylesheet" th:href="@{/css/style.css}"/>
 
-    <title>Sign up page</title>
+<title>Sign up page</title>
 </head>
 <body>
-    <div class="mainContainer">
-        <!-- Header -->
-        <header id="header" th:replace = "fragments/header.html :: header" />
-        <!-- MenuBar -->
-        <div class="navBar"></div>
-        <main>
-            <div class="pageContent">
-                <div th:replace = "~{fragments/titlePage.html :: titlePage(title='Sign Up')}"></div>
+<div class="mainContainer">
+    <!-- Header -->
+    <header id="header" th:replace="fragments/header.html :: header"/>
+    <!-- MenuBar -->
+    <div class="navBar"></div>
+    <main>
+        <div class="pageContent">
+            <div th:replace="~{fragments/titlePage.html :: titlePage(title='Sign Up')}"></div>
             <div class="content col-lg-12 col-md-9 col-sm-12">
                 <div class="signUpFrame col-lg-7 col-md-12 col-sm-10">
 
-                    <form class="signUpForm" method="post" action="#" th:action="@{/SignUpPage}">
+                    <form class="signUpForm" method="post" action="#" th:action="@{/SignUp}">
                         <p th:if="${emptyField}" class="error">Please enter missing data</p>
                         <div class="signUpField form-group row">
-                            <label for="firstName" class ="signUplabel col-md-4">First name</label>
+                            <label for="firstName" class="signUpLabel col-md-4">First name</label>
                             <input type="text" class="signUpInput form-control rounded-0 col-md-8" id="firstName"
-                                   name="user_name" placeholder="Enter first name" >
-                          </div>
-                          <div class="signUpField form-group row">
-                            <label for="lastName" class ="signUplabel col-md-4">Last name</label>
-                            <input type="text" class="signUpInput form-control rounded-0 col-md-8" id="lastName"
-                                   name="user_lastname" placeholder="Enter last name" >
-                          </div>
+                                   name="user_name" placeholder="Enter first name">
+                        </div>
                         <div class="signUpField form-group row">
-                          <label for="e-mail" class ="signUplabel col-md-4">Email</label>
-                          <input  class="signUpInput form-control rounded-0 col-md-8" type="email" id="e-mail"
-                                  value="" name="user_email" placeholder="Enter email">
+                            <label for="lastName" class="signUpLabel col-md-4">Last name</label>
+                            <input type="text" class="signUpInput form-control rounded-0 col-md-8" id="lastName"
+                                   name="user_lastname" placeholder="Enter last name">
                         </div>
-                        <div class="signUpField form-group row" >
-                          <label for="pwd" class ="signUplabel col-md-4">Password</label>
-                          <input type="password" class="signUpInput form-control rounded-0 col-md-8" id="pwd"
-                                 value="" name="user_password" placeholder="Password" >
+                        <div class="signUpField form-group row">
+                            <label for="e-mail" class="signUpLabel col-md-4">Email</label>
+                            <input class="signUpInput form-control rounded-0 col-md-8" type="email" id="e-mail"
+                                   value="" name="user_email" placeholder="Enter email">
                         </div>
-                        <div class= "signUpFormBtn row">
-                            <a href="LoginPage"><button type="button" class="signUpBtn backBtn rounded-0"><i class="fas fa-angle-double-left"></i></button></a>
+                        <div class="signUpField form-group row">
+                            <label for="pwd" class="signUpLabel col-md-4">Password</label>
+                            <input type="password" class="signUpInput form-control rounded-0 col-md-8" id="pwd"
+                                   value="" name="user_password" placeholder="Password">
+                        </div>
+                        <div class="signUpFormBtn row">
+                            <a href="LoginPage">
+                                <button type="button" class="signUpBtn backBtn rounded-0"><i
+                                        class="fas fa-angle-double-left"></i></button>
+                            </a>
                             <button type="submit" class="signUpBtn registerBtn rounded-0">REGISTER</button>
-                      </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        </main>
-        <footer th:replace = "fragments/footer.html :: footer" />
-    </div>
-<!--    <script>-->
-<!--        // register n return to login page-->
-<!--        $(".registerBtn").click(function() {-->
-<!--            window.location.href = "LoginPage";-->
-<!--        });-->
-<!--    </script>-->
+    </main>
+    <footer th:replace="fragments/footer.html :: footer"/>
+</div>
 </body>
 </html>

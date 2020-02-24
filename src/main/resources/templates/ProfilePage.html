@@ -1,96 +1,98 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <script src="https://kit.fontawesome.com/b09ddc6dd2.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/profile-style.css}"/>
-    <link rel="stylesheet" th:href="@{/css/navBar.css}"/>
-    <link rel="stylesheet" th:href="@{/css/mainUpContent.css}"/>
-    <script type="text/javascript" th:src="@{/css/functions.js}"></script>
-    <!--Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <title>Home page</title>
+<div th:replace="fragments/head.html :: head"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}"/>
+<link rel="stylesheet" th:href="@{/css/profile-style.css}"/>
+<!--Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+<title>Profile page</title>
 </head>
 <body>
-    <div class="container">
-        <header id="header" th:replace = "fragments/header.html :: header" />
+<div class="container">
+    <header id="header" th:replace="fragments/header.html :: header"/>
 
-        <div th:if="${session.is_Admin == true}"  >
-            <div th:replace="~{fragments/navBarAdmin.html :: navBarAdmin}"></div>
-        </div>
-        <div th:if="${session.is_Admin == false }" >
-            <div th:replace="~{fragments/navBarUser.html :: navBarUser}"></div>
-        </div>
-        <main>
-            <div class="pageContent">
-                <div th:replace = "~{fragments/titlePage.html :: titlePage(title='Classrooms')}"></div>
-                <div class="profileContent">
-                    <form method="post" name="nameUpdate" action="#" th:action="@{/ProfilePage}" th:object="${user}">
-                    <!--/*@thymesVar id="user" type=""*/-->
-                        <div class="profileLine" id="nameLine" >
-                            <!--/*@thymesVar id="missingField" type=""*/-->
-                            <p th:if="${missingField}" class="error">Please enter missing data</p>
-                            <div class="profileLabel col-4"><div class="frameLabel"><span class="labelContent">First Name</span></div></div>
-                            <input type="text" class="profileFirstName col-8" name="user_name_value" th:value="${session.login_first}">
-<!--                            <p th:text="${login}"></p>-->
-                            <!--
-<div class="profileUpdate col-4">-->
-<!--                                <a href="#" class="btnFirstName">Update</a>-->
-<!--                            </div>-->
-                        </div>
-                        <div class="profileLine">
-                           <div class="profileLabel col-4"><div class="frameLabel"><span class="labelContent">Last Name</span></div></div>
-                           <input class="profileLastName col-8" name="user_lastname_value" th:value="${session.login_last}">
-<!--                           <div class="profileUpdate col-4"><a href="#" class="btnLastName">Update</a></div>-->
-                        </div>
-                        <div class="profileLine">
-                            <div class="profileLabel col-4"><div class="frameLabel"><span class="labelContent">Email</span></div></div>
-                            <input type="email" class="profileEmail col-8" name="user_email_value" th:value="${session.login}">
-<!--                            <div class="profileUpdate col-2"><a href="#" class="btnEmail">Update</a></div>-->
-                        </div>
-                        <div class="profileLine">
-                            <div class="profileLabel col-4"><div class="frameLabel"><span class="labelContent">Password</span></div></div>
-                            <input type="password" class="profilePassword col-6" name="user_password_value" th:value="${session.login_psw}" disabled>
-                            <div class="profileUpdate col-2"><a th:href="@{UpdatePassword}" class="btnPwd">Update</a></div>
-                        </div>
-                        <div class="formBtns">
-                            <a href="TeacherPage">
-                                <button type="button" class="backProfileBtn backBtn rounded-0">
-                                        <i class="fas fa-angle-double-left"></i>
-                                </button>
-                            </a>
-                            <input class="SubmitBtn btn rounded-0" id="finalButton" type="submit" value="OK">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </main> 
-        <footer>
-            <div class="footerGrid">
-                <div class="policyBox">
-                    <p class="trademark">© 2014 All Rights Reserved.</p>
-                    <p class="company">Fiche Entreprise MONTEIRO ANTHONY
-                        <br> Information des Entreprises</p>
-                </div>
-                <div class= "toTheTop transition"> 
-                    <a href="#title">
-                        <i class="fas fa-angle-up"></i>
-                    </a>
-                </div>
-            </div>
-        </footer>
-
+    <div th:if="${session.is_Admin == true}">
+        <div th:replace="~{fragments/navBarAdmin.html :: navBarAdmin}"></div>
     </div>
+    <div th:if="${session.is_Admin == false }">
+        <div th:replace="~{fragments/navBarUser.html :: navBarUser}"></div>
+    </div>
+    <main>
+        <div class="pageContent">
+            <div th:replace="~{fragments/titlePage.html :: titlePage(title='Classrooms')}"></div>
+            <div class="profileContent">
+                <form method="post" name="nameUpdate" action="#" th:action="@{/updateProfilePage}">
+                    <p th:if="${emptyField}" class="error">You cannot submit empty field</p>
+                    <div class="profileLine" id="nameLine">
+                        <div class="profileLabel col-4">
+                            <div class="frameLabel"><span class="labelContent">First Name</span></div>
+                        </div>
+                        <input type="text" class="profileFirstName col-8" name="user_name_value"
+                               th:value="${session.login_first}">
+                    </div>
+                    <div class="profileLine">
+                        <div class="profileLabel col-4">
+                            <div class="frameLabel"><span class="labelContent">Last Name</span></div>
+                        </div>
+                        <input class="profileLastName col-8" name="user_lastname_value"
+                               th:value="${session.login_last}">
+                    </div>
+                    <div class="profileLine">
+                        <div class="profileLabel col-4">
+                            <div class="frameLabel"><span class="labelContent">Email</span></div>
+                        </div>
+                        <input type="email" class="profileEmail col-8" name="user_email_value"
+                               th:value="${session.login}">
+                    </div>
+                    <div class="profileLine">
+                        <div class="profileLabel col-4">
+                            <div class="frameLabel"><span class="labelContent">Password</span></div>
+                        </div>
+                        <input type="password" class="profilePassword col-6" name="user_password_value"
+                               th:value="${session.login_psw}" disabled>
+                        <div class="profileUpdate col-2"><a th:href="@{UpdatePassword}" class="btnPwd">Update</a></div>
+                    </div>
+                    <div class="formBtns">
+                        <a th:if="${session.is_Admin == true}" th:href="@{/adminConnected}">
+                            <button type="button" class="backProfileBtn backBtn rounded-0">
+                                <i class="fas fa-angle-double-left"></i>
+                            </button>
+                        </a>
+                        <a th:if="${session.is_Admin == false}" th:href="@{/userConnected}">
+                            <button type="button" class="backProfileBtn backBtn rounded-0">
+                                <i class="fas fa-angle-double-left"></i>
+                            </button>
+                        </a>
+                        <input class="SubmitBtn btn rounded-0" id="finalButton" type="submit" value="OK">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footerGrid">
+            <div class="policyBox">
+                <p class="trademark">© 2014 All Rights Reserved.</p>
+                <p class="company">Fiche Entreprise MONTEIRO ANTHONY
+                    <br> Information des Entreprises</p>
+            </div>
+            <div class="toTheTop transition">
+                <a href="#title">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</div>
 <!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>

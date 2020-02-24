@@ -4,15 +4,17 @@ main {
     margin: 20px 0;
 }
 
-.pageContent{
-    display:flex;
+.pageContent {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
-.title{
+
+.title {
     display: flex;
     justify-content: center;
 }
+
 .pageTitle {
     font-family: 'Bebas Neue', cursive;
     display: flex;
@@ -21,7 +23,7 @@ main {
 }
 
 .underline {
-    background: rgba(255,214,0,1);
+    background: rgba(255, 214, 0, 1);
     height: 5px;
     margin: 0 10px;
 }
@@ -31,29 +33,37 @@ main {
     display: flex;
     padding: 40px;
 }
-.classes{
+
+.classes {
     display: flex;
     justify-content: space-between;
     padding: 35px;
 }
 
-.hiddenCreateClass{
+.hiddenCreateClass {
     display: none;
 }
-.openCreateClass .hiddenCreateClass{
+
+.openCreateClass .hiddenCreateClass {
     display: flex;
     flex-direction: column;
     position: absolute;
-    margin-left: -9px;
-    box-shadow:4px 7px 5px black;
-    width: 70px;
+    margin-left: -100px;
     align-items: center;
 }
-.createClassBtn{
-    background: rgba(255,214,0,1);
+
+.createClassBtn {
+    background: rgba(255, 214, 0, 1);
     width: 70px;
     border: none;
 }
-.createClassInput{
+
+.createClassInput {
     width: 200px;
+}
+
+.newClass {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 4px 7px 5px black;
 }

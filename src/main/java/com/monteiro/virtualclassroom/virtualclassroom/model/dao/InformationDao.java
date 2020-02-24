@@ -5,9 +5,7 @@ import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
-import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Information;
-import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Question;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,7 +16,8 @@ import static com.monteiro.virtualclassroom.virtualclassroom.ConstantsKt.*;
 public class InformationDao {
 
     // constructor
-    public InformationDao() {}
+    public InformationDao() {
+    }
 
     // save information method
     public static void saveInformation(Information information) throws SQLException, IOException {
@@ -43,7 +42,7 @@ public class InformationDao {
 
             return InformationDao.queryBuilder().where().eq("id_information", idInfo).queryForFirst();
 
-        }  finally {
+        } finally {
             connectionSource.close();
         }
     }
@@ -58,7 +57,7 @@ public class InformationDao {
 
             return InformationDao.queryBuilder().where().eq("id_classroom", IdClass).query();
 
-        }  finally {
+        } finally {
             connectionSource.close();
         }
     }
@@ -84,16 +83,16 @@ public class InformationDao {
     }
 
     // update information
-    public static void updateInformation(String column,String OldValue, String newValue) throws SQLException, IOException {
+    public static void updateInformation(String column, String OldValue, String newValue) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
             // initiate the DAO with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Information, String>  informationUpdate = DaoManager.createDao(connectionSource, Information.class);
+            Dao<Information, String> informationUpdate = DaoManager.createDao(connectionSource, Information.class);
 
             /*                      ----update call----                 */
             // DAO setting
-            UpdateBuilder<Information,String > updateBuilder = informationUpdate.updateBuilder();
+            UpdateBuilder<Information, String> updateBuilder = informationUpdate.updateBuilder();
             // set the criteria
             updateBuilder.where().eq(column, OldValue);
             // update the value of the target fields
@@ -104,5 +103,4 @@ public class InformationDao {
             connectionSource.close();
         }
     }
-
 }

@@ -8,9 +8,6 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
-import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Information;
-import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Question;
-import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,23 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.monteiro.virtualclassroom.virtualclassroom.ConstantsKt.*;
-import static com.monteiro.virtualclassroom.virtualclassroom.ConstantsKt.BDD_PSW;
 
 public class ClassroomDao {
 
-    public ClassroomDao() throws IOException {
-        JdbcConnectionSource connectionSource = null;
-        try {
-            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-
-            Dao<Classroom, String> clashClassroomDao = DaoManager.createDao(connectionSource, Classroom.class);//creates a new dao object
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            connectionSource.close();
-        }
+    public ClassroomDao() {
     }
 
     // save classroom method
@@ -61,10 +45,11 @@ public class ClassroomDao {
 
             return clashClassroomDao.queryBuilder().where().eq("id_classroom", firstId).queryForFirst();
 
-        }  finally {
+        } finally {
             connectionSource.close();
         }
     }
+
     public static Classroom getClassroomByName(String className) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
@@ -74,12 +59,13 @@ public class ClassroomDao {
 
             return clashClassroomDao.queryBuilder().where().eq("classroom_name", className).queryForFirst();
 
-        }  finally {
+        } finally {
             connectionSource.close();
         }
     }
+
     public static List<Classroom> getClassroomRowsList(long offset, long end) throws IOException, SQLException {
-        List<Classroom> classroomRowList = new ArrayList<Classroom>();
+        List<Classroom> classroomRowList;
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
@@ -90,7 +76,21 @@ public class ClassroomDao {
             classroomRowList = dao.query(preparedQuery);
             return classroomRowList;
 
-        }  finally {
+        } finally {
+            connectionSource.close();
+        }
+    }
+
+    public static List<Classroom> getClassroomList() throws SQLException, IOException {
+        List<Classroom> classroomRowList;
+        JdbcConnectionSource connectionSource = null;
+        try {
+            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+            Dao<Classroom, Long> listDao = DaoManager.createDao(connectionSource, Classroom.class);
+            classroomRowList = listDao.queryForAll();
+            return classroomRowList;
+
+        } finally {
             connectionSource.close();
         }
     }
@@ -103,7 +103,7 @@ public class ClassroomDao {
             Dao<Classroom, String> ClassConnection = DaoManager.createDao(connectionSource, Classroom.class);//creates a new dao object
             return ClassConnection.queryBuilder().countOf();
 
-        }  finally {
+        } finally {
             connectionSource.close();
         }
     }
@@ -134,10 +134,10 @@ public class ClassroomDao {
         try {
             // initiate the DAO with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Classroom, String>  classroomUpdate = DaoManager.createDao(connectionSource, Classroom.class);
+            Dao<Classroom, String> classroomUpdate = DaoManager.createDao(connectionSource, Classroom.class);
             /*                      ----update call----                 */
             // DAO setting
-            UpdateBuilder<Classroom,String > updateBuilder = classroomUpdate.updateBuilder();
+            UpdateBuilder<Classroom, String> updateBuilder = classroomUpdate.updateBuilder();
             // set the criteria
             updateBuilder.where().eq("classroom_name", oldValue);
             // update the value of the target fields

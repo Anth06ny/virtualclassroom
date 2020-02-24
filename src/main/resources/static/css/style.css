@@ -1,121 +1,52 @@
 body {
-    background: rgba(102,102,102,1)!important;
-    margin:auto !important;
+    background: rgba(102, 102, 102, 1) !important;
+    margin: auto !important;
     min-width: 400px !important;
     max-width: 1004px !important;
 }
-.mainContainer{
-    margin:auto !important;
-}
-.widget a {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    float: right;
-    background: rgba(255, 255, 255, 0.6);
-    margin-top: 10px;
-    color: rgba(102,102,102,1);
-    cursor:pointer;
-    display: flex;
-    border-bottom: 4px rgba(255, 214, 0, 1) solid;
-    transition: border-bottom 200ms linear;
-}
 
-.widget a:hover  {
-    color: rgba(255, 255, 255, 1);
-    border-bottom: 50px rgba(255, 214, 0, 1) solid;
-}
-
-.fa-info {
-    position: absolute;
-    margin: 17px 22px;
-}
-
-.infoBar {
-    height: 74px;
-}
-.titleBar {
-    background: rgba(255, 214, 0, 1);
-    height: 137px;
-    display: flex;
-    justify-content: space-between;
-    text-transform: uppercase;
+.mainContainer {
     margin: auto !important;
 }
-.titleBar h2 {
-    color: rgba(255,255,255,1);
-    font-size: 3rem;
-}
+
 .titleBar a {
-    color: rgba(255, 255, 255, 1)!important;
+    color: rgba(255, 255, 255, 1) !important;
     text-decoration: none;
 }
+
 .titleBar a:hover {
-    color: rgba(255, 255, 255, 1)!important;
+    color: rgba(255, 255, 255, 1) !important;
     text-decoration: none;
 }
-.titleBar h4 {
-    color: rgba(102,102,102,1);
-    font-size: 2em;
-}
+
 .titleBox {
     position: relative !important;
     /* width: 50%; */
     padding: 1.5% 8% !important;
 }
-.titleBox, .classroomList{
-    font-family: 'Bebas Neue',cursive;
 
-}
-.line {
-    background: rgba(255, 255, 255, 1);
-    height: 2px;
-    width: 90%;
-}
-.lineBox {
-    position: relative;
-    width: 50%;
-    display: flex;
-    align-items: center;
-}
 .navBar {
-    background: rgba(65,65, 70, 1);
+    background: rgba(65, 65, 70, 1);
     height: 64px;
 }
-main {
-    background: rgba(255, 255, 255, 1);
-    margin: 20px 0;
-}
-/*.pageContent{*/
-/*    display:flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*}*/
-/*.pageTitle{*/
-/*    margin: 5%;   */
-/*}*/
 
-.underline{
-    background: rgba(255,214,0,1);
-    height:5px;
-    margin:0 10px   
-}
 /**************** MAIN CONTENT ****************/
-.content{
+.content {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height:100%;
     padding-bottom: 10%;
+    width: 100%;
+    height: 100%;
 }
 
-.classesContent{
+.classesContent {
     display: flex;
     width: 100%;
-    height:100%;
+    height: 100%;
     padding-bottom: 10%;
     height: 500px;
 }
+
 .signUpFrame {
     padding: 10px;
     box-shadow: 5px 1px 10px #888888;
@@ -125,34 +56,37 @@ main {
     margin: 60px;
 }
 
-#signUpLink{
+#signUpLink {
     text-decoration: underline;
     color: black;
 }
-.SubmitBtn{
-    background: rgba(255,214,0,1);
+
+.SubmitBtn {
+    background: rgba(255, 214, 0, 1);
     color: white;
     font-weight: bold;
     width: 63px;
 }
-.SubmitBtn:hover{
-    box-shadow: 3px 3px 7px rgba(65,65,70,1);
+
+.SubmitBtn:hover {
+    box-shadow: 3px 3px 7px rgba(65, 65, 70, 1);
     color: white;
 }
-#finalButton{
+
+#finalButton {
     float: right;
 }
 
-.signUpField{
+.signUpField {
     display: flex;
     flex-direction: row;
 }
 
-.signUplabel {
+.signUpLabel {
     width: 30%;
     text-align: center;
     line-height: 2.2;
-    border: 1.5px rgba(255,214,0,1) solid;
+    border: 1.5px rgba(255, 214, 0, 1) solid;
     background: rgba(255, 214, 0, 1);
     font-weight: bold;
     margin: auto;
@@ -164,44 +98,50 @@ main {
     width: 300px;
 }
 
-.loginFrame{
+.loginFrame {
     box-shadow: 5px 1px 10px #888888;
-    padding: 10px; 
+    padding: 10px;
     display: flex;
-    justify-content: center; 
-} 
-.loginForm{
-    margin: 60px;
-    
+    justify-content: center;
 }
-.loginField{
+
+.loginForm {
+    margin: 60px;
+}
+
+.loginField {
     display: flex;
     flex-direction: row;
 }
-.loginLabel{
-    background: rgba(255,214,0,1);
-    border: 1.5px rgba(255,214,0,1) solid;
+
+.loginLabel {
+    background: rgba(255, 214, 0, 1);
+    border: 1.5px rgba(255, 214, 0, 1) solid;
     text-align: center;
-    line-height: 2.2; 
+    line-height: 2.2;
     font-weight: bold;
     margin: auto;
 }
-.loginInput{
+
+.loginInput {
     text-align: center;
     margin: auto;
-    
+
 }
+
 .signUpFormBtn {
     display: flex;
     justify-content: space-between;
 }
-.signUpBtn{
-    color: rgba(255, 255, 255, 1)!important;
-    border: 1px rgba(255,214,0,1) solid !important;
+
+.signUpBtn {
+    color: rgba(255, 255, 255, 1) !important;
+    border: 1px rgba(255, 214, 0, 1) solid !important;
     background: rgba(255, 214, 0, 1) !important;
-    
+
 }
-.signUpBtn:hover{
+
+.signUpBtn:hover {
     box-shadow: 3px 3px 7px #888888 !important;
 }
 
@@ -216,75 +156,48 @@ main {
 }
 
 .backBtn a {
-    color: rgba(255, 255, 255, 1)!important;
+    color: rgba(255, 255, 255, 1) !important;
     text-decoration: none;
-    
-}
-.backBtn a:hover {
-    color: rgba(255, 255, 255, 1)!important;
-    text-decoration: none;
-}
-.fa-plus-circle{
-     color: rgba(255,214,0,1);
-     font-size: 45px !important;
-     margin: 25px 10px 0 0;
- }
 
-.loginSubmitBtn{
+}
+
+.backBtn a:hover {
+    color: rgba(255, 255, 255, 1) !important;
+    text-decoration: none;
+}
+
+.fa-plus-circle {
+    color: rgba(255, 214, 0, 1);
+    font-size: 45px !important;
+    margin: 25px 10px 0 0;
+}
+
+.loginSubmitBtn {
     display: flex;
     justify-content: space-between;
 }
+
 .classroomList {
     display: flex;
     list-style-type: none;
     padding: 2em;
     flex-direction: column;
+    font-family: 'Bebas Neue', cursive;
 }
+
 .classroomListItem {
     font-size: 30px;
     text-decoration: underline;
     line-height: 2;
 }
-/*footer {*/
-/*    background: rgba(65,65,70,1);*/
-/*    border-bottom: 20px rgba(255, 214, 0, 1) solid;*/
-/*}*/
-/*.footerGrid {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*    padding: 2.5%;*/
-/*}*/
-/*.trademark {*/
-/*    color: rgba(255, 255, 255, 1);*/
-/*}*/
-/*.toTheTop {*/
-/*    display: flex;*/
-/*    background: rgba(255, 214, 0, 1);*/
-/*    height: 40px;*/
-/*    width: 40px;*/
-/*}*/
-/*.toTheTop:hover{*/
-/*    box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);*/
-/*    -webkit-box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);*/
-/*    -moz-box-shadow: 7px 9px 0 0 rgba(255,255,255,0.5);*/
-/*} */
-/*.transition {*/
-/*    transition: all 500ms linear;*/
-/*}*/
-/*.toTheTop a {*/
-/*    margin: auto;*/
-/*}*/
-/*.fa-angle-up {*/
-/*    font-size: 2em;*/
-/*    color: rgba(255,255,255,1);*/
-/*}*/
+
 .error {
     text-align: center;
     background: red;
     color: white;
 }
-.classroomsLeftContent{
+
+.classroomsLeftContent {
     display: flex;
     flex-direction: column;
     width: 200px;

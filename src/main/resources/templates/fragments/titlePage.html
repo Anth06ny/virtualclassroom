@@ -1,22 +1,30 @@
-<div th:fragment="titlePage" xmlns:th="http://www.w3.org/1999/xhtml" >
+<div th:fragment="titlePage" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="classes">
         <div class="pageTitle col-12 offset-md-4" id="title">
             <div class="title">
-                <h1 th:text = "${title}"></h1>
+                <h1 th:text="${title}"></h1>
             </div>
             <div class="underline">
                 <span></span>
             </div>
         </div>
-        <div th:if="${adminAddClass}" >
+        <div th:if="${adminAddClass}">
             <div class="adminOnly" id="adminOnly">
                 <a class="addClass" href="javascript:void(0)" th:onclick="openCreateClassroom()">
                     <i class="fas fa-plus-circle"></i>
                 </a>
-                <form class="hiddenCreateClass" th:action="@{/addClassroom}" method="post">
-                    <input type="text" placeholder="Enter new Classroom name" class="createClassInput" name="classroomName">
-                    <input type="submit" value="OK" class="createClassBtn">
+                <form th:action="@{/addClassroom}" method="post" class="hiddenCreateClass" id="hiddenCreateClass">
+                    <div class="newClass">
+                        <input type="text" placeholder="Enter new Classroom name" class="createClassInput"
+                               name="classroomName">
+                        <input type="button" id="valid-creation" value="OK" class="createClassBtn">
+                    </div>
+                    <div>
+                        <span id="warn-exists" style="display: none">This classroom already exists</span>
+                        <span id="warn-empty" style="display: none">Please enter a name</span>
+                    </div>
                 </form>
+
             </div>
         </div>
     </div>

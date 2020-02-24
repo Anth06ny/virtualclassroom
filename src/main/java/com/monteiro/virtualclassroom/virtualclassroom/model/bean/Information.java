@@ -17,7 +17,8 @@ public class Information {
     @DatabaseField(canBeNull = false, foreign = true, columnName = "id_classroom")
     private Classroom classroom;
 
-    public Information() {}
+    public Information() {
+    }
 
     public Information(String information_label, String information_url, Classroom classroom) {
         this.information_label = information_label;

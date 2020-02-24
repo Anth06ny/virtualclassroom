@@ -19,6 +19,7 @@ build/
 *.iws
 *.iml
 *.ipr
+*.gradle
 out/
 
 ### NetBeans ###
@@ -30,3 +31,4 @@ out/
 
 ### VS Code ###
 .vscode/
+.gradle/6.0.1/executionHistory/executionHistory.bin

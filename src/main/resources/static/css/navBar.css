@@ -7,6 +7,12 @@
     justify-content: space-between;
     margin: auto;
 }
+
+.userProfileBox {
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
 .adminProfileBox{
     display: flex;
     justify-content: flex-end;

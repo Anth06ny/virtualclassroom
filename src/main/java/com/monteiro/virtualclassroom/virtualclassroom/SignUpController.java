@@ -20,7 +20,8 @@ public class SignUpController {
         System.out.println("GET /SignUpPage (SignUpController)");
         return "SignUpPage"; //view
     }
-    @PostMapping ("/SignUpPage")
+
+    @PostMapping("/SignUp")
     public String handleSignUpRequest(
             @RequestParam String user_name,
             @RequestParam String user_lastname,
@@ -28,19 +29,23 @@ public class SignUpController {
             @RequestParam String user_password,
             HttpSession session,
             Model model) throws Exception {
+        User newOne;
 
         System.out.println("POST /SignUpPage (SignUpController)");
-        if((user_name.isEmpty())||(user_lastname.isEmpty())||(user_password.isEmpty())||(user_email.isEmpty()) ){
-            System.out.println("missing");
-            System.out.println(user_password);
+        if ((user_name.isEmpty()) || (user_lastname.isEmpty()) || (user_password.isEmpty()) || (user_email.isEmpty())) {
             model.addAttribute("emptyField", true);
             return "SignUpPage";
-        }
-        else{
-//            (Classroom) session.getAttribute("classroom");
-            System.out.println(user_lastname);
-            User newOne = new User(user_name, user_lastname, user_email, user_password, false);
+        } else {
+            if (((Classroom) session.getAttribute("classroom")).getClassroom_name().equals("Admin")) {
+                newOne = new User(user_name, user_lastname, user_email, true);
+            } else {
+                newOne = new User(user_name, user_lastname, user_email, false);
+            }
+            // classroom set separately
             newOne.setClassroom((Classroom) session.getAttribute("classroom"));
+            newOne.setPassword(user_password);
+
+            // new user creation
             UserDao.saveUser(newOne);
 
             return "LoginPage";
