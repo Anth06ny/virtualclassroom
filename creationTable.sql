@@ -1,3 +1,5 @@
+CREATE USER 'admin'@'%' IDENTIFIED BY 'friends';
+GRANT ALL PRIVILEGES ON virtualclassroom.* TO 'admin'@'%';
 DROP TABLE IF EXISTS `USERS`;
 CREATE TABLE IF NOT EXISTS `USERS`
 (
