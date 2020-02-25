@@ -9,6 +9,7 @@ import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -29,6 +30,10 @@ public class UserDao {
         // instantiate the dao with the connection source
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+
+            user.setUser_email(user.getUser_email().toLowerCase()); //email en minuscule
+            user.setUser_name(StringUtils.capitalize(user.getUser_name().toLowerCase())); //Nom 1 er lettre en maj
+
             // initiate  user
             Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class);
             // initiate classroom
@@ -36,7 +41,7 @@ public class UserDao {
 
             // refresh mandatory to get the FK
             classDao.refresh(user.getClassroom());
-            System.out.println("now the user is set" + user.getClassroom().getClassroom_name());
+            // System.out.println("now the user is set" + user.getClassroom().getClassroom_name());
 
             userDao.createOrUpdate(user);
         } finally {
@@ -51,7 +56,7 @@ public class UserDao {
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
             Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class); //creates a new dao object
-            gotUser = userDao.queryBuilder().where().eq("user_email", email).and().eq("user_password", User.hashPassword(password)).queryForFirst();
+            gotUser = userDao.queryBuilder().where().eq("user_email", email.toLowerCase()).and().eq("user_password", User.hashPassword(password)).queryForFirst();
             return gotUser;
         } finally {
             connectionSource.close();
@@ -113,6 +118,18 @@ public class UserDao {
             System.out.println("column update done");
             // update execution
             updateBuilder.update();
+        } finally {
+            connectionSource.close();
+        }
+    }
+
+    // update user
+    public static boolean isAdmin() throws Exception {
+        JdbcConnectionSource connectionSource = null;
+        try {
+            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+            Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class); //creates a new dao object
+            return userDao.queryBuilder().where().eq("isAdmin", true).countOf() > 0;
         } finally {
             connectionSource.close();
         }

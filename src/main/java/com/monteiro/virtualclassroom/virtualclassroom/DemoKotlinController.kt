@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
-import java.util.*
 
 @Controller
 class DemoKotlinController {
@@ -18,7 +17,7 @@ class DemoKotlinController {
     @Value("\${welcome.message}")
    private val message: String? = null
 
-    private val tasks = Arrays.asList("a", "b", "c", "d", "e", "f", "g")
+    private val tasks = mutableListOf("a", "b", "c", "d", "e", "f", "g")
 
     // /kotlin
     @GetMapping("/kotlin")
@@ -34,9 +33,8 @@ class DemoKotlinController {
 
     // /kotlinParam?name=kotlin
     @GetMapping("/kotlinParam")
-    fun mainWithParam(
-            @RequestParam(name = "name", required = false, defaultValue = "")
-            name: String, model: Model): String {
+    fun mainWithParam(@RequestParam(name = "name", required = false, defaultValue = "") name: String,
+                      model: Model): String {
 
         print("/DemoKotlinController.mainWithParam name=$name")
 
@@ -45,7 +43,7 @@ class DemoKotlinController {
         //Charge le 1er user de ce nom la
         var user = daoGetUserBean(name)
         //S'il n'existe pas on le créé
-        if(user == null)    {
+        if (user == null) {
             user = UserBean(name, "surname")
             //Sauvegarde un nouvelle user en base
             daoSaveUserBean(user)

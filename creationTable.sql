@@ -1,71 +1,84 @@
-CREATE USER 'admin'@'%' IDENTIFIED BY 'friends';
-GRANT ALL PRIVILEGES ON virtualclassroom.* TO 'admin'@'%';
-DROP TABLE IF EXISTS `USERS`;
-CREATE TABLE IF NOT EXISTS `USERS`
-(
-    `id_user`       int          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `user_name`     varchar(200) NOT NULL,
-    `user_lastname` varchar(200) NOT NULL,
-    `user_email`    varchar(200) NOT NULL,
-    `user_password` varchar(50)  NOT NULL,
-    `isAdmin`       boolean
-);
-DROP TABLE IF EXISTS `CLASSROOMS`;
-CREATE TABLE IF NOT EXISTS `CLASSROOMS`
-(
-    `id_classroom`   int         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `classroom_name` varchar(50) NOT NULL
-);
-DROP TABLE IF EXISTS `OPTIONS`;
-CREATE TABLE IF NOT EXISTS `OPTIONS`
-(
-    `id_option`      int          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `option_content` varchar(255) NOT NULL,
-    `isAdmin`        boolean
-);
-DROP TABLE IF EXISTS `INFORMATION`;
-CREATE TABLE IF NOT EXISTS `INFORMATION`
-(
-    `id_information`    int AUTO_INCREMENT PRIMARY KEY,
-    `information_label` Varchar(50)  NOT NULL,
-    `information_url`   Varchar(255) NOT NULL
-);
-DROP TABLE IF EXISTS `QUESTIONS`;
-CREATE TABLE IF NOT EXISTS `QUESTIONS`
-(
-    `id_question`      int          NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `question_content` varchar(255) NOT NULL,
-    `isRadio`          boolean
+#Nom de la base : virtualclassroom
 
-);
-DROP TABLE IF EXISTS `ANSWERS`;
-CREATE TABLE IF NOT EXISTS `ANSWERS`
-(
-    `id_user`   int,
-    `id_option` int
-);
-ALTER TABLE `QUESTIONS`
-    ADD `id_classroom` int NOT NULL;
-ALTER TABLE `QUESTIONS`
-    ADD FOREIGN KEY (`id_classroom`) REFERENCES `CLASSROOMS` (`id_classroom`);
-ALTER TABLE `USERS`
-    ADD `id_classroom` int NOT NULL;
-ALTER TABLE `USERS`
-    ADD FOREIGN KEY (`id_classroom`) REFERENCES `CLASSROOMS` (`id_classroom`);
-ALTER TABLE `OPTIONS`
-    ADD `id_question` int NOT NULL;
-ALTER TABLE `OPTIONS`
-    ADD FOREIGN KEY (`id_question`) REFERENCES `QUESTIONS` (`id_question`);
-ALTER TABLE `INFORMATION`
-    ADD `id_classroom` int NOT NULL;
-ALTER TABLE `INFORMATION`
-    ADD FOREIGN KEY (`id_classroom`) REFERENCES `CLASSROOMS` (`id_classroom`);
-ALTER TABLE `ANSWERS`
-    ADD CONSTRAINT PK_Answers PRIMARY KEY (id_user, id_option);
-ALTER TABLE `ANSWERS`
-    ADD FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id_user`);
-ALTER TABLE `ANSWERS`
-    ADD FOREIGN KEY (`id_option`) REFERENCES `OPTIONS` (`id_option`);
+CREATE TABLE IF NOT EXISTS `answers` (
+  `id_user` int(11) NOT NULL DEFAULT '0',
+  `id_option` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_user`,`id_option`),
+  KEY `id_option` (`id_option`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `CLASSROOMS`
-VALUES (NULL, 'Admin');
+CREATE TABLE IF NOT EXISTS `classrooms` (
+  `id_classroom` int(11) NOT NULL AUTO_INCREMENT,
+  `classroom_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_classroom`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+CREATE TABLE IF NOT EXISTS `information` (
+  `id_information` int(11) NOT NULL AUTO_INCREMENT,
+  `information_label` varchar(50) NOT NULL,
+  `information_url` varchar(255) NOT NULL,
+  `id_classroom` int(11) NOT NULL,
+  PRIMARY KEY (`id_information`),
+  KEY `id_classroom` (`id_classroom`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `options` (
+  `id_option` int(11) NOT NULL AUTO_INCREMENT,
+  `option_content` varchar(255) NOT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL,
+  `id_question` int(11) NOT NULL,
+  PRIMARY KEY (`id_option`),
+  KEY `id_question` (`id_question`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `questions` (
+  `id_question` int(11) NOT NULL AUTO_INCREMENT,
+  `question_content` varchar(255) NOT NULL,
+  `isRadio` tinyint(1) DEFAULT NULL,
+  `id_classroom` int(11) NOT NULL,
+  PRIMARY KEY (`id_question`),
+  KEY `id_classroom` (`id_classroom`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(200) NOT NULL,
+  `user_lastname` varchar(200) NOT NULL,
+  `user_email` varchar(200) NOT NULL,
+  `user_password` varchar(50) NOT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL,
+  `id_classroom` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_user`),
+  KEY `id_classroom` (`id_classroom`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Contraintes pour la table `answers`
+--
+ALTER TABLE `answers`
+  ADD CONSTRAINT `answers_ibfk_2` FOREIGN KEY (`id_option`) REFERENCES `options` (`id_option`),
+  ADD CONSTRAINT `answers_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+
+--
+-- Contraintes pour la table `information`
+--
+ALTER TABLE `information`
+  ADD CONSTRAINT `information_ibfk_1` FOREIGN KEY (`id_classroom`) REFERENCES `classrooms` (`id_classroom`);
+
+--
+-- Contraintes pour la table `options`
+--
+ALTER TABLE `options`
+  ADD CONSTRAINT `options_ibfk_1` FOREIGN KEY (`id_question`) REFERENCES `questions` (`id_question`);
+
+--
+-- Contraintes pour la table `questions`
+--
+ALTER TABLE `questions`
+  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`id_classroom`) REFERENCES `classrooms` (`id_classroom`);
+
+--
+-- Contraintes pour la table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_classroom`) REFERENCES `classrooms` (`id_classroom`);
