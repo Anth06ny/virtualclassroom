@@ -36,11 +36,16 @@ public class LoginController {
             HttpSession session,
             //we are also sending back the model from the DispatcherServlet controller to the view
             Model model) throws IOException, SQLException, NoSuchAlgorithmException {
+        boolean isPswOk;
 
         System.out.println("POST /LoginPage (LoginController)");
 
         User connectedUser = UserDao.getUser(login_name, login_password);
-        boolean isPswOk = connectedUser.isPasswordCorrect(login_password);
+        isPswOk = connectedUser.isPasswordCorrect(login_password);
+//        if (!isPswOk){
+//            model.addAttribute("user not existing", true);
+//        }
+
         System.out.println("connected User: " + connectedUser);
         System.out.println("is the password OK? " + isPswOk);
         //could not find the combination of login and psw in db

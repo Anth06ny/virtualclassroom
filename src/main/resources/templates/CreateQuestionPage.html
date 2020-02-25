@@ -40,6 +40,7 @@
                     <p th:if="${isRadioEmpty}" class="error">Question option empty</p>
                     <!--/*@thymesVar id="emptyContent" type="java"*/-->
                     <p th:if="${emptyContent}" class="error">Content empty</p>
+                    <p th:if="${questionSuccess}" class="error">The question has been sent</p>
                 </div>
                 <div class="questionBox">
                     <!--/*@thymesVar id="QuestionDao" type="java"*/-->

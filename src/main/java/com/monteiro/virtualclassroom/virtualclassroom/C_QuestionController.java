@@ -80,6 +80,7 @@ public class C_QuestionController {
             OptionDao.saveOption(newOption);
             System.out.println("writing options successful");
         }
+        model.addAttribute("questionSuccess", true);
         return "CreateQuestionPage";
     }
 }
