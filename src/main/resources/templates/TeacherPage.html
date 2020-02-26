@@ -11,7 +11,7 @@
 
 <title>Teacher page</title>
 <body>
-<div class="container">
+<div class="container col-12">
     <!-- Header -->
     <header id="header" th:replace="fragments/header.html :: header"/>
     <!-- MenuBar -->
@@ -41,7 +41,8 @@
                     <span th:replace="~{fragments/informationBox.html :: informationBox}"/>
                     <div th:if="${session.is_Admin == true}" class="studentFrame">
                         <div class="frameHeader">
-                            <p class="classTitle" th:text="${session.classroom.getClassroom_name()}"></p>
+                            <p th:if="${session.classroom!=null}" class="classTitle"
+                               th:text="${session.classroom.getClassroom_name()}"></p>
                         </div>
                         <div class="frameBody">
                             <ul th:each="student: ${students}" class="studentList">

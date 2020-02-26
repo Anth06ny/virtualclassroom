@@ -98,8 +98,10 @@ public class LoginController {
         session.setAttribute("login_first", user.getUser_name());
         session.setAttribute("login_last", user.getUser_lastname());
         session.setAttribute("is_Admin", user.getIsAdmin());
-        session.setAttribute("user_classroom", user.get_UserClassroomId());
         session.setAttribute("userID", user.getUser_id());
+        if (user.getIsAdmin() != true) {
+            session.setAttribute("user_classroom", user.get_UserClassroomId());
+        }
     }
 
 

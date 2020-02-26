@@ -34,7 +34,7 @@ public class User {
     @DatabaseField
     private boolean isAdmin;
 
-    @DatabaseField(canBeNull = false, foreign = true, columnName = "id_classroom")
+    @DatabaseField(foreign = true, columnName = "id_classroom")
     private Classroom classroom;
 
     // mandatory no-argument-constructor for ORMlite

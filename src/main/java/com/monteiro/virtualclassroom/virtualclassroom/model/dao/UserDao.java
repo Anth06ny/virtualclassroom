@@ -39,9 +39,10 @@ public class UserDao {
             // initiate classroom
             Dao<Classroom, String> classDao = DaoManager.createDao(connectionSource, Classroom.class);
 
-            // refresh mandatory to get the FK
-            classDao.refresh(user.getClassroom());
-            // System.out.println("now the user is set" + user.getClassroom().getClassroom_name());
+            if (user.getIsAdmin() == false) {
+                // refresh mandatory to get the FK
+                classDao.refresh(user.getClassroom());
+            }
 
             userDao.createOrUpdate(user);
         } finally {
@@ -136,7 +137,7 @@ public class UserDao {
     }
 
     // update password user
-    public void updatePwdUser(String user_email, String newPassword) throws SQLException, IOException {
+    public void updatePwdUser(String user_email, String currentPassword, String newPassword) throws SQLException, IOException, NoSuchAlgorithmException {
         JdbcConnectionSource connectionSource = null;
 
         try {
@@ -144,21 +145,16 @@ public class UserDao {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
             Dao<User, String> update = DaoManager.createDao(connectionSource, User.class);
             System.out.println("db_connection ok");
-            System.out.println("entry_param1 : " + user_email);
-            System.out.println("entry_param2 : " + newPassword);
+
             /*                      ----update call----                 */
             // DAO setting
             UpdateBuilder<User, String> updateBuilder = update.updateBuilder();
 
             // set the criteria like i would a QueryBuilder
-            updateBuilder.where().eq("user_email", user_email);
-
-            // print the query
-//            System.out.println(updateBuilder.where().eq("user_email", user_email));
+            updateBuilder.where().eq("user_email", user_email).and().eq("user_password", User.hashPassword(currentPassword));
 
             // update the value of the target fields
-            updateBuilder.updateColumnValue("user_password", newPassword);
-
+            updateBuilder.updateColumnValue("user_password", User.hashPassword(newPassword));
 
             // query exec
             updateBuilder.update();

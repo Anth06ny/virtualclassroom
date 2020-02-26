@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 @Controller
@@ -29,30 +30,27 @@ public class UpdatePasswordController {
             @RequestParam String newPassword,
             @RequestParam String repeatPassword,
             HttpSession session,
-            Model model) throws IOException, SQLException {
+            Model model) throws IOException, SQLException, NoSuchAlgorithmException {
         System.out.println("handleUpdateRequest - UpdatePasswordController");
 
-        // retrieve target user in the db
+        // retrieve target user from the session
         User myUser = (User) session.getAttribute("user");
 
-        if (myUser == null) {
-            // display error msg
-            model.addAttribute("invalidCredentials", true);
-            return "UpdatePassword";
-        } else if (myUser.getUser_password().equals(currentPassword)) {
+        if (myUser.getUser_password().equals(myUser.hashPassword(currentPassword))) {
             if (newPassword.isEmpty()) {
                 // display emptyField msg
                 model.addAttribute("emptyField", true);
                 return "UpdatePassword";
-            } else if (newPassword.equals(repeatPassword)) {
-                // update function call
-                dao.updatePwdUser(myUser.getUser_email(), newPassword);
-                return "ProfilePage";
-            } else {
+            } else if (!newPassword.equals(repeatPassword)) {
                 // display errorPwd msg
                 model.addAttribute("differentPassword", true);
+                return "UpdatePassword";
+            } else {
+                // update function call
+                dao.updatePwdUser(myUser.getUser_email(), currentPassword, newPassword);
+                return "ProfilePage";
             }
-            return "UpdatePassword";
+
         } else {
             // display errorPwd msg
             model.addAttribute("invalidPassword", true);

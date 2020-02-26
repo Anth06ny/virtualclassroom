@@ -107,40 +107,46 @@ public class AnswerController {
         System.out.println("My Admin");
 
         // get the selected class stored in the session
-        Classroom classroom1 = (Classroom) session.getAttribute("classroom");
-        System.out.println("classroom1 " + classroom1);
-        long classroomId = classroom1.getId_classroom();
-        System.out.println("classroomId" + classroomId);
+        Classroom classroom = (Classroom) session.getAttribute("classroom");
+        System.out.println("classroom1 " + classroom);
 
-        // creation of the list question
-        int startRow = 0;
+        if (classroom != null) {
 
-        // creation of a list which will be used by thymeleaf and store the result of the function call in the list
-        List<Question> questionList = QuestionDao.getAllQuestionsFromId(classroomId, startRow, QuestionDao.getQuestionCount());
-        questionList.sort(Comparator.comparing(Question::getId_question));
-        // add to the model
-        model.addAttribute("questions", questionList);
+            long classroomId = classroom.getId_classroom();
+            System.out.println("classroomId" + classroomId);
 
-        List<Information> informationList = InformationDao.showInformation(classroomId);
-        model.addAttribute("information", informationList);
+            // creation of the list question
+            int startRow = 0;
 
-        List<User> listOfUsers = UserDao.getStudentsList(classroomId);
-        model.addAttribute("students", listOfUsers);
+            // creation of a list which will be used by thymeleaf and store the result of the function call in the list
+            List<Question> questionList = QuestionDao.getAllQuestionsFromId(classroomId, startRow, QuestionDao.getQuestionCount());
+            questionList.sort(Comparator.comparing(Question::getId_question));
+            // add to the model
+            model.addAttribute("questions", questionList);
 
-        List<Answer> listOfAnswers = AnswerDao.getAnswers();
-        model.addAttribute("answers", listOfAnswers);
+            List<Information> informationList = InformationDao.showInformation(classroomId);
+            model.addAttribute("information", informationList);
+
+            List<User> listOfUsers = UserDao.getStudentsList(classroomId);
+            model.addAttribute("students", listOfUsers);
+
+            List<Answer> listOfAnswers = AnswerDao.getAnswers();
+            model.addAttribute("answers", listOfAnswers);
 
 
-        for (Question value : questionList) {
-            // store the id_question from the current displayed question
-            int questionId = value.getId_question();
-            System.out.println(questionId);
+            for (Question value : questionList) {
+                // store the id_question from the current displayed question
+                int questionId = value.getId_question();
+                System.out.println(questionId);
 
-            // retrieve options store in optionDao
-            value.setOptions(OptionDao.getAllOptionsFromQuestion(questionId, startRow, OptionDao.getOptionCount()));
-            value.setAnswers(AnswerDao.getAllAnswersOfQuestion(questionId, startRow, AnswerDao.getAnswerCount()));
+                // retrieve options store in optionDao
+                value.setOptions(OptionDao.getAllOptionsFromQuestion(questionId, startRow, OptionDao.getOptionCount()));
+                value.setAnswers(AnswerDao.getAllAnswersOfQuestion(questionId, startRow, AnswerDao.getAnswerCount()));
+            }
+            return "TeacherPage"; //view
+        } else {
+            return "TeacherPage";
         }
-        return "TeacherPage"; //view
     }
 
     @PostMapping("/deleteQuestion")

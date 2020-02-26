@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
-//on ne touche pas
 //url de départ http://localhost:8080
 @SpringBootApplication
 public class VirtualclassroomApplication extends SpringBootServletInitializer {

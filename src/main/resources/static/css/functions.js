@@ -301,4 +301,63 @@ $(function () {
             $('#warn-exists').hide();
         }
     })
+
+    //if there is no classroom yet and admin wants to create a question
+    $("#questionHasNoClassroom").on("click", function (ev) {
+        ev.stopPropagation();
+        alert('You should first login to a classroom in order to create a question. If there is no classroom, please create one in "Classroom List". Then logout and login again into the current classroom.')
+    })
+    $("#infoHasNoClassroom").on("click", function (ev) {
+        ev.stopPropagation();
+        alert('You should first login to a classroom in order to create an information. If there is no classroom, please create one in "Classroom List". Then logout and login again into the current classroom.')
+    })
+
 });
+
+//information box function
+$(function () {
+
+    //to update Information in infoBox
+    $(".updateInfoIcon").on("click", function (ev) {
+        ev.stopPropagation();
+        let idInfo = $(this).attr("value")
+        let idVerify = $(this).parent().parent().parent().attr("value")
+
+        let a = $(this).parent().parent().parent().attr("id");
+        let b = $(this).parent().parent().parent().next().attr("id")
+        let x = document.getElementById(a);
+        let y = document.getElementById(b);
+
+        if (idInfo == idVerify && y.style.display === "none") {
+            y.style.display = "flex"
+            console.log("updateFrame is in flex display");
+            x.style.display = "none";
+            console.log("changed to none display");
+        }
+    })
+
+    $(".updateInfoForm").on("click", function (ev) {
+        ev.stopPropagation();
+    })
+    //to reverse the update form
+    $("body").on("click", function () {
+
+        var getForms = document.getElementsByClassName("updateInfoForm")
+        var getFrames = document.getElementsByClassName("updateInfoFrame")
+        console.log(getForms)
+        var formDisplayed = Array.prototype.map.call(getForms, function (getForm) {
+            return getForm.style.cssText === "display: flex;"
+        })
+        var frameDisplayed = Array.prototype.map.call(getFrames, function (getFrame) {
+            return getFrame.style.cssText === "display: none;"
+        })
+        for (let i = 0; i < getForms.length; i++) {
+            if (formDisplayed[i] === true) {
+                getForms[i].style.cssText = "display: none;";
+                getFrames[i].style.cssText = "display: flex;"
+            }
+        }
+    })
+});
+
+

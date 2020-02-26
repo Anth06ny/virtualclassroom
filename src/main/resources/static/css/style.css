@@ -168,8 +168,14 @@ body {
 
 .fa-plus-circle {
     color: rgba(255, 214, 0, 1);
-    font-size: 45px !important;
+    font-size: 45px;
     margin: 25px 10px 0 0;
+}
+
+@media screen and (max-width: 430px) {
+    .fa-plus-circle {
+        font-size: 30px;
+    }
 }
 
 .loginSubmitBtn {
@@ -189,7 +195,10 @@ body {
     font-size: 30px;
     text-decoration: underline;
     line-height: 2;
+    display: flex;
+    justify-content: center;
 }
+
 
 .error {
     text-align: center;
@@ -200,6 +209,11 @@ body {
 .classroomsLeftContent {
     display: flex;
     flex-direction: column;
-    width: 200px;
     margin: 42px;
+}
+
+@media screen and (max-width: 570px) {
+    .classroomsLeftContent {
+        margin: 42px 0px 42px 20px;
+    }
 }

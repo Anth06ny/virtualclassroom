@@ -9,7 +9,7 @@
 <title>Home page</title>
 </head>
 <body>
-<div class="container">
+<div class="container col-12">
     <!-- Header -->
     <header id="header" th:replace="fragments/header.html :: header"/>
     <!-- MenuBar -->
@@ -30,19 +30,21 @@
                     <!--                        th:replace="~{fragments/studentframe.html :: studentFrame}"-->
 
                 </div>
-                <ul class="classroomList">
-                    <a th:each="classroom: ${classrooms}" th:if="${session.is_Admin == null}"
-                       th:href="@{/LoginClass(id=${classroom.getId_classroom()})}">
-                        <li class="classroomListItem" th:text="${classroom.getClassroom_name()}">
+                <div class="teacherRightContent col-6">
+                    <ul class="classroomList">
+                        <a th:each="classroom: ${classrooms}" th:if="${session.is_Admin == null}"
+                           th:href="@{/LoginClass(id=${classroom.getId_classroom()})}">
+                            <li class="classroomListItem" th:text="${classroom.getClassroom_name()}">
 
-                        </li>
-                    </a>
-                    <a th:if="${session.is_Admin == true}" th:each="classroom: ${classrooms}">
-                        <li class="classroomListItem" name="className" th:text="${classroom.getClassroom_name()}"
-                            th:value="${classroom.getClassroom_name()}">
-                        </li>
-                    </a>
-                </ul>
+                            </li>
+                        </a>
+                        <a th:if="${session.is_Admin == true}" th:each="classroom: ${classrooms}">
+                            <li class="classroomListItem" name="className" th:text="${classroom.getClassroom_name()}"
+                                th:value="${classroom.getClassroom_name()}">
+                            </li>
+                        </a>
+                    </ul>
+                </div>
 
                 <div th:if="${adminAccess}" class="adminOnly">"There are no classes available. Please login as admin to
                     create one"

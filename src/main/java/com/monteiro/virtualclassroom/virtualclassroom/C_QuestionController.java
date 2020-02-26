@@ -24,6 +24,10 @@ public class C_QuestionController {
     public String signUpRender(Model model, HttpSession session) throws IOException, SQLException {
         System.out.println("GET /CreateQuestion (CreateQuestionController)");
         Classroom currentClassroom = (Classroom) session.getAttribute("classroom");
+        if (currentClassroom == null) {
+            model.addAttribute("noExistingClassroom", true);
+            return "redirect:/AdminPage";
+        }
         long classroomId = currentClassroom.getId_classroom();
         List<Information> informationList = InformationDao.showInformation(classroomId);
         model.addAttribute("information", informationList);

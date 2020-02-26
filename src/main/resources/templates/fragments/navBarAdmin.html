@@ -3,15 +3,18 @@
         <i class="fa fa-bars"></i>
     </a>
     <!-- Teacher menu -->
-    <ul class="nav teacherMenu col-lg-7 col-md-7 col-sm-10" >
+    <ul class="nav teacherMenu col-lg-7 col-md-7 col-sm-9">
         <li class="teacherMenuItem" id="topTeacherMenuItem">
-            <a class="" href="/CreateQuestionPage">
-                <button class= "navButton">Create Question</button>
+            <a th:if="${session.classroom != null}" class="" th:href="@{/CreateQuestionPage}">
+                <button class="navButton">Create Question</button>
+            </a>
+            <a th:if="${session.classroom == null}">
+                <button class="navButton" id="questionHasNoClassroom">Create Question</button>
             </a>
         </li>
         <li class="teacherMenuItem" id="bottomTeacherMenuItem">
             <a class="" href="/">
-                <button class= "navButton">Classroom List</button>
+                <button class="navButton">Classroom List</button>
             </a>
         </li>
     </ul>
@@ -27,7 +30,7 @@
             <a th:href="@{/ProfilePage}">
                 <p id="topProfile">Profile</p></a>
             <a th:href="@{/Logout}">
-                <p id="bottomProfile" >Logout</p></a>
+                <p id="bottomProfile">Logout</p></a>
         </div>
     </div>
 </div>
