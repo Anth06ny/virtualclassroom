@@ -23,6 +23,8 @@
 
                     <form class="signUpForm" method="post" action="#" th:action="@{/SignUp}">
                         <p th:if="${emptyField}" class="error">Please enter missing data</p>
+                        <p th:if="${existingUser}" class="error">A user with this combination of password and e-mail
+                            already exists</p>
                         <div class="signUpField form-group row">
                             <label for="firstName" class="signUpLabel col-md-4">First name</label>
                             <input type="text" class="signUpInput form-control rounded-0 col-md-8" id="firstName"

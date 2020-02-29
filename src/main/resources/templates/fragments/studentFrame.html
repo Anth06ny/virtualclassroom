@@ -1,20 +1,27 @@
-<div th:fragment="studentFrame" class="studentFrame">
+<div th:fragment="studentFrame" class="studentFrame" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="frameHeader" id="frameHeader">
-        <div class="updateFrame" id="updateFrame" style="display: flex;">
-            <p class="classTitle" name="classTitle"></p>
-            <button class="updateFrameIcon" id="updateFrameIcon">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-        </div>
-        <form th:action="@{/updateClassroom}" class="updateForm" id="updateForm" method="post" style="display: none;">
-            <input class="classNameInput" id="classNameInput" name="newClassroomName" value=>
-            <button class="renameClassBtn" name="classNameModify" type="submit" value='classNameBtn'>OK</button>
-        </form>
-        <div class="deleteFrame" id="deleteFrame">
-            <!-- Button trigger modal -->
-            <button class="deleteFrameIcon" data-toggle="modal" data-target="#exampleModalCenter">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
+        <span id="class-empty" style="display: none">Please enter a name</span>
+        <div>
+            <div class="formLine">
+                <div class="updateFrame" id="updateFrame" style="display: flex;">
+                    <p class="classTitle" name="classTitle"></p>
+                    <button class="updateFrameIcon" id="updateFrameIcon">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <form th:action="@{/updateClassroom}" class="updateForm" id="updateForm" method="post"
+                      style="display: none;">
+                    <input class="classNameInput" id="classNameInput" name="newClassroomName" value=>
+                    <input type="button" id="renameClassBtn" value='OK'>
+                    <input style="display: none;" class="renameClassHidden" name="classNameModify">
+                </form>
+                <div class="deleteFrame" id="deleteFrame">
+                    <!-- Button trigger modal -->
+                    <button class="deleteFrameIcon" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -84,7 +91,7 @@
 
             $('.classTitle').text(nameValue)
             $(".classDelete").attr("value", nameValue)
-            $(".renameClassBtn").attr("value", nameValue)
+            $(".renameClassHidden").attr("value", nameValue)
 
         });
         $(".deleteIcon").on("click", function () {
@@ -94,6 +101,7 @@
     </script>
     <script type="text/javascript" th:if="${studentFrameActive}">
         $(function () {
+            //update classroom name
             $("#updateFrameIcon").on("click", function (ev) {
                 ev.stopPropagation();
                 var x = document.getElementById("updateFrame");
@@ -111,9 +119,44 @@
             $(".updateFrame").on("click", function (ev) {
                 ev.stopPropagation();
             })
+            $("#renameClassBtn").on("click", function (e) {
+                e.stopPropagation();
+                var classForm = $("#updateForm").get(0);
+                var classUrl = $(classForm).attr('action');
+
+                console.log("the form is here" + classForm)
+                console.log("the action is here" + classUrl)
+
+                $.ajax({
+                    url: classUrl,
+                    type: "POST",
+                    data: new FormData(classForm),
+                    dataType: 'text',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    complete: function (pData) {
+                        console.log('COMPLETE');
+                    },
+                    success: function (pData) {
+                        console.log("SUCCESS", pData);
+                        if (pData === "successClass") document.location.href = "/";
+                        else if (pData === "emptyClass") {
+                            console.log("I came here and I don't know what to do")
+                            $('#class-empty').show();
+                        }
+                    },
+                    error: function (pData) {
+                        console.log('Error : ', pData);
+                    }
+                });
+            })
             $("body").on("click", function () {
                 console.log("studentFram is active, clicked on body")
                 removeToggle();
+                if ($("#class-empty").get(0).style.display == "") {
+                    $('#class-empty').hide();
+                }
             })
         });
     </script>

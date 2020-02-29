@@ -21,7 +21,7 @@
     </div>
     <main>
         <div class="pageContent">
-            <div th:replace="~{fragments/titlePage.html :: titlePage(title='Classrooms')}"></div>
+            <div th:replace="~{fragments/titlePage.html :: titlePage(title='Profile')}"></div>
             <div class="profileContent">
                 <form method="post" name="nameUpdate" action="#" th:action="@{/updateProfilePage}">
                     <p th:if="${emptyField}" class="error">You cannot submit empty field</p>

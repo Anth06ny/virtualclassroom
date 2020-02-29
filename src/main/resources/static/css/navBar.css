@@ -13,11 +13,12 @@
     justify-content: flex-end;
 }
 
-.adminProfileBox{
+.adminProfileBox {
     display: flex;
     justify-content: flex-end;
     padding-right: 15px;
 }
+
 .navBarAdmin {
     background: rgba(65, 65, 70, 1);
     height: 64px;
@@ -27,7 +28,7 @@
     margin: auto;
 }
 
-.burgerIcon{
+.burgerIcon {
     display: none;
 }
 
@@ -42,15 +43,16 @@
     margin: 13px;
     box-shadow: 4px 7px 5px rgba(0, 0, 0, 1);
 }
-.teacherMenuItem a:hover{
+
+.teacherMenuItem a:hover {
     text-decoration: none;
 }
 
 .navButton {
     display: flex;
     align-content: space-around;
-    background: rgba(102,102,102,1);
-    color: rgba(255,214,0,1);
+    background: rgba(102, 102, 102, 1);
+    color: rgba(255, 214, 0, 1);
     border: none;
     padding: 7px 20px;
 }
@@ -71,23 +73,23 @@
     align-items: center;
 }
 
-.hiddenProfile{
+.hiddenProfile {
     display: none;
 }
 
 .openProfileBox .hiddenProfile {
     display: flex;
     flex-direction: column;
-    background:  rgba(102,102,102,1);
+    background: rgba(102, 102, 102, 1);
     position: absolute;
     margin-top: 64px;
-    box-shadow:4px 7px 5px black;
+    box-shadow: 4px 7px 5px black;
     width: 115px;
     align-items: center;
 }
 
-.openProfileBox .hiddenProfile p{
-    margin-bottom:5px;
+.openProfileBox .hiddenProfile p {
+    margin-bottom: 5px;
     font-size: 18px;
     color: rgba(255, 214, 0, 1);
     width: 100%;
@@ -98,7 +100,7 @@
 
 .fa-user {
     font-size: 35px !important;
-    color: rgba(255,214,0,1);
+    color: rgba(255, 214, 0, 1);
 }
 
 .hiddenProfile {
@@ -109,53 +111,59 @@
     border-top: 1px solid rgba(0, 0, 0, 1);
     text-decoration: none;
 }
+
 #bottomProfile:hover {
     text-decoration: none !important;
 }
-@media screen and (max-width: 576px){
+
+@media screen and (max-width: 576px) {
     .nav.teacherMenu {
-        display:none;
+        display: none;
     }
-    .burgerIcon{
+
+    .burgerIcon {
         display: flex;
         align-items: center;
-        color:  rgba(255, 214, 0, 1);
-        font-size:35px ;
+        color: rgba(255, 214, 0, 1);
+        font-size: 35px;
         margin-left: 20px;
         text-decoration: none;
     }
-    .burgerIcon:hover{
-        color:  rgba(255, 214, 0, 1);
+
+    .burgerIcon:hover {
+        color: rgba(255, 214, 0, 1);
         text-decoration: none;
 
     }
 }
-@media screen and (max-width: 576px){
-    .openTeacherMenu .teacherMenu{
-        display:flex;
+
+@media screen and (max-width: 576px) {
+    .openTeacherMenu .teacherMenu {
+        display: flex;
+        flex-direction: column;
         justify-content: center;
-        background:  rgba(102,102,102,1);
+        background: rgba(102, 102, 102, 1);
         margin: auto auto auto 18px;
         padding: 0px;
-        box-shadow:4px 7px 5px black;
+        box-shadow: 4px 7px 5px black;
     }
-    .openTeacherMenu .burgerIcon{
+
+    .openTeacherMenu .burgerIcon {
         display: flex;
         align-items: center;
-        color:  rgba(255, 214, 0, 1);
-        font-size:35px ;
+        color: rgba(255, 214, 0, 1);
+        font-size: 35px;
         margin-left: 20px;
         text-decoration: none;
     }
 
-    .openTeacherMenu .teacherMenuItem{
+    .openTeacherMenu .teacherMenuItem {
         margin: 0px;
-        display: flex;
         justify-content: center;
-        width: 184px;
-        box-shadow:none;
+        box-shadow: none;
     }
-    .openTeacherMenu #bottomTeacherMenuItem{
+
+    .openTeacherMenu #bottomTeacherMenuItem {
         border-top: 1px solid black;
     }
 }

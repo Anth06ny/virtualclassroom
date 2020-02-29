@@ -53,9 +53,9 @@
                 </div>
 
                 <!-- Right part -->
-                <div class="teacherRightContent col-9">
+                <div class="teacherRightContent col-sm-8">
                     <!--                        look at it this is when u have to load the function-->
-                    <div class="questionBox"
+                    <div class="questionBox col-sm-12"
                          th:each="question: ${questions}">
 
                         <div class="questionBar" id="questionBar">
@@ -71,18 +71,18 @@
                                 <form th:action="@{/updateQuestion}" class="updateQForm"
                                       th:id="${question.getQuestion_content()}" method="post"
                                       style="display: none;">
-                                    <input class="questionContentInput" id="questionContentInput"
+                                    <input class="questionContentInput"
                                            name="newQuestionContent" th:value="${question.getQuestion_content()}">
-                                    <button class="renameQuestionBtn" id="renameQuestionBtn" name="questionToModify"
+                                    <button class="renameQuestionBtn" name="questionToModify"
                                             type="submit"
                                             th:value="${question.getId_question()}">OK
                                     </button>
                                 </form>
                             </div>
                             <div class="topIcons">
-                                <a class="lockIcon" role="button">
-                                    <i class="fa fa-lock questionLock" id="locker"></i>
-                                </a>
+                                <!--                                <a class="lockIcon" role="button">-->
+                                <!--                                    <i class="fa fa-lock questionLock" id="locker"></i>-->
+                                <!--                                </a>-->
                                 <a th:class="arrowIcon" th:data-toggle="collapse" th:role="button"
                                    th:aria-expanded="false" th:aria-controls="collapse">
                                     <i class="fas fa-sort-up answerToggle"
@@ -103,10 +103,10 @@
                                               th:each="radioValue: ${question.getOptions()}">
 
                                             <input th:type="radio" class="toto" name="selectedOption"
-                                                   th:field="*{id_option}"
+                                                   th:field="*{radioOption}"
                                                    th:value="${radioValue.getId_option()}">
                                             <label
-                                                    th:for="${#ids.prev('id_option')}"
+                                                    th:for="${#ids.prev('radioOption')}"
                                                     th:text="${radioValue.getOption_content()}"></label>
                                         </span>
 
@@ -116,10 +116,10 @@
                                         <span th:if="${question.getIsRadio()== false }"
                                               th:each="checkboxValue: ${question.getOptions()}">
                                             <input th:type="checkbox" class="toto" name="questionValue"
-                                                   th:field="*{multiCheckboxSelectedValues}"
+                                                   th:field="*{checkboxOptions}"
                                                    th:value="${checkboxValue.getId_option()}">
 
-                                         <label class="answerBody" th:for="${#ids.prev('multiCheckboxSelectedValues')}"
+                                         <label class="answerBody" th:for="${#ids.prev('checkboxOptions')}"
                                                 th:text="${checkboxValue.getOption_content()}"></label>
                                         </span>
                                         <!--                                    display the pull of possible answer-->
@@ -133,7 +133,7 @@
                                 </form>
 
                                 <div th:if="${session.is_Admin == true}">
-                                    <table class="answerTable">
+                                    <table class="answerTable col-sm-12">
                                         <thead class="answerTableHeader">
                                         <tr th:id="firstRow">
                                             <th>Student Name</th>
@@ -144,12 +144,11 @@
                                                 </th>
                                                 <th style="display: none;" class="updateOption"
                                                     th:id="${option.getOption_content()}">
-                                                        <span>
+                                                    <span>
                                                         <form th:action="@{/updateOption}"
                                                               method="post"
                                                               class="updateOptionFrom"
                                                               th:if="${session.is_Admin == true}">
-
                                                             <input th:value="${option.getOption_content()}"
                                                                    name="newOptionContent" class="newOptionContent">
                                                             <button class="renameOptionBtn" name="optionToModify"
@@ -157,8 +156,7 @@
                                                                     th:value="${option.getId_option()}">OK
                                                             </button>
                                                             </form>
-                                                                </span>
-
+                                                    </span>
                                                 </th>
                                             </div>
                                         </tr>
@@ -172,15 +170,15 @@
 
                                             <div th:each="option : ${question.getOptions()}">
                                                 <td class="chosenAnswer">
-                                                        <span th:each="answer: ${question.getAnswers()}"
-                                                              th:value=" ${answer.getOption().getId_option()}"
-                                                              th:id=" ${option.getId_option()}"
-                                                              th:class="${answer.getUser().getUser_id()}"
-                                                              th:if="${answer.getUser().getUser_id()}==${student.getUser_id()}">
-                                                            <span th:if="${answer.getOption().getId_option()}==${option.getId_option()}">
+                                                    <span th:each="answer: ${question.getAnswers()}"
+                                                          th:value=" ${answer.getOption().getId_option()}"
+                                                          th:id=" ${option.getId_option()}"
+                                                          th:class="${answer.getUser().getUser_id()}"
+                                                          th:if="${answer.getUser().getUser_id()}==${student.getUser_id()}">
+                                                        <span th:if="${answer.getOption().getId_option()}==${option.getId_option()}">
                                                             <i class="fas fa-check"></i>
-                                                            </span>
                                                         </span>
+                                                    </span>
                                                 </td>
                                             </div>
                                         </tr>

@@ -68,3 +68,23 @@ main {
     box-shadow: 4px 7px 5px black;
 }
 
+@media screen and (max-width: 360px) {
+    .openCreateClass .hiddenCreateClass {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        margin-left: -155px;
+        align-items: center;
+    }
+
+    .newClass {
+        display: flex;
+        box-shadow: none;
+        flex-direction: column;
+    }
+
+    .createClassBtn {
+        align-self: center;
+    }
+}
+

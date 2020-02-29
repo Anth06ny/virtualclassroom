@@ -25,11 +25,10 @@ public class AnswerDao {
 
     // save answer method
     public static void saveAnswer(Answer answer) throws Exception {
-        JdbcConnectionSource connectionSource = null;
         // instantiate the dao with the connection source
+        JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-
             Dao<Answer, String> answerDao = DaoManager.createDao(connectionSource, Answer.class); //creates a new dao object
             Dao<Option, String> optionDao = DaoManager.createDao(connectionSource, Option.class);
             Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class);
@@ -56,20 +55,18 @@ public class AnswerDao {
             List<Option> allCheckboxes = optionQb.join(questionQb).query();
             List<Option> selectedCheckbox = new ArrayList<>();
             for (int i = 0; i < allCheckboxes.size(); i++) {
-                System.out.println("Selected checkboxes" + allCheckboxes.get(i).getId_option());
                 if (allCheckboxes.get(i).getId_option() == answer.getOption().getId_option()) {
                     selectedCheckbox.add(allCheckboxes.get(i));
-                    System.out.println("added Option: " + allCheckboxes.get(i).getId_option());
                 }
             }
 
             if (selectedCheckbox.size() == 0) {
                 if (answerDao.queryBuilder().where().eq("id_user", answer.getUser().getUser_id()).countOf() == 0) {
                     System.out.println("I cannot see this user in the table answers");
-                    answerDao.createOrUpdate(answer);
+                    answerDao.create(answer);
                 } else if (answersOfUserOnQuestion.size() == 0) {
                     System.out.println("I can see the user and he has answered another question");
-                    answerDao.createOrUpdate(answer);
+                    answerDao.create(answer);
                 }
                 //update the existing answer of this user to this question
                 else {
@@ -81,7 +78,6 @@ public class AnswerDao {
                     updateBuilder.updateColumnValue("id_option", answer.getOption().getId_option());
                     // update execution
                     updateBuilder.update();
-                    System.out.println("answer updated");
                 }
             }
             //the join done before has no result : user has not answered this very question yet
@@ -96,15 +92,13 @@ public class AnswerDao {
                 System.out.println("My option's ID " + selectedCheckbox.get(0).getId_option());
                 if (answerDao.queryBuilder().where().eq("id_user", answer.getUser().getUser_id()).countOf() == 0) {
                     System.out.println("I cannot see this user in the table answers");
-                    answerDao.createOrUpdate(answer);
+                    answerDao.create(answer);
 
                 } else if (answerOption.size() == 0) {
                     System.out.println("I can see this option empty " + answerOption.size());
-                    answerDao.createOrUpdate(answer);
-                    System.out.println("You have chosen a different option in this question");
+                    answerDao.create(answer);
 
                 } else if (answerDao.queryBuilder().where().eq("id_option", selectedCheckbox.get(0).getId_option()).countOf() > 0) {
-                    System.out.println("I am the update" + answerDao.queryBuilder().where().eq("id_option", selectedCheckbox.get(0).getId_option()).countOf());
                     System.out.println("I am updating the checkbox");
                     UpdateBuilder<Answer, String> updateBuilder = answerDao.updateBuilder();
                     // set the criteria
@@ -164,7 +158,6 @@ public class AnswerDao {
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-
             Dao<Answer, String> answerDao = DaoManager.createDao(connectionSource, Answer.class);//creates a new dao object
 
             return answerDao.queryBuilder().where().eq("id_user", userId).queryForFirst();
@@ -198,8 +191,7 @@ public class AnswerDao {
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
 
-            Dao<Answer, String> answerDao = DaoManager.createDao(connectionSource, Answer.class);//creates a new dao object
-
+            Dao<Answer, String> answerDao = DaoManager.createDao(connectionSource, Answer.class);
             Dao<Option, String> optionDao = DaoManager.createDao(connectionSource, Option.class);
 
             QueryBuilder<Option, String> optionQb = optionDao.queryBuilder();

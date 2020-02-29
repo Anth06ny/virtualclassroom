@@ -34,17 +34,24 @@
             <div class="teacherRightContent">
                 <!-- msg box -->
                 <div class="errorBox">
+                    <span id="missing-Q-type" class="error"
+                          style="display: none">Please select a type of question : radio or checkbox</span>
+                    <span id="emptyQuestionContent" class="error"
+                          style="display: none">Missing question content</span>
+                    <span id="emptyOption" class="error"
+                          style="display: none">There should be at least one option for this question</span>
                     <!--/*@thymesVar id="emptyField" type="java"*/-->
-                    <p th:if="${emptyField}" class="error">Please enter missing data</p>
+                    <!--                    <p th:if="${emptyField}" class="error">Please enter missing data</p>-->
                     <!--/*@thymesVar id="isRadioEmpty" type="java"*/-->
-                    <p th:if="${isRadioEmpty}" class="error">Question option empty</p>
+                    <!--                    <p th:if="${isRadioEmpty}" class="error">Question option empty</p>-->
                     <!--/*@thymesVar id="emptyContent" type="java"*/-->
-                    <p th:if="${emptyContent}" class="error">Content empty</p>
-                    <p th:if="${questionSuccess}" class="error">The question has been sent</p>
+                    <!--                    <p th:if="${emptyContent}" class="error">Content empty</p>-->
+                    <!--/*@thymesVar id="questionSuccess" type=""*/-->
+                    <!--                    <p th:if="${questionSuccess}" class="error">The question has been sent</p>-->
                 </div>
                 <div class="questionBox">
                     <!--/*@thymesVar id="QuestionDao" type="java"*/-->
-                    <form class="CreateQuestionForm" method="post" action="#" th:action="@{/CreateQuestionPage}">
+                    <form class="CreateQuestionForm" method="post" id="CreateQuestionForm" th:action="@{/sendQuestion}">
                         <div class="questionBar ">
                             <div class="questionContent col-7">
                                 <!-- set question -->
@@ -69,9 +76,7 @@
                                 </div>
                                 <div class="answerButtonBar">
                                     <span id="addAnswer" class="addAnswer">+</span>
-                                    <button type="submit" class="saveQuestion">
-                                        Save
-                                    </button>
+                                    <input type="button" class="saveQuestion" id="saveQuestion" value="Save">
                                 </div>
                             </div>
                             <div class="answerFooter">
@@ -90,15 +95,6 @@
 
 <footer th:replace="fragments/footer.html :: footer"/>
 
-<script>
-    $("#addAnswer").click(function () {
-        $(".answerBody").append("<input type=\"text\" name=\"option_content[]\" class=\"answer\" placeholder=\"Possible answer\" />");
-    });
-</script>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>

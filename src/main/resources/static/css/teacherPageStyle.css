@@ -79,6 +79,7 @@ main {
 }
 
 .questionBox {
+    padding: 0px;
     box-shadow: 2px 2px 5px rgba(65, 65, 65, 1);
     margin-block-end: 10px;
 }
