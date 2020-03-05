@@ -2,11 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="fragments/head.html :: head"/>
 
-<!-- CSS Stylesheet-->
-<link rel="stylesheet" th:href="@{/css/createQuestion.css}" media="screen" type="text/css"/>
-
 <title>Create question page</title>
-</head>
+
 <body>
 <header id="header" th:replace="fragments/header.html :: header"/>
 <div th:replace="fragments/navBarAdmin:: navBarAdmin"/>
@@ -60,14 +57,14 @@
                             </div>
                             <div class="topIcons col-5">
                                 <!-- Display answer options type-->
-                                <span><input type="radio" class="radio" name="option" th:value="radio"/> Radio </span>
-                                <span><input type="radio" class="checkbox" name="option" th:value="checkbox"/> Checkbox </span>
+                                    <span><input type="radio" class="radio" name="option" th:value="radio"/> Radio </span>
+                                    <span><input type="radio" class="checkbox" name="option" th:value="checkbox"/> Checkbox </span>
                             </div>
                         </div>
                         <!-- end question bar -->
                         <!-- answer setting part -->
                         <div class="answerBar">
-                            <div class="answerContent">
+                            <div class="newAnswerContent">
                                 <div class="answerBody">
                                     <input type="text" name="option_content[]" th:class="answer"
                                            placeholder="Possible answer"/>
@@ -81,8 +78,6 @@
                             </div>
                             <div class="answerFooter">
                                 <div clas="answerFooterIcons">
-                                    <!--                                    <button class="updateAnswer"><i class="fa fa-pencil" aria-hidden="true"></i></button>-->
-                                    <!--                                    <button class="deleteAnswer"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
                                 </div>
                             </div>
                         </div>

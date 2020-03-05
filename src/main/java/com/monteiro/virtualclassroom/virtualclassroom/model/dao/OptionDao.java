@@ -96,18 +96,18 @@ public class OptionDao {
     }
 
     // delete information method
-    public static void deleteOption(int id) throws SQLException, IOException {
+    public static void deleteOption(Option option) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
             // initiate the dao with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Option, String> option = DaoManager.createDao(connectionSource, Option.class);
+            Dao<Option, String> optionDao = DaoManager.createDao(connectionSource, Option.class);
 
             /*                    ----delete call----              */
             // DAO setting
-            DeleteBuilder<Option, String> deleteBuilder = option.deleteBuilder();
+            DeleteBuilder<Option, String> deleteBuilder = optionDao.deleteBuilder();
             // request initialization
-            deleteBuilder.where().eq("id_option", id);
+            deleteBuilder.where().eq("id_option", option.getId_option());
             // request execution
             deleteBuilder.delete();
         } finally {

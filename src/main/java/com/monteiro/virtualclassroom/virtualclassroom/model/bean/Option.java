@@ -26,11 +26,6 @@ public class Option {
         return id_option;
     }
 
-
-    public void setId_option(int id_option) {
-        this.id_option = id_option;
-    }
-
     public String getOption_content() {
         return option_content;
     }

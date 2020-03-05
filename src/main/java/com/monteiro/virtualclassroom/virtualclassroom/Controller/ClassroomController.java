@@ -1,9 +1,11 @@
+<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/ClassroomController.java
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+=======
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
+>>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/ClassroomController.java
 
-import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
-import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
-import com.monteiro.virtualclassroom.virtualclassroom.model.dao.ClassroomDao;
-import com.monteiro.virtualclassroom.virtualclassroom.model.dao.UserDao;
+import com.monteiro.virtualclassroom.virtualclassroom.model.bean.*;
+import com.monteiro.virtualclassroom.virtualclassroom.model.dao.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +32,12 @@ public class ClassroomController {
         System.out.println("classrooms :" + classroomList);
         model.addAttribute("classrooms", classroomList);
 
-        if ((classroomList.isEmpty()) && (session.getAttribute("login_first") == null)) {
+        if ((classroomList.isEmpty()) && (session.getAttribute("user") == null)) {
             model.addAttribute("adminAccess", true);
-        } else if ((classroomList.isEmpty()) && (session.getAttribute("login_first") != null)) {
+        } else if ((classroomList.isEmpty()) && (session.getAttribute("user") != null)) {
             model.addAttribute("adminClassList", true);
             model.addAttribute("adminAddClass", true);
-        } else if ((!classroomList.isEmpty()) && (session.getAttribute("login_first") != null)) {
+        } else if ((!classroomList.isEmpty()) && (session.getAttribute("user") != null)) {
             model.addAttribute("adminAddClass", true);
         }
         return "HomePage";
@@ -57,8 +59,12 @@ public class ClassroomController {
 
     @RequestMapping(value = "/deleteStudent")
     public String deleteStudentFromClassroomList(int studentDelete) throws IOException, SQLException {
-        System.out.println("student to be deleted" + studentDelete);
-        UserDao.deleteUser(studentDelete);
+        User user = UserDao.getUser(studentDelete);
+        List<Answer> answers = AnswerDao.getUserAnswersList(user.getUser_id());
+        for (Answer answer : answers) {
+            AnswerDao.deleteAnswer(answer);
+        }
+        UserDao.deleteUser(user);
         return "redirect:/";
     }
 
@@ -79,8 +85,30 @@ public class ClassroomController {
 
     @PostMapping("/deleteClassroom")
     public String deleteClassroomFromList(@RequestParam String classDelete) throws IOException, SQLException {
-        System.out.println(classDelete);
-        ClassroomDao.deleteClassroom(classDelete);
+        Classroom classroom = ClassroomDao.getClassroomByName(classDelete);
+        List<User> users = UserDao.getStudentsList(classroom.getId_classroom());
+        List<Question> questions = QuestionDao.getQuestionList(classroom.getId_classroom());
+        List<Information> infos = InformationDao.getInformationList(classroom.getId_classroom());
+
+        for (User user : users) {
+            UserDao.deleteUser(user);
+        }
+        for (Question question : questions) {
+            List<Option> options = OptionDao.getOptionList(question.getId_question());
+            List<Answer> answers = AnswerDao.getAnswersList(question.getId_question());
+
+            for (Answer answer : answers) {
+                AnswerDao.deleteAnswer(answer);
+            }
+            for (Option option : options) {
+                OptionDao.deleteOption(option);
+            }
+            QuestionDao.deleteQuestion(question);
+        }
+        for (Information value : infos) {
+            InformationDao.deleteInformation(value);
+        }
+        ClassroomDao.deleteClassroom(classroom);
         return "redirect:/";
     }
 

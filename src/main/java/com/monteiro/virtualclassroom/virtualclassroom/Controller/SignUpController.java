@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/SignUpController.java
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+=======
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
+>>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/SignUpController.java
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
@@ -35,7 +39,7 @@ public class SignUpController {
         if ((user_name.isEmpty()) || (user_lastname.isEmpty()) || (user_password.isEmpty()) || (user_email.isEmpty())) {
             model.addAttribute("emptyField", true);
             return "SignUpPage";
-        } else if (UserDao.getUser(user_email, user_password) != null) {
+        } else if (UserDao.getUserLogin(user_email, user_password) != null) {
             model.addAttribute("existingUser", true);
             return "SignUpPage";
         } else {

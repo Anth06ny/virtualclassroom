@@ -1,13 +1,17 @@
+<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/LoginController.java
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+=======
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
+>>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/LoginController.java
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.UserDao;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
@@ -17,14 +21,10 @@ import java.sql.SQLException;
 
 
 @Controller
-
 public class LoginController {
-
     //render login page
-    @GetMapping("/LoginPage")
+    @RequestMapping(value = "/LoginPage", method = RequestMethod.GET)
     public String loginRender() {
-        System.out.println("GET /LoginPage (LoginController)");
-        //return html page
         return "LoginPage";
     }
 
@@ -39,7 +39,7 @@ public class LoginController {
 
         System.out.println("POST /LoginPage (LoginController)");
 
-        User connectedUser = UserDao.getUser(login_name, login_password);
+        User connectedUser = UserDao.getUserLogin(login_name, login_password);
         if (connectedUser == null) {
             model.addAttribute("invalidCredentials", true);
             return "LoginPage";

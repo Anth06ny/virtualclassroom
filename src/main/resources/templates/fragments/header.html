@@ -10,9 +10,9 @@
     <div class="titleBar row">
         <div class="titleBox col-lg-6 col-sm-12">
             <div class="mainTitle">
-                <a th:if="${session.is_Admin == null}" href="#"><h2>Virtual School</h2></a>
-                <a th:if="${session.is_Admin == true}" th:href="@{/adminConnected}"><h2>Virtual School</h2></a>
-                <a th:if="${session.is_Admin == false}" th:href="@{/userConnected}"><h2>Virtual School</h2></a>
+                <a th:if="${session.is_Admin == null}" href="#"><h2>Virtual Classroom</h2></a>
+                <a th:if="${session.is_Admin == true}" th:href="@{/adminConnected}"><h2>Virtual Classroom</h2></a>
+                <a th:if="${session.is_Admin == false}" th:href="@{/userConnected}"><h2>Virtual Classroom</h2></a>
             </div>
             <div class="subTitle">
                 <h4>Formation Android et Java</h4>

@@ -38,7 +38,7 @@ dependencies {
 //    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.1.1.RELEASE'
 
 
-    //L'ORM               pour la base de donnée
+    //L'ORM pour la base de données
     implementation 'com.j256.ormlite:ormlite-jdbc:5.+'
     //Connection bdd
     runtimeOnly 'mysql:mysql-connector-java'

@@ -1,5 +1,7 @@
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
 
+
+
 // imports
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.*;
@@ -25,9 +27,7 @@ public class AnswerController {
             HttpSession session,
             Model model
     ) throws Exception {
-
         System.out.println("GET /DisplayQuestion (AnswerController)");
-
         // get the selected class stored in the session
         Classroom classroom = (Classroom) session.getAttribute("classroom");
         long classroomId = classroom.getId_classroom();
@@ -65,15 +65,13 @@ public class AnswerController {
         Option checkBoxOptions;
         Option radioOption = OptionDao.getOption(answerForm.getRadioOption());
         Question questionValue = QuestionDao.getQuestion(questionHiddenValue);
-        System.out.println("Question Value is" + questionValue);
         // get the selected class stored in the session
         Classroom classroom = (Classroom) session.getAttribute("classroom");
         long classroomId = classroom.getId_classroom();
         // get the user_id
         User userInSession = (User) session.getAttribute("user");
-
         if (radioOption == null) {
-            AnswerDao.deleteAnswer(userInSession.getUser_id(), questionValue.getId_question());
+            AnswerDao.deleteAnswerOfUser(userInSession.getUser_id(), questionValue.getId_question());
             long formLength = answerForm.getCheckboxOptions().length;
             for (int i = 0; i < formLength; i++) {
                 checkBoxOptions = OptionDao.getOption(answerForm.getCheckboxOptions()[i]);
@@ -84,13 +82,11 @@ public class AnswerController {
                 AnswerDao.saveAnswer(newAnswer1);
             }
         } else {
-            System.out.println("I see it is radio");
             Answer newAnswer = new Answer();
             newAnswer.setOption(radioOption);
             newAnswer.setUser(userInSession);
             AnswerDao.saveAnswer(newAnswer);
         }
-
         return "redirect:/userConnected";
     }
 
@@ -134,7 +130,7 @@ public class AnswerController {
 
                 // retrieve options store in optionDao
                 value.setOptions(OptionDao.getAllOptionsFromQuestion(questionId, startRow, OptionDao.getOptionCount()));
-                value.setAnswers(AnswerDao.getAllAnswersOfQuestion(questionId, startRow, AnswerDao.getAnswerCount()));
+                value.answerQuestion(AnswerDao.getAnswersList(questionId));
             }
             return "TeacherPage"; //view
         } else {
@@ -145,8 +141,18 @@ public class AnswerController {
     @PostMapping("/deleteQuestion")
     public String deleteQuestion(int questionId) throws IOException, SQLException {
         System.out.println("I try to display the question value");
-        System.out.println(questionId);
-        QuestionDao.deleteQuestion(questionId);
+
+        Question question = QuestionDao.getQuestion(questionId);
+        List<Option> options = OptionDao.getOptionList(questionId);
+        List<Answer> answers = AnswerDao.getAnswersList(questionId);
+
+        for (Answer answer : answers) {
+            AnswerDao.deleteAnswer(answer);
+        }
+        for (Option value : options) {
+            OptionDao.deleteOption(value);
+        }
+        QuestionDao.deleteQuestion(question);
 
         return "redirect:/adminConnected";
     }

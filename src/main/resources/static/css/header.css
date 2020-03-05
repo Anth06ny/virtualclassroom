@@ -1,17 +1,13 @@
-body {
-    background: rgba(102,102,102,1) !important;
+.mainContainer {
     margin: auto !important;
-    min-width: 400px !important;
-    max-width: 1004px !important;
 }
-.mainContainer{
-    margin:auto !important;
-}
+
 /* header */
 .infoBar {
     height: 74px;
 }
-.widget a{
+
+.widget a {
     position: relative;
     width: 50px;
     height: 50px;
@@ -21,11 +17,11 @@ body {
     color: rgba(102, 102, 102, 1);
     cursor: pointer;
     display: flex;
-    border-bottom: 4px rgba(255,214,0,1) solid;
+    border-bottom: 4px rgba(255, 214, 0, 1) solid;
     transition: border-bottom 200ms linear;
 }
 
-.widget a:hover  {
+.widget a:hover {
     color: rgba(255, 255, 255, 1);
     border-bottom: 50px rgba(255, 214, 0, 1) solid;
 }
@@ -36,7 +32,7 @@ body {
 }
 
 .titleBar {
-    background: rgba(255,214,0,1);
+    background: rgba(255, 214, 0, 1);
     height: 137px;
     display: flex;
     justify-content: space-between;
@@ -72,4 +68,5 @@ body {
     height: 2px;
     width: 90%;
 }
+
 /* End header */

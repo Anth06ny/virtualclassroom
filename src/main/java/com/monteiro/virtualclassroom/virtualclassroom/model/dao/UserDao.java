@@ -50,7 +50,7 @@ public class UserDao {
         }
     }
 
-    public static User getUser(String email, String password) throws SQLException, IOException, NoSuchAlgorithmException {
+    public static User getUserLogin(String email, String password) throws SQLException, IOException, NoSuchAlgorithmException {
         JdbcConnectionSource connectionSource = null;
         User gotUser;
         System.out.println("I am in the getUser method ");
@@ -64,14 +64,26 @@ public class UserDao {
         }
     }
 
+    public static User getUser(int userId) throws SQLException, IOException {
+        JdbcConnectionSource connectionSource = null;
+        System.out.println("I am in the getUser method ");
+        try {
+            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+            Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class); //creates a new dao object
+            return userDao.queryBuilder().where().eq("id_user", userId).queryForFirst();
+        } finally {
+            connectionSource.close();
+        }
+    }
+
 
     public static List<User> getStudentsList(long id_Class) throws IOException, SQLException {
         List<User> studentRowList;
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<User, Long> myDao = DaoManager.createDao(connectionSource, User.class);
-            studentRowList = myDao.queryBuilder().where().eq("id_classroom", id_Class).query();
+            Dao<User, Long> userDao = DaoManager.createDao(connectionSource, User.class);
+            studentRowList = userDao.queryBuilder().where().eq("id_classroom", id_Class).query();
             return studentRowList;
 
         } finally {
@@ -80,18 +92,18 @@ public class UserDao {
     }
 
     // delete user
-    public static void deleteUser(int idUser) throws SQLException, IOException {
+    public static void deleteUser(User user) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
             // initiate the dao with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<User, String> test = DaoManager.createDao(connectionSource, User.class);
+            Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class);
 
             /*                    ----delete call----              */
             // DAO setting
-            DeleteBuilder<User, String> deleteBuilder = test.deleteBuilder();
+            DeleteBuilder<User, String> deleteBuilder = userDao.deleteBuilder();
             // request initialization
-            deleteBuilder.where().eq("id_user", idUser);
+            deleteBuilder.where().eq("id_user", user.getUser_id());
             // request execution
             deleteBuilder.delete();
         } finally {
@@ -106,11 +118,11 @@ public class UserDao {
         try {
             // initiate the DAO with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<User, String> update = DaoManager.createDao(connectionSource, User.class);
+            Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class);
 
             /*                      ----update call----                 */
             // DAO setting
-            UpdateBuilder<User, String> updateBuilder = update.updateBuilder();
+            UpdateBuilder<User, String> updateBuilder = userDao.updateBuilder();
             // set the criteria
             updateBuilder.where().eq(column, oldValue);
             System.out.println("column update research");
@@ -143,12 +155,12 @@ public class UserDao {
         try {
             // initiate the DAO with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<User, String> update = DaoManager.createDao(connectionSource, User.class);
+            Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class);
             System.out.println("db_connection ok");
 
             /*                      ----update call----                 */
             // DAO setting
-            UpdateBuilder<User, String> updateBuilder = update.updateBuilder();
+            UpdateBuilder<User, String> updateBuilder = userDao.updateBuilder();
 
             // set the criteria like i would a QueryBuilder
             updateBuilder.where().eq("user_email", user_email).and().eq("user_password", User.hashPassword(currentPassword));
@@ -158,9 +170,6 @@ public class UserDao {
 
             // query exec
             updateBuilder.update();
-
-            //print the result of update
-//            System.out.println(updateBuilder.update());
 
         } finally {
             connectionSource.close();

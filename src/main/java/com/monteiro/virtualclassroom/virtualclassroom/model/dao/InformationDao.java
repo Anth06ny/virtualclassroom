@@ -63,18 +63,18 @@ public class InformationDao {
     }
 
     // delete information method
-    public static void deleteInformation(int id) throws SQLException, IOException {
+    public static void deleteInformation(Information information) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
             // initiate the dao with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Information, String> information = DaoManager.createDao(connectionSource, Information.class);
+            Dao<Information, String> informationDao = DaoManager.createDao(connectionSource, Information.class);
 
             /*                    ----delete call----              */
             // DAO setting
-            DeleteBuilder<Information, String> deleteBuilder = information.deleteBuilder();
+            DeleteBuilder<Information, String> deleteBuilder = informationDao.deleteBuilder();
             // request initialization
-            deleteBuilder.where().eq("id_information", id);
+            deleteBuilder.where().eq("id_information", information.getId_information());
             // request execution
             deleteBuilder.delete();
         } finally {
@@ -99,6 +99,19 @@ public class InformationDao {
             updateBuilder.updateColumnValue(column, newValue);
             // update execution
             updateBuilder.update();
+        } finally {
+            connectionSource.close();
+        }
+    }
+
+    public static List<Information> getInformationList(long id_classroom) throws SQLException, IOException {
+        JdbcConnectionSource connectionSource = null;
+        try {
+            // initiate the DAO with the connection source
+            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+            Dao<Information, String> informationDao = DaoManager.createDao(connectionSource, Information.class);
+            return informationDao.queryBuilder().where().eq("id_classroom", id_classroom).query();
+
         } finally {
             connectionSource.close();
         }

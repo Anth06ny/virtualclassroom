@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/InformationController.java
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+=======
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
+>>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/InformationController.java
 
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
@@ -27,9 +31,8 @@ public class InformationController {
 
     @PostMapping("/deleteInfo")
     public String deleteInformation(int infoDelete) throws IOException, SQLException {
-        System.out.println("I try to display the info value");
-        System.out.println(infoDelete);
-        InformationDao.deleteInformation(infoDelete);
+        Information info = InformationDao.getInformation(infoDelete);
+        InformationDao.deleteInformation(info);
         return "redirect:/adminConnected";
     }
 

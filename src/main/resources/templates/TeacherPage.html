@@ -4,11 +4,6 @@
 <!-- Head -->
 <div th:replace="fragments/head.html :: head"/>
 
-<!-- CSS Stylesheet   -->
-<link rel="stylesheet" th:href="@{/css/footer.css}" media="screen" type="text/css"/>
-<link rel="stylesheet" th:href="@{/css/teacherPageStyle.css}" media="screen" type="text/css"/>
-<link rel="stylesheet" th:href="@{/css/navBar.css}" media="screen" type="text/css"/>
-
 <title>Teacher page</title>
 <body>
 <div class="container col-12">
@@ -55,12 +50,12 @@
                 <!-- Right part -->
                 <div class="teacherRightContent col-sm-8">
                     <!--                        look at it this is when u have to load the function-->
-                    <div class="questionBox col-sm-12"
+                    <div class="questionContentBox col-sm-12"
                          th:each="question: ${questions}">
 
-                        <div class="questionBar" id="questionBar">
-                            <div class="questionContent">
-                                <span class="questionTitle">Question: </span>
+                        <div class="questionContentBar" id="questionBar">
+                            <div class="questionContentInAnswer">
+                                <span class="questionTitle">Question : </span>
                                 <!--                                    use the id question to identify the question from the others -->
                                 <p th:if="${session.is_Admin == true}" th:class="questionLabel"
                                    th:id="${question.getId_question()}"
@@ -79,7 +74,7 @@
                                     </button>
                                 </form>
                             </div>
-                            <div class="topIcons">
+                            <div class="topArrow">
                                 <!--                                <a class="lockIcon" role="button">-->
                                 <!--                                    <i class="fa fa-lock questionLock" id="locker"></i>-->
                                 <!--                                </a>-->
@@ -98,11 +93,13 @@
                                       th:object="${answerForm}"
                                       class="submitAnswer">
                                     <div class="answerOrder">
-                                        <!--                                    set the option of the question depending of the user choice -->
+                                        <!-- th:field="*{radioOption}" and th:field="*{checkboxOptions}" are variable expressions,
+                                        they will be executed on a previously selected object: th:object="${answerForm}"
+                                        it is equivalent to : answerForm.getRadioOption or answerForm.getCheckboxOptions -->
                                         <span th:if="${question.getIsRadio()== true }"
                                               th:each="radioValue: ${question.getOptions()}">
 
-                                            <input th:type="radio" class="toto" name="selectedOption"
+                                            <input th:type="radio"
                                                    th:field="*{radioOption}"
                                                    th:value="${radioValue.getId_option()}">
                                             <label
@@ -115,7 +112,7 @@
 
                                         <span th:if="${question.getIsRadio()== false }"
                                               th:each="checkboxValue: ${question.getOptions()}">
-                                            <input th:type="checkbox" class="toto" name="questionValue"
+                                            <input th:type="checkbox"
                                                    th:field="*{checkboxOptions}"
                                                    th:value="${checkboxValue.getId_option()}">
 
@@ -233,7 +230,6 @@
             </div>
         </div>
     </main>
-    <!--        debug -->
 
     <footer th:replace="fragments/footer.html :: footer"/>
 </div>

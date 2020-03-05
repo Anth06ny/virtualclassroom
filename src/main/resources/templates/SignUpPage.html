@@ -4,11 +4,8 @@
 <!-- Head -->
 <div th:replace="fragments/head.html :: head"/>
 
-<!--  CSS Stylesheet  -->
-<link rel="stylesheet" th:href="@{/css/style.css}"/>
-
 <title>Sign up page</title>
-</head>
+
 <body>
 <div class="mainContainer">
     <!-- Header -->
@@ -38,12 +35,12 @@
                         <div class="signUpField form-group row">
                             <label for="e-mail" class="signUpLabel col-md-4">Email</label>
                             <input class="signUpInput form-control rounded-0 col-md-8" type="email" id="e-mail"
-                                   value="" name="user_email" placeholder="Enter email">
+                                   value="" name="user_email" placeholder="Enter email" required>
                         </div>
                         <div class="signUpField form-group row">
                             <label for="pwd" class="signUpLabel col-md-4">Password</label>
                             <input type="password" class="signUpInput form-control rounded-0 col-md-8" id="pwd"
-                                   value="" name="user_password" placeholder="Password">
+                                   value="" name="user_password" placeholder="Password" required>
                         </div>
                         <div class="signUpFormBtn row">
                             <a href="LoginPage">

@@ -11,7 +11,6 @@ import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.monteiro.virtualclassroom.virtualclassroom.ConstantsKt.*;
@@ -109,18 +108,18 @@ public class ClassroomDao {
     }
 
     // delete classroom method
-    public static void deleteClassroom(String name) throws SQLException, IOException {
+    public static void deleteClassroom(Classroom classroom) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
             // initiate the dao with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Classroom, String> classroom = DaoManager.createDao(connectionSource, Classroom.class);
+            Dao<Classroom, String> classroomDao = DaoManager.createDao(connectionSource, Classroom.class);
 
             /*                    ----delete call----              */
             // DAO setting
-            DeleteBuilder<Classroom, String> deleteBuilder = classroom.deleteBuilder();
+            DeleteBuilder<Classroom, String> deleteBuilder = classroomDao.deleteBuilder();
             // request initialization
-            deleteBuilder.where().eq("classroom_name", name);
+            deleteBuilder.where().eq("id_classroom", classroom.getId_classroom());
             // request execution
             deleteBuilder.delete();
         } finally {

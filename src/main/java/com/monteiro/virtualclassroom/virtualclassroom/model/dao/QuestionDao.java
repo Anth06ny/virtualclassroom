@@ -6,6 +6,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
+import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Option;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Question;
 
 import java.io.IOException;
@@ -78,26 +79,27 @@ public class QuestionDao {
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Question, String> clashUserDao = DaoManager.createDao(connectionSource, Question.class); //creates a new dao object
-            return clashUserDao.queryBuilder().where().eq("id_question", id).queryForFirst();
+            Dao<Question, String> questionDao = DaoManager.createDao(connectionSource, Question.class); //creates a new dao object
+            return questionDao.queryBuilder().where().eq("id_question", id).queryForFirst();
         } finally {
             connectionSource.close();
         }
     }
 
     // delete question method
-    public static void deleteQuestion(int id) throws SQLException, IOException {
+    public static void deleteQuestion(Question question) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
             // initiate the dao with the connection source
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
-            Dao<Question, String> question = DaoManager.createDao(connectionSource, Question.class);
+            Dao<Question, String> questionDao = DaoManager.createDao(connectionSource, Question.class);
+            Dao<Option, String> optionDao = DaoManager.createDao(connectionSource, Option.class);
 
             /*                    ----delete call----              */
             // DAO setting
-            DeleteBuilder<Question, String> deleteBuilder = question.deleteBuilder();
+            DeleteBuilder<Question, String> deleteBuilder = questionDao.deleteBuilder();
             // request initialization
-            deleteBuilder.where().eq("id_question", id);
+            deleteBuilder.where().eq("id_question", question.getId_question());
             // request execution
             deleteBuilder.delete();
         } finally {
@@ -127,4 +129,16 @@ public class QuestionDao {
         }
     }
 
+    public static List<Question> getQuestionList(long id_classroom) throws SQLException, IOException {
+        JdbcConnectionSource connectionSource = null;
+        try {
+            connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
+            Dao<Question, Long> questionDao = DaoManager.createDao(connectionSource, Question.class);
+
+            return questionDao.queryBuilder().where().eq("id_classroom", id_classroom).query();
+
+        } finally {
+            connectionSource.close();
+        }
+    }
 }
