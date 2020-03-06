@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/ClassroomController.java
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
-=======
-package com.monteiro.virtualclassroom.virtualclassroom.controller;
->>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/ClassroomController.java
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.*;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.*;

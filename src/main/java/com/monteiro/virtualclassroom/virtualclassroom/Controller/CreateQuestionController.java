@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/C_QuestionController.java
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
-=======
-package com.monteiro.virtualclassroom.virtualclassroom.controller;
->>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/CreateQuestionController.java
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.*;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.InformationDao;
@@ -26,11 +22,8 @@ import java.util.List;
 public class CreateQuestionController {
     // render CreateQuestion Page
     @GetMapping("/CreateQuestionPage")
-<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/C_QuestionController.java
-    public String CreateQuestionRender(Model model, HttpSession session) throws IOException, SQLException {
-=======
+
     public String createQuestionRender(Model model, HttpSession session) throws IOException, SQLException {
->>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/CreateQuestionController.java
         System.out.println("GET /CreateQuestion (CreateQuestionController)");
         Classroom currentClassroom = (Classroom) session.getAttribute("classroom");
         long classroomId = currentClassroom.getId_classroom();

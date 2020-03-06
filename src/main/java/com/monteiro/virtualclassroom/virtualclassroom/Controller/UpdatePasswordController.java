@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/Controller/UpdatePasswordController.java
 package com.monteiro.virtualclassroom.virtualclassroom.Controller;
-=======
-package com.monteiro.virtualclassroom.virtualclassroom.controller;
->>>>>>> 270ef89c797761dee41927236ca6077a3cdeae7d:src/main/java/com/monteiro/virtualclassroom/virtualclassroom/controller/UpdatePasswordController.java
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.UserDao;
