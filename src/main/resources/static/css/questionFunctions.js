@@ -59,6 +59,8 @@ $(function () {
                     $('#emptyQuestionContent').show();
                 } else if (pData === "emptyOption") {
                     $('#emptyOption').show();
+                } else if (pData === "classroomNotExist") {
+                    $('#classroomNotExist').show();
                 }
             },
             error: function (pData) {

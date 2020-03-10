@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS `classrooms`
     `classroom_name` varchar(50) NOT NULL,
     PRIMARY KEY (`id_classroom`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = latin1
-  AUTO_INCREMENT = 2;
+  DEFAULT CHARSET = latin1;
 
 CREATE TABLE IF NOT EXISTS `information`
 (
@@ -31,7 +30,6 @@ CREATE TABLE IF NOT EXISTS `options`
 (
     `id_option`      int(11)      NOT NULL AUTO_INCREMENT,
     `option_content` varchar(255) NOT NULL,
-    `isAdmin`        tinyint(1) DEFAULT NULL,
     `id_question`    int(11)      NOT NULL,
     PRIMARY KEY (`id_option`)
 ) ENGINE = InnoDB

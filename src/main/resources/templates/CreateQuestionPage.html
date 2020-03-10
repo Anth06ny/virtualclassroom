@@ -37,6 +37,9 @@
                           style="display: none">Missing question content</span>
                     <span id="emptyOption" class="error"
                           style="display: none">There should be at least one option for this question</span>
+                    <span id="classroomNotExist" class="error"
+                          style="display: none">There is no class in the database</span>
+
                     <!--/*@thymesVar id="emptyField" type="java"*/-->
                     <!--                    <p th:if="${emptyField}" class="error">Please enter missing data</p>-->
                     <!--/*@thymesVar id="isRadioEmpty" type="java"*/-->
@@ -57,8 +60,8 @@
                             </div>
                             <div class="topIcons col-5">
                                 <!-- Display answer options type-->
-                                    <span><input type="radio" class="radio" name="option" th:value="radio"/> Radio </span>
-                                    <span><input type="radio" class="checkbox" name="option" th:value="checkbox"/> Checkbox </span>
+                                <span><input type="radio" class="radio" name="option" th:value="radio"/> Radio </span>
+                                <span><input type="radio" class="checkbox" name="option" th:value="checkbox"/> Checkbox </span>
                             </div>
                         </div>
                         <!-- end question bar -->

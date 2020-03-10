@@ -1,10 +1,10 @@
-.mainContainer {
-    margin: auto !important;
-}
+/*.mainContainer {*/
+/*    margin: auto !important;*/
+/*}*/
 
 /* header */
 .infoBar {
-    height: 74px;
+    height: 25px;
 }
 
 .widget a {

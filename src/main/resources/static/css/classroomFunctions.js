@@ -13,7 +13,7 @@ $(function () {
 
         $("#studentFrame").attr("value", $(this).text())
         //set on change listener
-        $('.classroomListItem').change(getContent);
+        // $('.classroomListItem').change(getContent);
 
         function getContent() {
             //create url to request fragment
@@ -26,23 +26,16 @@ $(function () {
 
     //validate the creation of a new classroom
     $("#valid-creation").on("click", function (e) {
-
         var form = $("#hiddenCreateClass").get(0);
         var url = $(form).attr('action');
-
-        console.log("my new Class form" + form)
-
         $.ajax({
             url: url,
             type: "POST",
             data: new FormData(form),
             dataType: 'text',
-            cache: false,
+            // cache: false,
             contentType: false,
             processData: false,
-            complete: function (pData) {
-                console.log('COMPLETE');
-            },
             success: function (pData) {
                 console.log("SUCCESS", pData);
                 if (pData === "success") document.location.href = "/";
@@ -56,6 +49,9 @@ $(function () {
             },
             error: function (pData) {
                 console.log('Error : ', pData);
+            },
+            complete: function (pData) {
+                console.log('COMPLETE');
             }
         });
     });
@@ -92,10 +88,10 @@ function removeToggle() {
 };
 
 function openCreateClassroom() {
-    var add = document.getElementById("adminOnly");
-    if (add.className === "adminOnly") {
+    var add = document.getElementById("adminAddClass");
+    if (add.className === "adminAddClass") {
         add.className += " openCreateClass"
     } else {
-        add.className = "adminOnly"
+        add.className = "adminAddClass"
     }
 };

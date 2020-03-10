@@ -6,11 +6,8 @@ main {
 @media screen and (max-width: 550px) {
     .teacherLeftContent {
         width: 150px;
+        padding: 0;
     }
-}
-
-.informationBox {
-    box-shadow: 2px 2px 5px rgba(65, 65, 65, 1);
 }
 
 .informationTitle {
@@ -77,6 +74,10 @@ main {
         margin-left: 10px;
     }
 
+    .classroomsLeftContent {
+        margin: 10px;
+    }
+
     .teacherRightCenterContent {
         margin-left: 0;
         max-width: none;
@@ -87,7 +88,6 @@ main {
 
 .questionContentBox {
     box-shadow: 2px 2px 5px rgba(65, 65, 65, 1);
-    margin-block-end: 10px;
     padding: initial;
 }
 
@@ -223,6 +223,24 @@ table {
     color: rgba(255, 214, 0, 1);
 }
 
-.adminOnly {
+.adminAddClass {
     float: right;
+}
+
+@media screen and (max-width: 360px) {
+    .teacherContent {
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width: 360px) {
+    .teacherContent {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .teacherContent {
+        font-size: 15px;
+    }
 }

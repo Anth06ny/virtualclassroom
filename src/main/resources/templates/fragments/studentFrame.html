@@ -16,21 +16,19 @@
                     <input style="display: none;" class="renameClassHidden" name="classNameModify">
                 </form>
                 <div class="deleteFrame" id="deleteFrame">
-                    <!-- Button trigger modal -->
-                    <button class="deleteFrameIcon" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button class="deleteFrameIcon" data-toggle="modal" data-target="#deleteClassroom">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        <div class="modal fade" id="deleteClassroom" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <form th:action="@{/deleteClassroom}" method="post">
                         <div class="modal-header">
-                            <!--                            <h5 class="modal-title" id="exampleModalCenterTitle">You are going to delete a classroom</h5>-->
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -143,7 +141,6 @@
                         console.log("SUCCESS", pData);
                         if (pData === "successClass") document.location.href = "/";
                         else if (pData === "emptyClass") {
-                            console.log("I came here and I don't know what to do")
                             $('#class-empty').show();
                         }
                     },

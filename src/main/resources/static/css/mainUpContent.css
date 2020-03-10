@@ -68,7 +68,7 @@ main {
     box-shadow: 4px 7px 5px black;
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 670px) {
     .openCreateClass .hiddenCreateClass {
         display: flex;
         flex-direction: column;
@@ -87,4 +87,5 @@ main {
         align-self: center;
     }
 }
+
 

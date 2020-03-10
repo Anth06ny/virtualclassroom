@@ -125,11 +125,14 @@
     color: white;
 }
 
-@media only screen and (max-width: 990px) {
+@media only screen and (max-width: 800px) {
     /* for small screen */
     .teacherContent {
-        margin-left: 0px;
-        width: 100%;
+        padding: 20px;
+    }
+
+    .teacherRightContent {
+        margin-left: 15px;
     }
 
     .questionBox {
