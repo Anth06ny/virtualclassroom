@@ -53,7 +53,6 @@ public class UserDao {
     public static User getUserLogin(String email, String password) throws SQLException, IOException, NoSuchAlgorithmException {
         JdbcConnectionSource connectionSource = null;
         User gotUser;
-        System.out.println("I am in the getUser method ");
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
             Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class); //creates a new dao object
@@ -77,14 +76,14 @@ public class UserDao {
     }
 
 
-    public static List<User> getStudentsList(long id_Class) throws IOException, SQLException {
-        List<User> studentRowList;
+    public static List<User> getStudentsList(Classroom classroom) throws IOException, SQLException {
+        List<User> studentList;
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
             Dao<User, Long> userDao = DaoManager.createDao(connectionSource, User.class);
-            studentRowList = userDao.queryBuilder().where().eq("id_classroom", id_Class).query();
-            return studentRowList;
+            studentList = userDao.queryBuilder().where().eq("id_classroom", classroom.getId_classroom()).query();
+            return studentList;
 
         } finally {
             connectionSource.close();

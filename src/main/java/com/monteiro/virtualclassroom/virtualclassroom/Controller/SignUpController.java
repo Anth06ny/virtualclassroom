@@ -1,4 +1,4 @@
-package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.Classroom;
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.User;
@@ -35,14 +35,15 @@ public class SignUpController {
         if ((user_name.isEmpty()) || (user_lastname.isEmpty()) || (user_password.isEmpty()) || (user_email.isEmpty())) {
             model.addAttribute("emptyField", true);
             return "SignUpPage";
-        } else if (UserDao.getUserLogin(user_email, user_password) != null) {
+        } else if (UserDao.getUserLogin(user_email.replaceAll("\\s", ""), user_password.replaceAll("\\s", "")) != null) {
             model.addAttribute("existingUser", true);
             return "SignUpPage";
         } else {
-            newOne = new User(user_name, user_lastname, user_email, false);
+            // \s = to replace anything that is a space character
+            newOne = new User(user_name.replaceAll("\\s", ""), user_lastname.replaceAll("\\s", ""), user_email.replaceAll("\\s", ""), false);
             // classroom set separately
             newOne.setClassroom((Classroom) session.getAttribute("classroom"));
-            newOne.setPassword(user_password);
+            newOne.setPassword(user_password.replaceAll("\\s", ""));
             // new user creation
             UserDao.saveUser(newOne);
             return "LoginPage";

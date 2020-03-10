@@ -1,10 +1,7 @@
-package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.*;
-import com.monteiro.virtualclassroom.virtualclassroom.model.dao.InformationDao;
-import com.monteiro.virtualclassroom.virtualclassroom.model.dao.OptionDao;
-import com.monteiro.virtualclassroom.virtualclassroom.model.dao.QuestionDao;
-import com.monteiro.virtualclassroom.virtualclassroom.model.dao.UserDao;
+import com.monteiro.virtualclassroom.virtualclassroom.model.dao.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +29,7 @@ public class CreateQuestionController {
         model.addAttribute("information", informationList);
         // Student list display
         List<User> studentsList;
-        studentsList = UserDao.getStudentsList(classroomId);
+        studentsList = UserDao.getStudentsList(currentClassroom);
         System.out.println(studentsList);
         model.addAttribute("students", studentsList);
         return "CreateQuestionPage"; //view
@@ -63,6 +60,8 @@ public class CreateQuestionController {
 //            System.out.println("option_content empty");
 //            model.addAttribute("emptyContent", true);
             return ("emptyOption");
+        } else if (ClassroomDao.getClassroom(((Classroom) session.getAttribute("classroom")).getId_classroom()) == null) {
+            return ("classroomNotExist");
         } else {
             if (option.equals("radio")) {
                 question.setRadio(true);

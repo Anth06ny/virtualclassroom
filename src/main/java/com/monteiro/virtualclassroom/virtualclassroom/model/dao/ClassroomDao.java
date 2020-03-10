@@ -20,21 +20,19 @@ public class ClassroomDao {
     public ClassroomDao() {
     }
 
-    // save classroom method
     public static void saveClassroom(Classroom classroom) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         // instantiate the dao with the connection source
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
 
-            Dao<Classroom, String> clashClassroomDao = DaoManager.createDao(connectionSource, Classroom.class); //creates a new dao object
-            clashClassroomDao.createOrUpdate(classroom);
+            Dao<Classroom, String> classroomDao = DaoManager.createDao(connectionSource, Classroom.class); //creates a new dao object
+            classroomDao.create(classroom);
         } finally {
             connectionSource.close();
         }
     }
 
-    // retrieve classroom method
     public static Classroom getClassroom(long firstId) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
@@ -49,14 +47,14 @@ public class ClassroomDao {
         }
     }
 
-    public static Classroom getClassroomByName(String className) throws SQLException, IOException {
+    public Classroom getClassroomByName(String className) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
 
-            Dao<Classroom, String> clashClassroomDao = DaoManager.createDao(connectionSource, Classroom.class);//creates a new dao object
+            Dao<Classroom, String> classroomDao = DaoManager.createDao(connectionSource, Classroom.class);
 
-            return clashClassroomDao.queryBuilder().where().eq("classroom_name", className).queryForFirst();
+            return classroomDao.queryBuilder().where().eq("classroom_name", className).queryForFirst();
 
         } finally {
             connectionSource.close();
@@ -107,7 +105,6 @@ public class ClassroomDao {
         }
     }
 
-    // delete classroom method
     public static void deleteClassroom(Classroom classroom) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {
@@ -127,7 +124,6 @@ public class ClassroomDao {
         }
     }
 
-    // update classroom
     public static void updateClassroomName(String oldValue, String newValue) throws SQLException, IOException {
         JdbcConnectionSource connectionSource = null;
         try {

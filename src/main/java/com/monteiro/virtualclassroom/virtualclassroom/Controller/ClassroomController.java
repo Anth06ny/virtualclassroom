@@ -1,4 +1,4 @@
-package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.*;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.*;
@@ -14,6 +14,7 @@ import java.util.List;
 
 @Controller
 public class ClassroomController {
+    ClassroomDao classroomDao = new ClassroomDao();
 
     @GetMapping("/")
     public String homePageRender(Model model, HttpSession session) throws IOException, SQLException {
@@ -21,7 +22,7 @@ public class ClassroomController {
         List<Classroom> classroomList;
         long n = ClassroomDao.getClassroomCount();
         int id = 0;
-        classroomList = ClassroomDao.getClassroomRowsList(id, n);
+        classroomList = ClassroomDao.getClassroomList();
         //sorting the classroom's list by alphabetical order
         classroomList.sort(Comparator.comparing(Classroom::getClassroom_name));
         System.out.println("classes count" + n);
@@ -44,10 +45,8 @@ public class ClassroomController {
         System.out.println("enters the studentFrame Controller");
         model.addAttribute("studentFrameActive", true);
         List<User> studentsList;
-        Classroom myClass = ClassroomDao.getClassroomByName(className);
-        long classroomID = myClass.getId_classroom();
-        System.out.println("classroom Id" + classroomID);
-        studentsList = UserDao.getStudentsList(classroomID);
+        Classroom myClass = classroomDao.getClassroomByName(className);
+        studentsList = UserDao.getStudentsList(myClass);
         System.out.println("List of students" + studentsList);
         model.addAttribute("students", studentsList);
         return "fragments/studentFrame";
@@ -67,22 +66,21 @@ public class ClassroomController {
     @PostMapping("/addClassroom")
     @ResponseBody
     public String createClassroom(@RequestParam String classroomName) throws IOException, SQLException {
-        Classroom newClass = new Classroom(classroomName);
+        Classroom newClassroom = new Classroom(classroomName);
         if (classroomName.equals("")) {
             return ("empty");
-        } else if (ClassroomDao.getClassroomByName(classroomName) != null) {
+        } else if (classroomDao.getClassroomByName(classroomName) != null) {
             return ("exists");
-        } else if (ClassroomDao.getClassroomByName(classroomName) == null) {
-            ClassroomDao.saveClassroom(newClass);
+        } else {
+            ClassroomDao.saveClassroom(newClassroom);
             return ("success");
         }
-        return "/";
     }
 
     @PostMapping("/deleteClassroom")
     public String deleteClassroomFromList(@RequestParam String classDelete) throws IOException, SQLException {
-        Classroom classroom = ClassroomDao.getClassroomByName(classDelete);
-        List<User> users = UserDao.getStudentsList(classroom.getId_classroom());
+        Classroom classroom = classroomDao.getClassroomByName(classDelete);
+        List<User> users = UserDao.getStudentsList(classroom);
         List<Question> questions = QuestionDao.getQuestionList(classroom.getId_classroom());
         List<Information> infos = InformationDao.getInformationList(classroom.getId_classroom());
 
@@ -121,7 +119,7 @@ public class ClassroomController {
 
     @RequestMapping("/LoginClass")
     public String loginClassRender(HttpSession session, @RequestParam(value = "id") long parameter) throws IOException, SQLException {
-        Classroom myClass = ClassroomDao.getClassroom(parameter);
+        Classroom myClass = classroomDao.getClassroom(parameter);
         addClassroomInSession(myClass, session);
         System.out.println("GET /LoginPage (LoginClassController)");
         //return html page

@@ -1,5 +1,4 @@
-package com.monteiro.virtualclassroom.virtualclassroom.Controller;
-
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
 
 
 // imports
@@ -116,7 +115,7 @@ public class AnswerController {
             List<Information> informationList = InformationDao.showInformation(classroomId);
             model.addAttribute("information", informationList);
 
-            List<User> listOfUsers = UserDao.getStudentsList(classroomId);
+            List<User> listOfUsers = UserDao.getStudentsList(classroom);
             model.addAttribute("students", listOfUsers);
 
             List<Answer> listOfAnswers = AnswerDao.getAnswers();

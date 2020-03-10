@@ -16,10 +16,10 @@ public class User {
     @DatabaseField(generatedId = true)
     private int id_user;
 
-    @DatabaseField
+    @DatabaseField(canBeNull = false)
     private String user_name;
 
-    @DatabaseField
+    @DatabaseField(canBeNull = false)
     private String user_lastname;
 
     @DatabaseField(canBeNull = false)
