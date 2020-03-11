@@ -1,0 +1,91 @@
+<!--================= Menu start ================-->
+<div id="header" th:fragment="menu" class="menu" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="widget-holder">
+            <div class="widget">
+                <ul>
+
+                    <li>
+                        <a class="show-info transition"><span class="transition2"></span><i class="fa fa-info "></i></a>
+                    </li>
+
+                </ul>
+            </div>
+            <ul class="p-info not-vis">
+                <li>
+                    <span>Nom</span>
+                    <h5>Anthony Monteiro</h5>
+                </li>
+                <li>
+                    <span>Date de naissance</span>
+                    <h5>13/07/1985</h5>
+                </li>
+                <li>
+                    <span>E-mail</span>
+                    <h5>contacts@amonteiro.fr</h5>
+                </li>
+                <li>
+                    <span>Téléphone</span>
+                    <h5>0628473080</h5>
+                </li>
+            </ul>
+        </div>
+        <div class="top-content">
+            <div class="grid-half">
+                <div class="header-photo"><img src="images/photos/2.jpg" alt=""/></div>
+                <h2>Anthony Monteiro</h2>
+                <div class="clear"></div>
+                <h4>Formateur ANDROID, Kotlin et Java</h4>
+            </div>
+            <div class="grid-half">
+                <div class="header-decor"><span></span></div>
+            </div>
+        </div>
+        <div class="twitter-feed-holder">
+            <div class="twitter-feed">
+                <!-- Twitter Slider -->
+                <div id="twitter-feed"></div>
+                <div class="customNavigation">
+                    <a class="btn prev-slide transition"><i class="fa fa-angle-left"></i></a>
+                    <a class="btn next-slide transition"><i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation -->
+        <div class="nav-holder">
+            <div class="nav-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul class="navigation">
+                    <li><a th:href="@{/site}" class="ajax transition active"><span class="nav-text">Accueil</span><span
+                            class="transition nav-decor"></span></a>
+                    </li>
+                    <li><a th:href="@{/resume}" class="ajax transition"><span class="nav-text">CV</span><span class="transition nav-decor"></span></a></li>
+                    <li><a th:href="@{/dispo}" class="ajax transition"><span class="nav-text">Disponibilites</span><span
+                            class="transition nav-decor"></span></a>
+                    </li>
+                    <li><a th:href="@{/contact}" class="ajax transition"><span class="nav-text">Contact</span><span class="transition nav-decor"></span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a>Mes realisations</a>
+                        <ul class="transition2">
+                            <li><a th:href="@{/portfolio(name=lyra)}" class="ajax transition"><span class="nav-text">Payzen Mobile</span><span
+                                    class="transition nav-decor"></span></a></li>
+                            <li><a th:href="@{/portfolio(name=up)}" class="ajax transition"><span class="nav-text">Urban Pulse</span><span
+                                    class="transition nav-decor"></span></a></li>
+                            <li><a th:href="@{/portfolio(name=emargement)}" class="ajax transition"><span class="nav-text">Acadomia Emargement</span><span
+                                    class="transition nav-decor"></span></a></li>
+                            <li><a th:href="@{/portfolio(name=acadomia-android)}" class="ajax transition"><span
+                                    class="nav-text">AcadomiaMobile (Android)</span><span class="transition nav-decor"></span></a></li>
+                            <li><a th:href="@{/portfolio(name=acadomia-ios)}" class="ajax transition"><span class="nav-text">AcadomiaMobile (iOS)</span><span
+                                    class="transition nav-decor"></span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

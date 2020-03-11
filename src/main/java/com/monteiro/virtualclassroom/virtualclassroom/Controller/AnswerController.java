@@ -1,4 +1,4 @@
-package com.monteiro.virtualclassroom.virtualclassroom.controller;
+package com.monteiro.virtualclassroom.virtualclassroom.Controller;
 
 
 // imports

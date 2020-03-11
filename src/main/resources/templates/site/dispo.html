@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="site/head.html :: head"/>
+
+<body>
+<!--================= main start ================-->
+<div id="main">
+    <div class="page-background">
+        <div class="bg" style="background-image:url(images/bg/1.jpg)"></div>
+        <div class="overlay"></div>
+    </div>
+    <!--================= header start ================-->
+    <header id="header" th:replace="site/menu.html :: menu"/>
+
+
+    <div class="clear"></div>
+    <!--================= wrapper start ================-->
+    <div id="wrapper">
+        <!--================= content-holder start ================-->
+        <div class="content-holder" id="dunamic-content">
+            <div class="container">
+                <!--content Start -->
+                <section class="content">
+                    <div class="anim-content">
+                        <div class="grid-full">
+                            <h3 class="section-title">Mes disponibilites</h3>
+                            <div class="clear"></div>
+                            <div class="separator"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <iframe src="https://calendar.google.com/calendar/embed?title=Disponibilit%C3%A9s&amp;showTz=0&amp;height=600&amp;wkst=2&amp;hl=fr&amp;bgcolor=%23ffffff&amp;src=8a3cv0kd5e0i67ocq3m2p53dok%40group.calendar.google.com&amp;color=%232F6309&amp;src=fdv9lgt9ifse80ob3ran0u7c18%40group.calendar.google.com&amp;color=%236B3304&amp;ctz=Europe%2FParis"
+                                style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+                        <div class="page-box">
+                            <br/>
+                            <div class="clear"></div>
+                            <div class="separator"></div>
+                            <br/>
+                            <a href="contact.html" class="ajax button   transition hide-icon"><i class="fa fa-angle-right transition2"></i><span
+                                    class="text transition color-bg">Contact</span></a>
+                        </div>
+                    </div>
+                </section>
+                <!--content end -->
+            </div>
+            <div class="clear"></div>
+            <!--================= Footer start ================-->
+            <footer id="footer" th:replace="site/footer.html :: footer"/>
+            <!-- Content-holder end-->
+        </div>
+        <!-- Wrapper end -->
+    </div>
+    <!-- Main end -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jpreloader.min.js"></script>
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/core.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="site/head.html :: head"/>
+
+<body>
+<!--================= main start ================-->
+<div id="main">
+    <div class="page-background">
+        <div class="bg" style="background-image:url(images/bg/1.jpg)"></div>
+        <div class="overlay"></div>
+    </div>
+    <!--================= header start ================-->
+    <header id="header" th:replace="site/menu.html :: menu"/>
+
+    <!-- header end-->
+    <div class="clear"></div>
+    <!--================= wrapper start ================-->
+    <div id="wrapper">
+        <!--================= content-holder start ================-->
+        <div class="content-holder" id="dunamic-content">
+            <!--=================  start================-->
+            <div class="container">
+                <!--content Start -->
+                <section class="content">
+                    <div class="anim-content">
+                        <div class="page-box">
+                            <div class="grid-full">
+                                <h3 class="section-title">Acadomia Mobile (Android)</h3>
+                                <div class="clear"></div>
+                                <div class="separator"></div>
+                            </div>
+                            <div class="grid-full">
+                                <div class="single-media">
+                                    <div class="popup-gallery">
+                                        <div class="custom-image notvisible2">
+                                            <span class="raster"></span>
+                                            <a href="images/appli/acadomiaAndroid/Capture.jpg" title="image 1"><i class="fa fa-plus"></i></a>
+                                            <img src="images/appli/acadomiaAndroid/Capture.jpg" class="respimg" alt="">
+                                        </div>
+                                        <div class="custom-image notvisible2">
+                                            <span class="raster"></span>
+                                            <a href="images/appli/acadomiaAndroid/Capture2.jpg" title="image 2"><i class="fa fa-plus"></i></a>
+                                            <img src="images/appli/acadomiaAndroid/Capture2.jpg" class="respimg" alt="">
+                                        </div>
+                                        <div class="custom-image notvisible2">
+                                            <span class="raster"></span>
+                                            <a href="images/appli/acadomiaAndroid/Capture3.jpg" title="image 3"><i class="fa fa-plus"></i></a>
+                                            <img src="images/appli/acadomiaAndroid/Capture3.jpg" class="respimg" alt="">
+                                        </div>
+                                        <div class="custom-image notvisible2">
+                                            <span class="raster"></span>
+                                            <a href="images/appli/acadomiaAndroid/Capture4.jpg" title="image 4"><i class="fa fa-plus"></i></a>
+                                            <img src="images/appli/acadomiaAndroid/Capture4.jpg" class="respimg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid-full">
+                                <div class="separator float-left"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="grid-half">
+                                <p class="align-text">
+                                    L'application du leader des cours particuliers en France Acadomia est enfin disponible. <br/>
+                                    Grâce à elle, entrez facilement en contact avec vos enseignants, vos élèves ou votre agence. <br/>
+                                    Fini les coupons papier, découvrez les e-Coupons. <br/>
+                                    Attribuez directement sur votre mobile une heure de cours à votre enseignant. <br/>
+                                    Et pour les enseignants profitez du scanner de code barre intégré pour une validation plus rapide des coupons papier <br/>
+                                </p>
+                                <p class="align-text"> L'application est spécifique aux enseignants et familles inscrites à Acadomia, sinon seul la page de
+                                    login est visible. </p>
+                            </div>
+                            <div class="grid-half">
+                                <ul class="project-info standart-box">
+                                    <li class="standart-box">
+                                        <span>Category</span>
+                                        <img src="images/entreprise/android.jpg" height="30" alt="">
+                                    </li>
+                                    <li class="standart-box">
+                                        <span>Client</span>
+                                        <h4>Acadomia</h4>
+                                    </li>
+                                    <li class="standart-box">
+                                        <span>Application</span>
+                                        <h4>AcadomiaMobile</h4>
+                                    </li>
+                                </ul>
+
+                                <a href="https://play.google.com/store/apps/details?id=com.acadomia.acadomiamobile&hl=fr_FR"
+                                   class="button float-button  transition hide-icon" target="_blank"><i class="fa fa-angle-right transition2"></i><span
+                                        class="text transition">Voir sur le store</span></a>
+                            </div>
+                            <div class="grid-full">
+                                <div class="standart-box project-navigation ">
+                                    <ul>
+                                        <li>
+                                            <a class="ajax left-nav" th:href="@{/portfolio(name=emargement)}">
+                                                <i class="fa fa-chevron-left"></i>
+                                                <div class="tooltip">
+                                                    <img src="images/appli/acadomiaemargement/Capture.jpg" class="respimg" alt="" title="">
+                                                    <h5>Acadomia Emargement</h5>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li><a class="center-nav"></a></li>
+                                        <li>
+                                            <a class="ajax right-nav" th:href="@{/portfolio(name=acadomia-ios)}">
+                                                <i class="fa fa-chevron-right"></i>
+                                                <div class="tooltip">
+                                                    <img src="images/appli/acadomiaios/capture1.png" class="respimg" alt="" title="">
+                                                    <h5>AcamobiaMobile (iOS)</h5>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--content end -->
+            </div>
+            <div class="clear"></div>
+            <!--================= Footer start ================-->
+            <!--================= Footer start ================-->
+            <footer id="footer" th:replace="site/footer.html :: footer"/>
+
+
+        </div>
+        <!-- Content-holder end-->
+    </div>
+    <!-- Wrapper end -->
+</div>
+<!-- Main end -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jpreloader.min.js"></script>
+<script type="text/javascript" src="js/plugins.js"></script>
+<script type="text/javascript" src="js/core.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+</body>
+</html>
