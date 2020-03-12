@@ -1,4 +1,4 @@
-package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
 
 import com.monteiro.virtualclassroom.virtualclassroom.model.bean.*;
 import com.monteiro.virtualclassroom.virtualclassroom.model.dao.*;

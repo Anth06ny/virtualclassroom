@@ -1,4 +1,4 @@
-package com.monteiro.virtualclassroom.virtualclassroom.Controller.site
+package com.monteiro.virtualclassroom.virtualclassroom.controller.site
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
