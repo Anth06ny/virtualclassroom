@@ -144,7 +144,7 @@ public class AnswerController {
 
         // creation of a list which will be used by thymeleaf and store the result of the function call in the list
         List<Question> questionList = QuestionDao.getAllQuestionsFromId(classroomId, startRow, QuestionDao.getQuestionCount());
-        questionList.sort(Comparator.comparing(Question::getId_question));
+        questionList.sort(Comparator.comparing(Question::getId_question).reversed());
         // add to the model
         model.addAttribute("questions", questionList);
 
