@@ -70,13 +70,6 @@
     justify-content: space-between;
 }
 
-.answerBody {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: auto;
-}
-
 .answer {
     border-top: none;
     border-right: none;
@@ -96,10 +89,8 @@
 }
 
 .answerButtonBar {
-    width: 80%;
     display: flex;
-    justify-content: space-between;
-    margin: 5% auto;
+    justify-content: flex-end;
 }
 
 .saveQuestion {
@@ -160,4 +151,18 @@
         margin-top: 6px;
     }
 
+}
+
+.questionBody {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.questionButtonBar {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.radioBtn {
+    margin-right: 10px !important;
 }

@@ -15,9 +15,15 @@ import java.sql.SQLException;
 public class UpdateProfileController {
     // render profile page
     @GetMapping("/ProfilePage")
-    public String profileRender() {
-        System.out.println("Profile render: Get");
-        return "ProfilePage";
+    public String profileRender(HttpSession session, Model model) {
+        if ((session.getAttribute("classroom")) == null) {
+            model.addAttribute("Timeout", true);
+            return "HomePage";
+        } else {
+            System.out.println("Profile render: Get");
+            return "ProfilePage";
+        }
+
     }
 
     @PostMapping("/updateProfilePage")
@@ -38,22 +44,20 @@ public class UpdateProfileController {
             model.addAttribute("emptyField", true);
             return "ProfilePage";
         } else {
-            if (oldName != user_name_value) {
+            if (!oldName.equals(user_name_value)) {
                 UserDao.updateUser("user_name", oldName, user_name_value);
                 session.setAttribute("login_first", user_name_value);
-                return "redirect:/ProfilePage";
             }
 
-            if (oldLastName != user_lastname_value) {
-                UserDao.updateUser("user_lastName", oldLastName, user_lastname_value);
+            if (!oldLastName.equals(user_lastname_value)) {
+                UserDao.updateUser("user_lastname", oldLastName, user_lastname_value);
                 session.setAttribute("login_last", user_lastname_value);
-                return "redirect:/ProfilePage";
             }
-            if (oldEmail != user_email_value) {
+            if (!oldEmail.equals(user_email_value)) {
                 UserDao.updateUser("user_email", oldEmail, user_email_value);
-                return "redirect:/ProfilePage";
             }
+            model.addAttribute("updateProfileOK", true);
+            return "ProfilePage";
         }
-        return "redirect:/ProfilePage";
     }
 }

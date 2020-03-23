@@ -55,7 +55,7 @@
 
                         <div class="questionContentBar" id="questionBar">
                             <div class="questionContentInAnswer">
-                                <span class="questionTitle">Question : </span>
+                                <!--                                <span class="questionTitle">Question : </span>-->
                                 <!--                                    use the id question to identify the question from the others -->
                                 <p th:if="${session.is_Admin == true}" th:class="questionLabel"
                                    th:id="${question.getId_question()}"
@@ -96,30 +96,40 @@
                                         <!-- th:field="*{radioOption}" and th:field="*{checkboxOptions}" are variable expressions,
                                         they will be executed on a previously selected object: th:object="${answerForm}"
                                         it is equivalent to : answerForm.getRadioOption or answerForm.getCheckboxOptions -->
-                                        <span th:if="${question.getIsRadio()== true }"
+                                        <span th:class="wrapOptions" th:if="${question.getIsRadio()== true }"
                                               th:each="radioValue: ${question.getOptions()}">
 
-                                            <input th:type="radio"
+                                            <input th:class="inputAnswer" th:type="radio"
                                                    th:field="*{radioOption}"
                                                    th:value="${radioValue.getId_option()}">
-                                            <label
-                                                    th:for="${#ids.prev('radioOption')}"
-                                                    th:text="${radioValue.getOption_content()}"></label>
+                                            <span class="star" th:each="selectedOption : ${selectedOptions}">
+                                                <div th:class="${selectedOption} == ${radioValue.getId_option()} ? 'addStar' : 'noStar'"><span
+                                                        class="starTipText">Your answer</span></div>
+
+                                            </span>
+                                            <label th:for="${#ids.prev('radioOption')}"
+                                                   th:text="${radioValue.getOption_content()}"></label>
                                         </span>
 
-                                        <input type="hidden" th:value="${question.getId_question()}"
-                                               name="questionHiddenValue">
 
-                                        <span th:if="${question.getIsRadio()== false }"
+                                        <span th:class="wrapOptions" th:if="${question.getIsRadio()== false }"
                                               th:each="checkboxValue: ${question.getOptions()}">
-                                            <input th:type="checkbox"
+                                            <input th:class="inputAnswer" th:type="checkbox"
                                                    th:field="*{checkboxOptions}"
                                                    th:value="${checkboxValue.getId_option()}">
 
-                                         <label class="answerBody" th:for="${#ids.prev('checkboxOptions')}"
-                                                th:text="${checkboxValue.getOption_content()}"></label>
+                                            <span class="star" th:each="selectedOption : ${selectedOptions}">
+                                                <div th:class="${selectedOption} == ${checkboxValue.getId_option()} ? 'addStar' : 'noStar'">
+                                                    <span class="starTipText">Your answer</span>
+                                                </div>
+                                            </span>
+                                            <label class="answerBody" th:for="${#ids.prev('checkboxOptions')}"
+                                                   th:text="${checkboxValue.getOption_content()}">
+                                            </label>
                                         </span>
-                                        <!--                                    display the pull of possible answer-->
+                                        <input type="hidden" th:value="${question.getId_question()}"
+                                               name="questionHiddenValue">
+                                        <!--  display the pull of possible answer-->
                                     </div>
 
                                     <div th:class="answerButtonBar">
@@ -234,7 +244,7 @@
     <footer th:replace="fragments/footer.html :: footer"/>
 </div>
 
-<script>
+<script th:if="${session.classroom != null}">
 
     $(".deleteIcon").on("click", function () {
         var idValue = $(this).attr("value")
@@ -247,30 +257,30 @@
     });
 
     // this is the id of the form
-    $(".submitAnswer").submit(function (e) {
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        var form = $(this);
-        var url = form.attr('action');
-        console.log("this my form's action " + url)
-        jQuery.ajax({
-            url: url,
-            type: "POST",
-            data: form.serialize(), // serializes the form's elements.
-            complete: function (pData) {
-                console.log('COMPLETE');
-            },
-            success: function () {
-                console.log("SUCCESS");
-                alert("Your answer has been submitted successfully");
-            },
-            error: function (pData) {
-                console.log('Error : ');
-            }
-        });
-        console.log("entered ajax?")
-    });
+    // $(".submitAnswer").submit(function (e) {
+    //
+    //     //      e.preventDefault(); // avoid to execute the actual submit of the form.
+    //
+    //     var form = $(this);
+    //     var url = form.attr('action');
+    //     console.log("this my form's action " + url)
+    //     jQuery.ajax({
+    //         url: url,
+    //         type: "POST",
+    //         data: form.serialize(), // serializes the form's elements.
+    //         complete: function (pData) {
+    //             console.log('COMPLETE');
+    //         },
+    //         success: function () {
+    //             console.log("SUCCESS");
+    //             // alert("Your answer has been submitted successfully");
+    //         },
+    //         error: function (pData) {
+    //             console.log('Error : ');
+    //         }
+    //     });
+    //     console.log("entered ajax?")
+    // });
 
 </script>
 

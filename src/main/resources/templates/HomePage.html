@@ -17,13 +17,17 @@
             <!-- title content -->
             <div th:replace="~{fragments/titlePage.html :: titlePage(title='Classrooms')}"></div>
             <!-- Main contain -->
+            <div th:if="${Timeout}"><p class="error">Your session has expired, please choose your class to login
+                again</p>
+                <a th:href="@{/}">Click here</a>
+            </div>
             <div th:class="${session.is_Admin}? 'classesContent' : 'content'" id="classesContent">
                 <div th:if="${session.is_Admin == true}" class="classroomsLeftContent" id="classroomsLeftContent">
                     <div id="studentFrame"></div>
                 </div>
                 <div th:class="${session.is_Admin}? 'teacherRightCenterContent col-10' : 'teacherRightContent col-6'">
                     <ul class="classroomList">
-                        <a th:if="${session.is_Admin == null}" th:each="classroom: ${classrooms}"
+                        <a th:if="${session.classroom == null}" th:each="classroom: ${classrooms}"
                            th:href="@{/LoginClass(id=${classroom.getId_classroom()})}">
                             <li class="classroomListItem" th:text="${classroom.getClassroom_name()}">
                             </li>

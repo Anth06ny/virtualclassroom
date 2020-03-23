@@ -12,6 +12,7 @@ public class Answer {
     @DatabaseField(canBeNull = false, foreign = true, columnName = "id_option")
     private Option option;
 
+    private Question question;
 
     public Answer() {
     }
@@ -33,6 +34,9 @@ public class Answer {
     }
 
 
+    public Question getQuestion() {
+        return question;
+    }
 }
 
 

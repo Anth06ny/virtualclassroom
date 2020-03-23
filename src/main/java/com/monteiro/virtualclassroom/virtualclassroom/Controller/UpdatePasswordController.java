@@ -48,6 +48,7 @@ public class UpdatePasswordController {
             } else {
                 // update function call
                 dao.updatePwdUser(myUser.getUser_email(), currentPassword, newPassword);
+                model.addAttribute("updateProfileOK", true);
                 return "ProfilePage";
             }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -30,6 +31,7 @@ public class LoginController {
             @RequestParam String login_name,
             @RequestParam String login_password,
             HttpSession session,
+            HttpServletResponse response,
             //we are also sending back the model from the DispatcherServlet controller to the view
             Model model) throws IOException, SQLException, NoSuchAlgorithmException {
 
@@ -51,6 +53,7 @@ public class LoginController {
         else {
             //there is no class yet created
             if (session.getAttribute("classroom") == null) {
+
                 model.addAttribute("NotAdmin", true);
                 System.out.println("my classroom Object" + session.getAttribute("classroom"));
                 return "LoginPage";
@@ -84,6 +87,7 @@ public class LoginController {
         if (user.getIsAdmin() != true) {
             session.setAttribute("user_classroom", user.get_UserClassroomId());
         }
+        session.setMaxInactiveInterval(3600);
     }
 
 

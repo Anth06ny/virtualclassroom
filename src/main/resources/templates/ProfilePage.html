@@ -20,6 +20,7 @@
             <div class="profileContent">
                 <form method="post" name="nameUpdate" action="#" th:action="@{/updateProfilePage}">
                     <p th:if="${emptyField}" class="error">You cannot submit empty field</p>
+                    <p th:if="${updateProfileOK}" class="text-success">Profile modified successfully</p>
                     <div class="profileLine" id="nameLine">
                         <div class="profileLabel col-4">
                             <div class="frameLabel"><span class="labelContent">First Name</span></div>

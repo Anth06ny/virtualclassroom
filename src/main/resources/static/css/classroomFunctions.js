@@ -39,7 +39,9 @@ $(function () {
             success: function (pData) {
                 console.log("SUCCESS", pData);
                 if (pData === "success") document.location.href = "/";
-                else if (pData === "exists") {
+                else if (pData === "HomePage") {
+                    document.location.href = "/";
+                } else if (pData === "exists") {
                     $('#warn-exists').show();
                     $('#warn-empty').hide();
                 } else if (pData === "empty") {

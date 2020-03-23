@@ -60,7 +60,8 @@
                             </div>
                             <div class="topIcons col-5">
                                 <!-- Display answer options type-->
-                                <span><input type="radio" class="radio" name="option" th:value="radio"/> Radio </span>
+                                <span class="radioBtn"><input type="radio" class="radio" name="option"
+                                                              th:value="radio"/> Radio </span>
                                 <span><input type="radio" class="checkbox" name="option" th:value="checkbox"/> Checkbox </span>
                             </div>
                         </div>
@@ -68,13 +69,13 @@
                         <!-- answer setting part -->
                         <div class="answerBar">
                             <div class="newAnswerContent">
-                                <div class="answerBody">
+                                <div class="questionBody">
                                     <input type="text" name="option_content[]" th:class="answer"
                                            placeholder="Possible answer"/>
                                     <input type="text" name="option_content[]" th:class="answer"
                                            placeholder="Possible answer"/>
                                 </div>
-                                <div class="answerButtonBar">
+                                <div class="questionButtonBar">
                                     <span id="addAnswer" class="addAnswer">+</span>
                                     <input type="button" class="saveQuestion" id="saveQuestion" value="Save">
                                 </div>

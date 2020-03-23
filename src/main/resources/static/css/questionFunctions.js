@@ -26,7 +26,7 @@ $(function () {
 
     //add new option to the question
     $("#addAnswer").click(function () {
-        $(".answerBody").append("<input type=\"text\" name=\"option_content[]\" class=\"answer\" placeholder=\"Possible answer\" />");
+        $(".questionBody").append("<input type=\"text\" name=\"option_content[]\" class=\"answer\" placeholder=\"Possible answer\" />");
     });
 
     // to send a new question - ASYNC

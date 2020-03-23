@@ -24,6 +24,7 @@
                     <!--/*@thymesVar id="NotAdmin" type=""*/-->
                     <p th:if="${NotAdmin}" class="error">You don't have an admin account</p>
                     <p th:if="${invalidClassroom}" class="error">You don't have access to this class</p>
+
                     <div class="loginField form-group row col-sm-12">
                         <label for="user_name" class="loginLabel col-md-4">Login</label>
                         <input class="loginInput form-control rounded-0  col-md-8" type="text" id="user_name"

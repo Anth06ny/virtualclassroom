@@ -1,4 +1,4 @@
-package com.monteiro.virtualclassroom.virtualclassroom.Controller;
+package com.monteiro.virtualclassroom.virtualclassroom.controller;
 
 
 // imports
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,9 +27,14 @@ public class AnswerController {
             HttpSession session,
             Model model
     ) throws Exception {
+        if (session.getAttribute("classroom") == null) {
+            model.addAttribute("Timeout", true);
+            return "HomePage";
+        }
         System.out.println("GET /DisplayQuestion (AnswerController)");
         // get the selected class stored in the session
         Classroom classroom = (Classroom) session.getAttribute("classroom");
+        User userConnected = (User) session.getAttribute("user");
         long classroomId = classroom.getId_classroom();
 
         // creation of the list question
@@ -46,12 +52,33 @@ public class AnswerController {
         AnswerForm answerForm = new AnswerForm();
         model.addAttribute("answerForm", answerForm);
 
+        List<Answer> answerList = AnswerDao.getUserAnswersList(userConnected);
+        List<Integer> options = new ArrayList<>();
         for (Question value : questionList) {
             // store the id_question from the current displayed question
             int questionIdentification = value.getId_question();
             // retrieve options store in optionDao
             value.setOptions(OptionDao.getAllOptionsFromQuestion(questionIdentification, startRow, OptionDao.getOptionCount()));
+            for (Option option : value.getOptions()) {
+                System.out.println("I check for each option of the list something");
+                for (Answer answer : answerList) {
+                    if (answer.getUser().getUser_id() == userConnected.getUser_id()) {
+                        System.out.println("I check if the option has been selected before");
+
+                        if (answer.getOption().getId_option() == option.getId_option()) {
+                            System.out.println("Got here woow " + option.getId_option());
+
+                            options.add(option.getId_option());
+
+                        }
+
+                    }
+
+                }
+            }
         }
+        System.out.println(options + " the list");
+        model.addAttribute("selectedOptions", options);
         return "TeacherPage"; //view
     }
 
@@ -64,6 +91,10 @@ public class AnswerController {
         Option checkBoxOptions;
         Option radioOption = OptionDao.getOption(answerForm.getRadioOption());
         Question questionValue = QuestionDao.getQuestion(questionHiddenValue);
+        if ((session.getAttribute("classroom")) == null) {
+            model.addAttribute("Timeout", true);
+            return "HomePage";
+        }
         // get the selected class stored in the session
         Classroom classroom = (Classroom) session.getAttribute("classroom");
         long classroomId = classroom.getId_classroom();
@@ -84,57 +115,59 @@ public class AnswerController {
             Answer newAnswer = new Answer();
             newAnswer.setOption(radioOption);
             newAnswer.setUser(userInSession);
+            System.out.println("I save the answer now");
             AnswerDao.saveAnswer(newAnswer);
         }
+        int value = radioOption.getId_option();
+        System.out.println(value + "is my value");
+        model.addAttribute("checkedFieldId", value);
         return "redirect:/userConnected";
     }
 
 
     @GetMapping("/adminConnected")
     public String adminPageRender(Model model, HttpSession session) throws Exception {
-        System.out.println("My Admin");
 
         // get the selected class stored in the session
         Classroom classroom = (Classroom) session.getAttribute("classroom");
         System.out.println("classroom1 " + classroom);
-
-        if (classroom != null) {
-
-            long classroomId = classroom.getId_classroom();
-            System.out.println("classroomId" + classroomId);
-
-            // creation of the list question
-            int startRow = 0;
-
-            // creation of a list which will be used by thymeleaf and store the result of the function call in the list
-            List<Question> questionList = QuestionDao.getAllQuestionsFromId(classroomId, startRow, QuestionDao.getQuestionCount());
-            questionList.sort(Comparator.comparing(Question::getId_question));
-            // add to the model
-            model.addAttribute("questions", questionList);
-
-            List<Information> informationList = InformationDao.showInformation(classroomId);
-            model.addAttribute("information", informationList);
-
-            List<User> listOfUsers = UserDao.getStudentsList(classroom);
-            model.addAttribute("students", listOfUsers);
-
-            List<Answer> listOfAnswers = AnswerDao.getAnswers();
-            model.addAttribute("answers", listOfAnswers);
-
-
-            for (Question value : questionList) {
-                // store the id_question from the current displayed question
-                int questionId = value.getId_question();
-                System.out.println(questionId);
-
-                // retrieve options store in optionDao
-                value.setOptions(OptionDao.getAllOptionsFromQuestion(questionId, startRow, OptionDao.getOptionCount()));
-                value.answerQuestion(AnswerDao.getAnswersList(questionId));
-            }
-            return "TeacherPage"; //view
-        } else {
-            return "TeacherPage";
+        if (classroom == null) {
+            model.addAttribute("Timeout", true);
+            return "HomePage";
         }
+
+        long classroomId = classroom.getId_classroom();
+        System.out.println("classroomId" + classroomId);
+
+        // creation of the list question
+        int startRow = 0;
+
+        // creation of a list which will be used by thymeleaf and store the result of the function call in the list
+        List<Question> questionList = QuestionDao.getAllQuestionsFromId(classroomId, startRow, QuestionDao.getQuestionCount());
+        questionList.sort(Comparator.comparing(Question::getId_question));
+        // add to the model
+        model.addAttribute("questions", questionList);
+
+        List<Information> informationList = InformationDao.showInformation(classroomId);
+        model.addAttribute("information", informationList);
+
+        List<User> listOfUsers = UserDao.getStudentsList(classroom);
+        model.addAttribute("students", listOfUsers);
+
+        List<Answer> listOfAnswers = AnswerDao.getAnswers();
+        model.addAttribute("answers", listOfAnswers);
+
+
+        for (Question value : questionList) {
+            // store the id_question from the current displayed question
+            int questionId = value.getId_question();
+            System.out.println(questionId);
+
+            // retrieve options store in optionDao
+            value.setOptions(OptionDao.getAllOptionsFromQuestion(questionId, startRow, OptionDao.getOptionCount()));
+            value.answerQuestion(AnswerDao.getAnswersList(questionId));
+        }
+        return "TeacherPage"; //view
     }
 
     @PostMapping("/deleteQuestion")

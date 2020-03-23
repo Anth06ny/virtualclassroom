@@ -67,10 +67,12 @@ public class AnswerDao {
                     answerDao.create(answer);
                 }
                 //update the existing answer of this user to this question
-                else {
+                else if (answersOfUserOnQuestion.size() > 0) {
+
                     UpdateBuilder<Answer, String> updateBuilder = answerDao.updateBuilder();
+
                     // set the criteria
-                    updateBuilder.where().eq("id_user", answer.getUser().getUser_id());
+                    updateBuilder.where().eq("id_option", answersOfUserOnQuestion.get(0).getOption().getId_option());
                     // update the value of the target fields
                     updateBuilder.updateColumnValue("id_option", answer.getOption().getId_option());
                     // update execution
@@ -220,13 +222,13 @@ public class AnswerDao {
         }
     }
 
-    public static List<Answer> getUserAnswersList(int user_id) throws SQLException, IOException {
+    public static List<Answer> getUserAnswersList(User user) throws SQLException, IOException {
         List<Answer> AnswerList = new ArrayList<>();
         JdbcConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(BDD_URL, BDD_ADMIN, BDD_PSW);
             Dao<Answer, String> answerDao = DaoManager.createDao(connectionSource, Answer.class);
-            return answerDao.queryBuilder().where().eq("id_user", user_id).query();
+            return answerDao.queryBuilder().where().eq("id_user", user.getUser_id()).query();
 
         } finally {
             connectionSource.close();

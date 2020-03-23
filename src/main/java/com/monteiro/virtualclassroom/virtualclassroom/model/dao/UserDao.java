@@ -124,9 +124,9 @@ public class UserDao {
             UpdateBuilder<User, String> updateBuilder = userDao.updateBuilder();
             // set the criteria
             updateBuilder.where().eq(column, oldValue);
-            System.out.println("column update research");
             // update the value of the target fields
             updateBuilder.updateColumnValue(column, newValue);
+            System.out.println(column + newValue);
             System.out.println("column update done");
             // update execution
             updateBuilder.update();

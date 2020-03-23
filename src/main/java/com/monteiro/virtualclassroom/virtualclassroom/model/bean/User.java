@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 
-@DatabaseTable(tableName = "USERS")
+@DatabaseTable(tableName = "users")
 public class User {
 
     @DatabaseField(generatedId = true)
