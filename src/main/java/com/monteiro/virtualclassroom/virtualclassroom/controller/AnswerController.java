@@ -110,17 +110,14 @@ public class AnswerController {
                 newAnswer1.setOption(checkBoxOptions);
                 newAnswer1.setUser(userInSession);
                 AnswerDao.saveAnswer(newAnswer1);
+
             }
         } else {
             Answer newAnswer = new Answer();
             newAnswer.setOption(radioOption);
             newAnswer.setUser(userInSession);
-            System.out.println("I save the answer now");
             AnswerDao.saveAnswer(newAnswer);
         }
-        int value = radioOption.getId_option();
-        System.out.println(value + "is my value");
-        model.addAttribute("checkedFieldId", value);
         return "redirect:/userConnected";
     }
 
