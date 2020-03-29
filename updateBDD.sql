@@ -1,0 +1,1 @@
+ALTER table `answers` DROP PRIMARY KEY;

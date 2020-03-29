@@ -3,8 +3,8 @@
 CREATE TABLE IF NOT EXISTS `answers`
 (
     `id_option` int(11) NOT NULL,
-    `id_user`   int(11) NOT NULL
-#     PRIMARY KEY (`id_user`, `id_option`)
+    `id_user`   int(11) NOT NULL,
+    PRIMARY KEY (`id_user`, `id_option`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = latin1;
 
